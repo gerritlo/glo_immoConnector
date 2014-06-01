@@ -1,0 +1,13 @@
+<div class="realEstateObjectList">
+	<?php foreach($this->realEstateObjects as $typeGroup => $groupObjects): ?>
+		<div class="objectTypeGroup">
+		<h1><?php echo $GLOBALS['TL_LANG']['FMD']['objectTypes'][$typeGroup]; ?></h1>
+		<?php foreach($groupObjects as $object): ?>
+			<?php echo $object; ?>
+		<?php endforeach; ?>
+		</div>
+	<?php endforeach; ?>
+</div>
+
+
+<pre><?php print_r($this->realEstateObjects); ?></pre>

@@ -1,0 +1,7 @@
+<div class="realEstateObject">
+	<?php if($this->objRealEstate->titlePicture->titlePicture): ?>
+		<img src="<?php echo $this->objRealEstate->titlePicture->urls->url[0]['href'] ?>" />
+	<?php endif; ?>
+
+	<h2><?php echo $this->objRealEstate->title; ?></h2>
+</div>
