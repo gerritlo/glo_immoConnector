@@ -1,13 +1,17 @@
-<div class="realEstateObjectList">
+<div class="mod_realEstateObjectList">
+	<div class="mod_realEstateObjectListSummery">
+		<ul>
+			<?php foreach (array_keys($this->realEstateObjects) as $strType): ?>
+				<li><a href="#<?php echo $strType; ?>"> <?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType]; ?></a></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
 	<?php foreach($this->realEstateObjects as $typeGroup => $groupObjects): ?>
 		<div class="objectTypeGroup">
-		<h1><?php echo $GLOBALS['TL_LANG']['FMD']['objectTypes'][$typeGroup]; ?></h1>
+		<h1><a name="<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$typeGroup]; ?></a></h1>
 		<?php foreach($groupObjects as $object): ?>
 			<?php echo $object; ?>
 		<?php endforeach; ?>
 		</div>
 	<?php endforeach; ?>
 </div>
-
-
-<pre><?php print_r($this->realEstateObjects); ?></pre>

@@ -4,4 +4,9 @@
 	<?php endif; ?>
 
 	<h2><?php echo $this->objRealEstate->title; ?></h2>
+	<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'].": ".$this->objRealEstate->livingSpace." m²"; ?></p>
+	<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->objRealEstate->plotArea." m²"; ?></p>
+	<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'].": ".$this->objRealEstate->numberOfRooms; ?></p>
+	
+	<pre><?php print_r($this->objRealEstate); ?></pre>
 </div>

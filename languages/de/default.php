@@ -17,9 +17,15 @@
  */
 $GLOBALS['TL_LANG']['MSC'][''] = '';
 
-$GLOBALS['TL_LANG']['FMD']['objectTypes']['houseRent'] = 'Haus zur Miete';
-$GLOBALS['TL_LANG']['FMD']['objectTypes']['houseBuy'] = 'Haus zum Kauf';
-$GLOBALS['TL_LANG']['FMD']['objectTypes']['apartmentRent'] = 'Wohnung zur Miete';
-$GLOBALS['TL_LANG']['FMD']['objectTypes']['apartmentBuy'] = 'Wohnung zum Kauf';
-$GLOBALS['TL_LANG']['FMD']['objectTypes']['investment'] = 'Investitionsobjekt';
-$GLOBALS['TL_LANG']['FMD']['objectTypes']['livingBuySite'] = 'Grundstück zum Kauf';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['houseRent'] = 'Haus zur Miete';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['houseBuy'] = 'Haus zum Kauf';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['apartmentRent'] = 'Wohnung zur Miete';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['apartmentBuy'] = 'Wohnung zum Kauf';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['investment'] = 'Investitionsobjekt';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['livingBuySite'] = 'Grundstück zum Kauf';
+
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'] = 'Grundstück';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'] = 'Wohnfläche';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'] = 'Anzahl Zimmer';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'] = 'Kaufpreis';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['EUR'] = '€';
