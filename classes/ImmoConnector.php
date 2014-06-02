@@ -30,9 +30,27 @@ class ImmoConnector {
 		if (is_null($strUser)) {
 			$strUser = $GLOBALS['TL_CONFIG']['gloImmoConnectorUsername'];
 		}
-
-		$objRes = new \SimpleXMLElement($this->_objImmocaster->fullUserSearch(array('username' => $strUser)));
-
-		return $objRes;
+                
+                $intPage = 1;
+                
+                $objXmlPages = new \SimpleXMLElement('<realEstateList></realEstateList>');
+                
+                do {
+                    $objPage = $this->requestAllUserObjects($intPage, $strUser);
+                    foreach ($objPage->realEstateList->realEstateElement as $objElement) {
+                        $objXmlPages->addChild('realEstateObject', $objElement->asXml());
+                    }
+                    
+                } while ($objPage->Paging->numberOfPages > $intPage++);
+                
+                var_dump($objXmlPages->asXML());
+                
+		return $objXmlPages;
 	}
+        
+        protected function requestAllUserObjects($intPage, $strUser) {
+            $objRes = new \SimpleXMLElement($this->_objImmocaster->fullUserSearch(array('username' => $strUser, 'pagenumber' => $intPage )));
+            
+            return $objRes;
+        }
 }
