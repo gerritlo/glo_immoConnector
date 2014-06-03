@@ -1,7 +1,7 @@
 <?php
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorUsername'] = array(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorUsername'],
+$GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorUser'] = array(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorUser'],
 	'inputType'               => 'select',
 	'foreignKey'			  => 'tl_ic_auth.ic_username',
 	'sql'                     => "int(10) unsigned NOT NULL default '0'",

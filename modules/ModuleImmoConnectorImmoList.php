@@ -65,9 +65,14 @@ class ModuleImmoConnectorImmoList extends \Module
 		
 		$objImmoConnector = new ImmoConnector('is24',$GLOBALS['TL_CONFIG']['gloImmoConnectorKey'],$GLOBALS['TL_CONFIG']['gloImmoConnectorSecret']);
 
-		$aParams = array();
+		//User auf null setzen bzw. Username auslesen
+		$strUser = null;
+		if ($this->gloImmoConnectorUser > 0) {
+			$strUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser)->ic_username;
+		}
+		
 
-		$objRes = $objImmoConnector->getAllUserObjects();
+		$objRes = $objImmoConnector->getAllUserObjects($strUser);
 
 		$arrObjectsSorted = ImmoConnectorHelper::orderObjectsByType($objRes->realEstateList->realEstateElement);
 		$arrRenderedObjects = array();
@@ -78,6 +83,7 @@ class ModuleImmoConnectorImmoList extends \Module
 		unset($arrObjectsSorted);
 
 		$this->Template->realEstateObjects =  $arrRenderedObjects;
+		$this->Template->showSummary =  ($this->gloImmoConnectorShowSummary == '1');
 
 		/*
 		$sCertifyURL = 'http://localhost/spielberg/index.php/objekte.html'; // Komplette URL inkl. Parameter auf der das Script eingebunden wird
