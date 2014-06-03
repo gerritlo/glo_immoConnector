@@ -29,10 +29,8 @@ class ImmoConnector extends \Backend {
 		$this->_objImmocaster = $immocaster;
 	}
 
-	public function getAllUserObjects($strUser = null) {
-		if (is_null($strUser)) {
-			$strUser = $GLOBALS['TL_CONFIG']['gloImmoConnectorUsername'];
-		}
+	public function getAllUserObjects($objUser) {
+		$strUser = $objUser->ic_username;
                 
         $objFirstPage = null;
         $intMaxPage = 0;

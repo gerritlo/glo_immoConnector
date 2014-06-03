@@ -63,16 +63,17 @@ class ModuleImmoConnectorImmoList extends \Module
 		$currPage = \Input::get('page');
 		$currPage = is_null($currPage) ? 1 : $currPage;
 		
-		$objImmoConnector = new ImmoConnector('is24',$GLOBALS['TL_CONFIG']['gloImmoConnectorKey'],$GLOBALS['TL_CONFIG']['gloImmoConnectorSecret']);
+		$objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
 
 		//User auf null setzen bzw. Username auslesen
-		$strUser = null;
-		if ($this->gloImmoConnectorUser > 0) {
-			$strUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser)->ic_username;
+		$objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
+		if (is_null($objUser)) {
+			throw new Exception("Missing or invalid User selected for API-Connection", 1);
+			
 		}
 		
 
-		$objRes = $objImmoConnector->getAllUserObjects($strUser);
+		$objRes = $objImmoConnector->getAllUserObjects($objUser);
 
 		$arrObjectsSorted = ImmoConnectorHelper::orderObjectsByType($objRes->realEstateList->realEstateElement);
 		$arrRenderedObjects = array();
