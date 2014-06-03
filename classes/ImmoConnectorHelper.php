@@ -2,7 +2,7 @@
 
 namespace GloImmoConnector;
 
-class ImmoConnectorHelper {
+class ImmoConnectorHelper extends \Backend {
 
 	protected static $_arrOfferlistType = array(
 		'offerlistelement:OfferHouseBuy' => 'houseBuy',
@@ -31,7 +31,7 @@ class ImmoConnectorHelper {
 		return null;
 	}
 
-	public static function orderObjectsByType($objObjects) {
+	public function orderObjectsByType($objObjects) {
 		$arrObjects = array();
 
 		foreach($objObjects as $objObject) {
@@ -42,4 +42,25 @@ class ImmoConnectorHelper {
 
 		return $arrObjects;
 	}
+
+	public function purgeExpiredCacheFiles() {
+
+    	//Durchlaufen des Cache-Verzeichnisses
+    	foreach (scan(TL_ROOT . ImmoConnector::CACHE_DIRECTORY) as $strFile) {
+    		if(is_file($strFile)) {
+    			$objFile = new \File($strFile);
+    			if(($objFile->ctime + \Config::get('gloImmoConnectorCacheTime') * 100) <= time()) {
+    				$objFile->delete();
+    				$this->log("Cache-File '" . $strFile . "' was deleted.", __METHOD__, TL_FILES);
+    			}
+    		}
+    	}
+    }
+
+    public function purgeCacheFiles() {
+    	$objFolder = new \Folder(TL_ROOT . ImmoConnector::CACHE_DIRECTORY);
+    	$objFolder->purge();
+
+    	$this->log("Cache-File were deleted.", __METHOD__, TL_FILES);
+    }
 }
