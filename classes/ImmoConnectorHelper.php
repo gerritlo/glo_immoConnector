@@ -55,8 +55,8 @@ class ImmoConnectorHelper extends \Backend {
     	foreach(scan($strFolder) as $strFile) {
                 if(is_file($strFolder.$strFile)) {
                     $objFile = new \File(ImmoConnector::CACHE_DIRECTORY . $strFile);
-                    var_dump($objFile->ctime + \Config::get('gloImmoConnectorCacheTime') - time() <=0);
-                    if(($objFile->ctime + \Config::get('gloImmoConnectorCacheTime') - time()) <= 0) {
+                    
+                    if(($objFile->ctime + \Config::get('gloImmoConnectorCacheTime')) < time()) {
                         $objFile->delete();
                         $this->log("Cache-File '" . $strFile . "' was deleted.", __METHOD__, TL_FILES);
                     } 
