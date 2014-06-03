@@ -14,8 +14,8 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['gloImmoConnectorSecret'] = array(
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['gloImmoConnectorCacheActive'] = array(
 	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['gloImmoConnectorCacheActive'],
-	'inputType'               => 'ckeckbox',
-	'eval'                    => array('mandatory'=>true, 'isBoolean' => true, 'tl_class'=>'w50')
+	'inputType'               => 'checkbox',
+	'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['gloImmoConnectorCacheTime'] = array(
@@ -24,4 +24,4 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['gloImmoConnectorCacheTime'] = array
 	'eval'                    => array('mandatory'=>true, 'rgxp' => 'digit', 'tl_class'=>'w50')
 );
 
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] = str_replace('imageHeight;', 'imageHeight;{immoConnector_legend},gloImmoConnectorKey,gloImmoConnectorSecret;', $GLOBALS['TL_DCA']['tl_settings']['palettes']['default']);
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] = str_replace('imageHeight;', 'imageHeight;{immoConnector_legend},gloImmoConnectorKey,gloImmoConnectorSecret,gloImmoConnectorCacheActive,gloImmoConnectorCacheTime;', $GLOBALS['TL_DCA']['tl_settings']['palettes']['default']);

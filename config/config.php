@@ -220,9 +220,9 @@ array_insert($GLOBALS['FE_MOD'], 4, array
  * which only trigger a callback function.
  */
 
-$GLOBALS['TL_PURGE']['folders']['immoConnector'][] = array(
+$GLOBALS['TL_PURGE']['folders']['immoConnector'] = array(
 		'callback' => array('GloImmoConnector\ImmoConnectorHelper', 'purgeCacheFiles'),
-		'affected' => GloImmoConnector\ImmoConnector::CACHE_DIRECTORY
+		'affected' => array(GloImmoConnector\ImmoConnector::CACHE_DIRECTORY)
 	);
 
 
@@ -248,7 +248,7 @@ $GLOBALS['TL_PURGE']['folders']['immoConnector'][] = array(
  * guarantee an exact execution time. You can replace the command scheduler with
  * a real cron job though.
  */
-$GLOBALS['TL_CRON']['daily'][] = array('GloImmoConnector\ImmoConnectorHelper', 'purgeExpiredCacheFiles'),
+$GLOBALS['TL_CRON']['daily'][] = array('GloImmoConnector\ImmoConnectorHelper', 'purgeExpiredCacheFiles');
 
 
 /**

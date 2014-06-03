@@ -29,6 +29,9 @@ ClassLoader::addClasses(array
 	'GloImmoConnector\ImmoConnector'                   => 'system/modules/glo_immoConnector/classes/ImmoConnector.php',
 	'GloImmoConnector\ImmoConnectorHelper'             => 'system/modules/glo_immoConnector/classes/ImmoConnectorHelper.php',
 
+	// Models
+	'GloImmoConnector\IcAuthModel'                     => 'system/modules/glo_immoConnector/models/IcAuthModel.php',
+
 	// Modules
 	'GloImmoConnector\ModuleImmoConnectorCategoryList' => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorCategoryList.php',
 	'GloImmoConnector\ModuleImmoConnectorImmoDetail'   => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoDetail.php',

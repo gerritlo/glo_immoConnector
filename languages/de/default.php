@@ -29,3 +29,7 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'] = 'Wohnfläche';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'] = 'Anzahl Zimmer';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'] = 'Kaufpreis';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['EUR'] = '€';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'] = 'Kaltmiete';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'] = 'Einbauküche';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['yes'] = 'Ja';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['no'] = 'Nein';

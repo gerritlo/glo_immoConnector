@@ -4,9 +4,10 @@
 	<?php endif; ?>
 
 	<h2><?php echo $this->objRealEstate->title; ?></h2>
-	<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'].": ".$this->objRealEstate->livingSpace." m²"; ?></p>
-	<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->objRealEstate->plotArea." m²"; ?></p>
-	<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'].": ".$this->objRealEstate->numberOfRooms; ?></p>
-	
-	<pre><?php print_r($this->objRealEstate); ?></pre>
+	<p class="objectAddress"><?php echo $this->objRealEstate->address->postcode; ?> <?php echo $this->objRealEstate->address->city; ?></p>
+	<p class="objectLivingSpace"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'].": ".$this->objRealEstate->livingSpace." m²"; ?></p>
+	<p class="objectPlotArea"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->objRealEstate->plotArea." m²"; ?></p>
+	<p class="objectNoRooms"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'].": ".$this->objRealEstate->numberOfRooms; ?></p>
+        <p class="objectBuiltInKitchen"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'].": ".($this->objRealEstate->builtInKitchen ? $GLOBALS['TL_LANG']['FMD']['immoConnector']['yes'] : $GLOBALS['TL_LANG']['FMD']['immoConnector']['no']); ?></p>
+        <p class="objectPrice"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'].": ".$this->objRealEstate->price->value." ".$GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->objRealEstate->price->currency->__toString()]; ?></p>
 </div>
