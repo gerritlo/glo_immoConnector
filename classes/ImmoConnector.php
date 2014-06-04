@@ -7,7 +7,7 @@ class ImmoConnector extends \Backend {
     const ALL_USER_OBJECTS = 'allUserObjects';
     const CACHE_DIRECTORY = 'system/cache/immoConnector/';
 
-    const OFFER_LIST_TYPES = array(
+    protected $_offerListTypes = array(
             'offerlistelement:OfferHouseBuy' => 'houseBuy',
             'offerlistelement:OfferHouseRent' => 'houseRent',
             'offerlistelement:OfferApartmentRent' => 'apartmentRent',
@@ -16,8 +16,8 @@ class ImmoConnector extends \Backend {
             'offerlistelement:OfferLivingBuySite' => 'livingBuySite'
     );
 
-    const REALESTATE_TYPES = array(
-    		'houseBuy',
+    public static $realEstateTypes = array(
+            'houseBuy',
             'houseRent',
             'apartmentRent',
             'apartmentBuy',
@@ -161,23 +161,23 @@ class ImmoConnector extends \Backend {
     	$objNodeList = $objDocument->getElementsByTagName('realEstateElement');
 
     	//Objekte zur neuen Zuordnung durchlaufen
- 		foreach ($objNodeList as $objNode) {
+        foreach ($objNodeList as $objNode) {
 
- 			$strType = $this->getObjectType($objNode);
+            $strType = $this->getObjectType($objNode);
 
- 			$objTypeElement = $objDocument->getElementById('tl_' . $strType);
- 			//Prüfen, ob bereits ein Node für den Typ vorhanden ist
- 			if($objTypeElement == null) {
-				//Tyo-Element nicht vorhanden, daher neu anlegen 
- 				$objTypeElement = $this->createNewTypeElement($objDocument, $strType);
- 			}
- 			//Alten Element-Knoten löschen
- 			$objNode->parentNode->removeChild($objNode);
- 			//Element-Knoten in Type-Knoten einfügen
- 			$objTypeElement->appendChild($objNode);
- 		}
+            $objTypeElement = $objDocument->getElementById('tl_' . $strType);
+            //Prüfen, ob bereits ein Node für den Typ vorhanden ist
+            if($objTypeElement == null) {
+                //Tyo-Element nicht vorhanden, daher neu anlegen 
+                $objTypeElement = $this->createNewTypeElement($objDocument, $strType);
+            }
+            //Element-Knoten in Type-Knoten einfügen
+            $objTypeElement->appendChild($objNode);
+            //Alten Element-Knoten löschen
+            $objNode->parentNode->removeChild($objNode);
+        }
 
- 		return $objDocument;
+        return $objDocument;
     }
 
     protected function createNewTypeElement(&$objDocument, $strType) {
@@ -196,8 +196,8 @@ class ImmoConnector extends \Backend {
 		$strNodeType = $objObjectElement->getAttributeNS($strXsiNamespaceUri, 'type');
 
     	//Prüfen, ob der XML-Typ gemapped werden kann
-		if(array_key_exists($strNodeType, self::OFFER_LIST_TYPES)) {
-			$strType = self::OFFER_LIST_TYPES[$strNodeType];
+		if(array_key_exists($strNodeType, $this->_offerListTypes)) {
+			$strType = $this->_offerListTypes[$strNodeType];
 		} else {
 			throw new Exception("OfferListType not found", 1);
 		}

@@ -21,3 +21,5 @@
 		</section>
 	<?php endforeach; ?>
 </div>
+
+<pre><?php echo $this->code; ?></pre>

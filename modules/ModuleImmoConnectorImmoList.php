@@ -37,20 +37,20 @@ class ModuleImmoConnectorImmoList extends \Module
 
 	public function generate()
 	{
-		if (TL_MODE == 'BE')
-		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+            if (TL_MODE == 'BE')
+            {
+                $objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'][0]) . ' ###';
-			//$objTemplate->title = $this->headline;
-			//$objTemplate->id = $this->id;
-			//$objTemplate->link = $this->name;
-			$objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+                $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'][0]) . ' ###';
+                //$objTemplate->title = $this->headline;
+                //$objTemplate->id = $this->id;
+                //$objTemplate->link = $this->name;
+                $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
 
-			return $objTemplate->parse();
-		}
+                return $objTemplate->parse();
+            }
 
-		return parent::generate();
+            return parent::generate();
 	}
 
 
@@ -79,10 +79,13 @@ class ModuleImmoConnectorImmoList extends \Module
 		$arrRendered = array();
 
 		foreach ($arrTypes as $strType) {
+                    
 			$arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objXml->$strType);
 		}
 
 		$this->Template->realEstateObjects =  $arrRendered;
+                //$this->Template->code = print_r($objXml->xpath("//*[@id='tl_houseBuy']"), true);
+                $this->Template->code = print_r($objXml, true);
 		
 
 		/*

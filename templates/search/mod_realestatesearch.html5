@@ -14,10 +14,10 @@
       <select id="ctrl_objectType" name="objectType">
       	<?php foreach ($this->objectTypes as $strTypeValue => $strTypeLabel): ?>
       	<option value="<?php echo $strTypeValue; ?>"<?php if($this->defaultObjectType == $strTypeValue): ?> selected<?php endif; ?>><?php echo $strTypeLabel; ?></option>
-      	<?php endif; ?>
+      	<?php endforeach; ?>
       </select>
 
-      <label for="ctrl_zipCode" class="invisible"><?php echo $this->objectTypeLabel; ?></label>
+      <label for="ctrl_zipCode" class="invisible"><?php echo $this->zipCodeLabel; ?></label>
       <input type="text" name="zipcode" placeholder="<?php echo $this->zipCodeLabel; ?>" id="ctrl_zipCode"<?php if($this->defaultZipcode): ?> value="<?php echo $this->defaultZipcode; ?>"<?php endif; ?>>
 
       <label for="ctrl_city" class="invisible"><?php echo $this->objectTypeLabel; ?></label>

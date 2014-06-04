@@ -72,22 +72,22 @@ class ModuleImmoConnectorImmoSearch extends \Module
 		
 
 		// Get the current "jumpTo" page
-		$this->objModel->getRelated('gloImmoConnectorjumpTo'));
+		$objTarget = $this->objModel->getRelated('gloImmoConnectorjumpTo');
 		$this->Template->action = $this->generateFrontendUrl($objTarget->row());
 
 		$this->Template->formId = 
 		$this->Template->objectTypeLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['objectType'];
-		$this->Template->zipCodeLabelLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'];
+		$this->Template->zipCodeLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'];
 		$this->Template->cityLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['city'];
 		$this->Template->submitLabel =$GLOBALS['TL_LANG']['FMD']['immoConnector']['search'];
-		$this->Template->objectTypes = $this->getObjectTypes();;
+		$this->Template->objectTypes = $this->getObjectTypes();
 	}
 
 	
 	protected function getObjectTypes() {
 		$arrTypes = array();
 
-		foreach (ImmoConnector::REALESTATE_TYPES as $strType) {
+		foreach (ImmoConnector::$realEstateTypes as $strType) {
 			$arrTypes[$strType] = isset($GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType]) ? $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType] : $strType;
 		}
 

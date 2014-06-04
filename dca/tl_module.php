@@ -14,7 +14,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorShowSummary'] = array
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo']'' => array
+$GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorjumpTo'],
 			'exclude'                 => true,
@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo']'' => array
 			'eval'                    => array('fieldType'=>'radio', 'mandatory' => true),
 			'sql'                     => "int(10) unsigned NOT NULL default '0'",
 			'relation'                => array('type'=>'hasOne', 'load'=>'eager')
-		),
+		);
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorShowSummary';
 

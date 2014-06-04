@@ -52,4 +52,5 @@ TemplateLoader::addFiles(array
 	'glo_investmentShort'    => 'system/modules/glo_immoConnector/templates/list',
 	'glo_livingBuySiteShort' => 'system/modules/glo_immoConnector/templates/list',
 	'mod_realestatelist'     => 'system/modules/glo_immoConnector/templates/list',
+	'mod_realestatesearch'   => 'system/modules/glo_immoConnector/templates/search',
 ));
