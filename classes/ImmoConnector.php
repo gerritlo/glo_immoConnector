@@ -4,10 +4,28 @@ namespace GloImmoConnector;
 
 class ImmoConnector extends \Backend {
 
-    protected $_objImmocaster = null;
-
     const ALL_USER_OBJECTS = 'allUserObjects';
     const CACHE_DIRECTORY = 'system/cache/immoConnector/';
+
+    const OFFER_LIST_TYPES = array(
+            'offerlistelement:OfferHouseBuy' => 'houseBuy',
+            'offerlistelement:OfferHouseRent' => 'houseRent',
+            'offerlistelement:OfferApartmentRent' => 'apartmentRent',
+            'offerlistelement:OfferApartmentBuy' => 'apartmentBuy',
+            'offerlistelement:OfferInvestment' => 'investment',
+            'offerlistelement:OfferLivingBuySite' => 'livingBuySite'
+    );
+
+    const REALESTATE_TYPES = array(
+    		'houseBuy',
+            'houseRent',
+            'apartmentRent',
+            'apartmentBuy',
+            'livingBuySite',
+            'investment'
+    	);
+
+    protected $_objImmocaster = null;
 
     public function __construct($strInstance, $strKey, $strSecret, $strReqquestUrl = 'live', $strReadingType = 'curl') {
             $immocaster = \Immocaster_Sdk::getInstance($strInstance, $strKey, $strSecret);
@@ -57,7 +75,7 @@ class ImmoConnector extends \Backend {
 
                     //Wenn erste Seite, als Basis ablegen, sonst Elemente hinzufügen
                     if (is_null($objFirstPage)) {
-                        $objFirstPage = $objPage;
+                         $objFirstPage = $this->orderDomDocumentByObjectType($objPage);
                     } else {
                         $this->mergeXmlPages($objFirstPage, $objPage);
                     }
@@ -71,7 +89,7 @@ class ImmoConnector extends \Backend {
         }
         
         //Kombinierte XML zurückgeben
-		return simplexml_import_dom($objFirstPage);
+		return $objFirstPage;
 	}
         
     protected function requestAllUserObjects($intPage, $strUser) {
@@ -81,15 +99,21 @@ class ImmoConnector extends \Backend {
         return $objRes;
     }
 
-    protected function mergeXmlPages(&$objFirstPage, $objPage) {
+    protected function mergeXmlPages(&$objFirstPage, &$objPage) {
     	//Fügt die realEstateElement-Knoten der FirstPage hinzu
 
     	$objNodeList = $objPage->getElementsByTagName('realEstateElement');
-    	$objRealEstateList = $objFirstPage->getElementsByTagName('realEstateList')->item(0);
 
     	foreach ($objNodeList as $objNode) {
+    		$strType = $this->getObjectType($objNode);
+    		$objTypeElements = $objFirstPage->getElementsByTagName($strType);
+    		if($objTypeElements->length < 1) {
+    			$objTypeElement = $this->createNewTypeElement($objFirstPage, $strType);
+    		} else {
+    			$objTypeElement = $objTypeElements->item(0);
+    		}
             $objNewNode = $objFirstPage->importNode($objNode, true);
-            $objRealEstateList->appendChild($objNewNode);
+            $objTypeElement->appendChild($objNewNode);
     	}
     }
 
@@ -125,7 +149,7 @@ class ImmoConnector extends \Backend {
         if(!is_dir(dirname($strFilename))) {
             $objFolder = new \Folder(self::CACHE_DIRECTORY);
         }
-        $this->log("Cache-File '" . $strFilename . "' created successful", __METHOD__, TL_FILES);
+        $this->log("Cache-File '" . $strDocument . "' created successful", __METHOD__, TL_FILES);
     	$objXml->save($strFilename);
     }
 
@@ -134,5 +158,64 @@ class ImmoConnector extends \Backend {
     	return  TL_ROOT . '/' . self::CACHE_DIRECTORY . $strDocument . '.xml';
     }
 
+    protected function orderDomDocumentByObjectType(&$objDocument) {
+    	//Objekte des Dokuments auslesen
+    	$objNodeList = $objDocument->getElementsByTagName('realEstateElement');
 
+    	//Objekte zur neuen Zuordnung durchlaufen
+ 		foreach ($objNodeList as $objNode) {
+
+ 			$strType = $this->getObjectType($objNode);
+
+ 			$objTypeElements = $objDocument->getElementsByTagName($strType);
+ 			//Prüfen, ob bereits ein Node für den Typ vorhanden ist
+ 			if($objTypeElements->length < 1) {
+				//Tyo-Element nicht vorhanden, daher neu anlegen 
+ 				$objTypeElement = $this->createNewTypeElement($objDocument, $strType);
+ 			} else {
+				$objTypeElement = $objTypeElements->item(0);
+ 			}
+ 			//Alten Element-Knoten löschen
+ 			$objNode->parentNode->removeChild($objNode);
+ 			//Element-Knoten in Type-Knoten einfügen
+ 			$objTypeElement->appendChild($objNode);
+ 		}
+
+ 		return $objDocument;
+    }
+
+    protected function createNewTypeElement(&$objDocument, $strType) {
+		//Neuen Typ-Knoten anlegen
+		$objNewTypeElement = $objDocument->createElement($strType);
+		$objListElement = $objDocument->getElementsByTagName('realEstateList')->item(0);
+		//Typ-Knoten in die Liste aufnehmen
+		return $objListElement->appendChild($objNewTypeElement);
+    }
+
+    protected function getObjectType(&$objObjectElement) {
+    	//Namespace und Typ aus RealEstateElement auslesen
+		$strXsiNamespaceUri = $objObjectElement->lookupNamespaceURI('xsi');
+		$strNodeType = $objObjectElement->getAttributeNS($strXsiNamespaceUri, 'type');
+
+    	//Prüfen, ob der XML-Typ gemapped werden kann
+		if(array_key_exists($strNodeType, self::OFFER_LIST_TYPES)) {
+			$strType = self::OFFER_LIST_TYPES[$strNodeType];
+		} else {
+			throw new Exception("OfferListType not found", 1);
+		}
+
+		return $strType;
+    }
+
+    public function getObjectTypes(&$objDocument) {
+    	$arrResult = array();
+
+    	foreach (self::REALESTATE_TYPES as $strType) {
+    		if ($objDocument->getElementsByTagName($strType)->length > 0) {
+    			$arrResult[] = $strType;
+    		}
+    	}
+
+    	return $arrResult;
+    }
 }

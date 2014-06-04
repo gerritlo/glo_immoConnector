@@ -74,16 +74,15 @@ class ModuleImmoConnectorImmoList extends \Module
 		
 
 		$objRes = $objImmoConnector->getAllUserObjects($objUser);
+		$arrTypes = $objImmoConnector->getObjectTypes($objRes);
+		$objXml = simplexml_import_dom($objRes);
+		$arrRendered = array();
 
-		$arrObjectsSorted = ImmoConnectorHelper::orderObjectsByType($objRes->realEstateList->realEstateElement);
-		$arrRenderedObjects = array();
-
-		foreach ($arrObjectsSorted as $strType => $arrTypeObjects) {
-			$arrRenderedObjects[$strType] = $this->renderObjectTypeGroup($strType, $arrTypeObjects);
+		foreach ($arrTypes as $strType) {
+			$arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objXml->$strType);
 		}
-		unset($arrObjectsSorted);
 
-		$this->Template->realEstateObjects =  $arrRenderedObjects;
+		$this->Template->realEstateObjects =  $arrRendered;
 		
 
 		/*
