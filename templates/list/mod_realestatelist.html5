@@ -1,5 +1,9 @@
 <div class="mod_realEstateObjectList">
-	<?php if($this->showSummary): ?>
+	<?php if ($this->headline): ?>
+    	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  	<?php endif; ?>
+
+	<?php if($this->gloImmoConnectorShowSummary == '1'): ?>
 	<div class="mod_realEstateObjectListSummery">
 		<ul>
 			<?php foreach (array_keys($this->realEstateObjects) as $strType): ?>
@@ -9,11 +13,11 @@
 	</div>
 	<?php endif; ?>
 	<?php foreach($this->realEstateObjects as $typeGroup => $groupObjects): ?>
-		<div class="objectTypeGroup">
+		<section class="objectTypeGroup">
 		<h1><a name="<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$typeGroup]; ?></a></h1>
 		<?php foreach($groupObjects as $object): ?>
 			<?php echo $object; ?>
 		<?php endforeach; ?>
-		</div>
+		</section>
 	<?php endforeach; ?>
 </div>

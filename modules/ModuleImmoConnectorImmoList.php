@@ -84,7 +84,7 @@ class ModuleImmoConnectorImmoList extends \Module
 		unset($arrObjectsSorted);
 
 		$this->Template->realEstateObjects =  $arrRenderedObjects;
-		$this->Template->showSummary =  ($this->gloImmoConnectorShowSummary == '1');
+		
 
 		/*
 		$sCertifyURL = 'http://localhost/spielberg/index.php/objekte.html'; // Komplette URL inkl. Parameter auf der das Script eingebunden wird

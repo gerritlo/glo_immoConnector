@@ -1,4 +1,4 @@
-<div class="realEstateObject">
+<article class="realEstateObject">
 	<?php if($this->objRealEstate->titlePicture->titlePicture): ?>
 		<img src="<?php echo $this->objRealEstate->titlePicture->urls->url[0]['href'] ?>" />
 	<?php endif; ?>
@@ -9,4 +9,4 @@
 	<p class="objectPlotArea"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->objRealEstate->plotArea." m²"; ?></p>
 	<p class="objectNoRooms"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'].": ".$this->objRealEstate->numberOfRooms; ?></p>
         <p class="objectPrice"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'].": ".$this->objRealEstate->price->value." ".$GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->objRealEstate->price->currency->__toString()]; ?></p>
-</div>
+</article>
