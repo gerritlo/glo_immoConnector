@@ -106,11 +106,9 @@ class ImmoConnector extends \Backend {
 
     	foreach ($objNodeList as $objNode) {
     		$strType = $this->getObjectType($objNode);
-    		$objTypeElements = $objFirstPage->getElementsByTagName($strType);
-    		if($objTypeElements->length < 1) {
+    		$objTypeElement = $objFirstPage->getElementById('tl_' . $strType);
+    		if($objTypeElement == null) {
     			$objTypeElement = $this->createNewTypeElement($objFirstPage, $strType);
-    		} else {
-    			$objTypeElement = $objTypeElements->item(0);
     		}
             $objNewNode = $objFirstPage->importNode($objNode, true);
             $objTypeElement->appendChild($objNewNode);
@@ -167,13 +165,11 @@ class ImmoConnector extends \Backend {
 
  			$strType = $this->getObjectType($objNode);
 
- 			$objTypeElements = $objDocument->getElementsByTagName($strType);
+ 			$objTypeElement = $objDocument->getElementById('tl_' . $strType);
  			//Prüfen, ob bereits ein Node für den Typ vorhanden ist
- 			if($objTypeElements->length < 1) {
+ 			if($objTypeElement == null) {
 				//Tyo-Element nicht vorhanden, daher neu anlegen 
  				$objTypeElement = $this->createNewTypeElement($objDocument, $strType);
- 			} else {
-				$objTypeElement = $objTypeElements->item(0);
  			}
  			//Alten Element-Knoten löschen
  			$objNode->parentNode->removeChild($objNode);
@@ -186,7 +182,9 @@ class ImmoConnector extends \Backend {
 
     protected function createNewTypeElement(&$objDocument, $strType) {
 		//Neuen Typ-Knoten anlegen
-		$objNewTypeElement = $objDocument->createElement($strType);
+		$objNewTypeElement = $objDocument->createElement('typeList');
+		$objNewTypeElement->setAttribute('id', 'tl_' . $strType);
+		$objNewTypeElement->setAttribute('ic_type', $strType);
 		$objListElement = $objDocument->getElementsByTagName('realEstateList')->item(0);
 		//Typ-Knoten in die Liste aufnehmen
 		return $objListElement->appendChild($objNewTypeElement);
@@ -209,11 +207,10 @@ class ImmoConnector extends \Backend {
 
     public function getObjectTypes(&$objDocument) {
     	$arrResult = array();
+    	$objNodeList = $objDocument->getElementsByTagName('typeList');
 
-    	foreach (self::REALESTATE_TYPES as $strType) {
-    		if ($objDocument->getElementsByTagName($strType)->length > 0) {
-    			$arrResult[] = $strType;
-    		}
+    	foreach ($objNodeList as $objTypeNode) {
+    		$arrResult[] = $objTypeNode->getAttribute('ic_type');
     	}
 
     	return $arrResult;
