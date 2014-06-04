@@ -183,6 +183,7 @@ class ImmoConnector extends \Backend {
 		$objNewTypeElement = $objDocument->createElement('typeList');
 		$objNewTypeElement->setAttribute('id', 'tl_' . $strType);
 		$objNewTypeElement->setAttribute('ic_type', $strType);
+                var_dump($strType);
 		$objListElement = $objDocument->getElementsByTagName('realEstateList')->item(0);
 		//Typ-Knoten in die Liste aufnehmen
 		return $objListElement->appendChild($objNewTypeElement);

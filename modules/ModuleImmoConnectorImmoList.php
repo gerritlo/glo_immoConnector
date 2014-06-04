@@ -84,9 +84,6 @@ class ModuleImmoConnectorImmoList extends \Module
 		}
 
 		$this->Template->realEstateObjects =  $arrRendered;
-                //$this->Template->code = print_r($objXml->xpath("//*[@id='tl_houseBuy']"), true);
-                $this->Template->code = print_r($objXml, true);
-		
 
 		/*
 		$sCertifyURL = 'http://localhost/spielberg/index.php/objekte.html'; // Komplette URL inkl. Parameter auf der das Script eingebunden wird
