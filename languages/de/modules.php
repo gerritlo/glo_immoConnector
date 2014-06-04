@@ -22,5 +22,6 @@ $GLOBALS['TL_LANG']['MOD']['immoConnectorSettings'] = array('ImmoConnector', '')
 /**
  * Front end modules
  */
-$GLOBALS['TL_LANG']['FMD']['immoConnector'] = array('ImmoConnector', '');
-$GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'] = array('Immobilien-Liste', '');
+$GLOBALS['TL_LANG']['FMD']['immoConnector'] = array('ImmoConnector', 'Anzeigen von Immobilien aus ImmobilienScout24-APIs');
+$GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'] = array('Immobilien-Liste', 'Listet Immobilien eines ImmobilienScout24-Kunden');
+$GLOBALS['TL_LANG']['FMD']['immoConnectorImmoSearch'] = array('Immobilien-Suche', 'Suchformular für die Immobilien-Liste');

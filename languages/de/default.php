@@ -17,6 +17,11 @@
  */
 $GLOBALS['TL_LANG']['MSC'][''] = '';
 
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['objectType'] = 'Objekt-Art';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'] = 'PLZ';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['city'] = 'Ort';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['search'] = 'Suchen';
+
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['houseRent'] = 'Haus zur Miete';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['houseBuy'] = 'Haus zum Kauf';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['apartmentRent'] = 'Wohnung zur Miete';
