@@ -173,8 +173,6 @@ class ImmoConnector extends \Backend {
             }
             //Element-Knoten in Type-Knoten einfügen
             $objTypeElement->appendChild($objNode);
-            //Alten Element-Knoten löschen
-            $objNode->parentNode->removeChild($objNode);
         }
 
         return $objDocument;
