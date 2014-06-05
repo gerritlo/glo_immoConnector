@@ -166,10 +166,14 @@ class ImmoConnector extends \Backend {
             $strType = $this->getObjectType($objNode);
 
             $objTypeElement = $objDocument->getElementById('tl_' . $strType);
+            $objPath = new FDOMXPath($objDocument);
+            $objTypeElementList = $objPath->query('//typeList[@type=' . $strType . ']');
             //Prüfen, ob bereits ein Node für den Typ vorhanden ist
-            if($objTypeElement == null) {
+            if($objTypeElementList->length < 1) {
                 //Tyo-Element nicht vorhanden, daher neu anlegen 
                 $objTypeElement = $this->createNewTypeElement($objDocument, $strType);
+            } else {
+	            $objTypeElement = $objTypeElementList->item(0);
             }
             //Element-Knoten in Type-Knoten einfügen
             $objTypeElement->appendChild($objNode);

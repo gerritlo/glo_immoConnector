@@ -42,9 +42,8 @@ class ModuleImmoConnectorImmoList extends \Module
                 $objTemplate = new \BackendTemplate('be_wildcard');
 
                 $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'][0]) . ' ###';
-                //$objTemplate->title = $this->headline;
-                //$objTemplate->id = $this->id;
-                //$objTemplate->link = $this->name;
+                /objTemplate->title = $this->headline;
+                $objTemplate->id = $this->id;
                 $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
 
                 return $objTemplate->parse();
@@ -78,9 +77,10 @@ class ModuleImmoConnectorImmoList extends \Module
 		$objXml = simplexml_import_dom($objRes);
 		$arrRendered = array();
 
-		foreach ($arrTypes as $strType) {
+		foreach ($objXml->realEstateList->typeList as $objList) {
+			$strType = $objList['type'];
                     
-			$arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objXml->$strType);
+			$arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
 		}
 
 		$this->Template->realEstateObjects =  $arrRendered;
@@ -111,10 +111,10 @@ class ModuleImmoConnectorImmoList extends \Module
 		*/
 	}
 
-	protected function renderObjectTypeGroup($strType, $arrTypeObjects) {
+	protected function renderObjectTypeGroup($strType, $objTypeObjects) {
 		$arrObjectTemplates = array();
 
-		foreach ($arrTypeObjects as $objObject) {
+		foreach ($objTypeObjects->realEstateElement as $objObject) {
 			$strTenplateName = "glo_".$strType.'Short';
 			$objTemplate = new \FrontendTemplate($strTenplateName);
 			$objTemplate->objRealEstate = $objObject;
