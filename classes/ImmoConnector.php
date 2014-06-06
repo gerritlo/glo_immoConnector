@@ -89,7 +89,7 @@ class ImmoConnector extends \Backend {
         }
 
         //Anwenden von Filtern auf das Resultat
-        $this->filterDocResult($objFirstPage, $arrFilter);
+        //$this->filterDocResult($objFirstPage, $arrFilter);
         
         //Kombinierte XML zurückgeben
 		return $objFirstPage;
