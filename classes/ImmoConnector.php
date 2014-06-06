@@ -139,7 +139,8 @@ class ImmoConnector extends \Backend {
     	$strFullFilename = $this->buildCacheFileName($strDocument);
     	
     	//Prüfen, ob die Datei existiert/gültig ist bzw. der Cache aktiv ist.
-    	if((file_exists($strFullFilename)) && ImmoConnectorHelper::isCacheFileValid(new \File(self::CACHE_DIRECTORY.$strDocument))) {
+       $file = new \File(self::CACHE_DIRECTORY.basename($strFullFilename);
+    	if(($file->exists()) && ImmoConnectorHelper::isCacheFileValid($file))) {
             return true;
     	}
     	return false;
