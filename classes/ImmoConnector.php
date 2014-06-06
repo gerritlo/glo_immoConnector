@@ -233,11 +233,11 @@ class ImmoConnector extends \Backend {
             }
         }
 
-        /*if($arrFilter['zipcode'] && $arrFilter['zipcode']!= '') {
-            foreach($xpath->query("") as $tlNode) {
+        if($arrFilter['zipcode'] && $arrFilter['zipcode'] != '') {
+            foreach($xpath->query("typeList//realEstateElement/address/postcode[starts-with(text(),'" . $arrFilter['zipcode'] . "')]") as $tlNode) {
                 $parent = $tlNode->parent;
                 $parent->removeChild($tlNode);
             }
-        }*/
+        }
     }
 }
