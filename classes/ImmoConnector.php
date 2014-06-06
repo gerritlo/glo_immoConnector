@@ -139,8 +139,8 @@ class ImmoConnector extends \Backend {
     	$strFullFilename = $this->buildCacheFileName($strDocument);
     	
     	//Prüfen, ob die Datei existiert/gültig ist bzw. der Cache aktiv ist.
-    	if((file_exists($strFullFilename)) && ImmoConnectorHelper::cacheFileValidTime(filemtime($strFullFilename))) {
-    		return true;
+    	if((file_exists($strFullFilename)) && ImmoConnectorHelper::isCacheFileValid(new \File(self::CACHE_DIRECTORY.$strDocument))) {
+            return true;
     	}
     	return false;
     }
@@ -161,54 +161,51 @@ class ImmoConnector extends \Backend {
 
     protected function orderDomDocumentByObjectType(&$objDocument) {
     	//Objekte des Dokuments auslesen
-    	$objNodeList = $objDocument->getElementsByTagName('realEstateElement');
-
-    	//Objekte zur neuen Zuordnung durchlaufen
-        foreach ($objNodeList as $objNode) {
-
-            $strType = $this->getObjectType($objNode);
-
-            $objTypeElement = $objDocument->getElementById('tl_' . $strType);
-            $objPath = new FDOMXPath($objDocument);
-            $objTypeElementList = $objPath->query('//typeList[@type=' . $strType . ']');
-            //Prüfen, ob bereits ein Node für den Typ vorhanden ist
-            if($objTypeElementList->length < 1) {
-                //Tyo-Element nicht vorhanden, daher neu anlegen 
-                $objTypeElement = $this->createNewTypeElement($objDocument, $strType);
-            } else {
-	            $objTypeElement = $objTypeElementList->item(0);
-            }
-            //Element-Knoten in Type-Knoten einfügen
-            $objTypeElement->appendChild($objNode);
+    	$nodeList = $objDocument->getElementsByTagName('realEstateElement');      
+        $typeLists = array();
+        
+        //Sortieren der Knoten zu Typen
+        foreach($nodeList as $node) {
+            $strType = $this->getObjectType($node);
+            $typeLists[$strType][] = $node;
         }
+        
+        //Durchlaufen aller TypeLists
+        foreach ($typeLists as $type => $nodes) {
+            //TypeList erstellen
+            $objTypeElement = $this->createNewTypeElement($objDocument, $type);
+            
+            //Knoten des Typs zur TypeList hinzufügen
+            foreach ($nodes as $node) {
+                $objTypeElement->appendChild($node);
+            }
+        }            
 
         return $objDocument;
     }
 
     protected function createNewTypeElement(&$objDocument, $strType) {
-		//Neuen Typ-Knoten anlegen
-		$objNewTypeElement = $objDocument->createElement('typeList');
-		$objNewTypeElement->setAttribute('id', 'tl_' . $strType);
-		$objNewTypeElement->setAttribute('ic_type', $strType);
-                var_dump($strType);
-		$objListElement = $objDocument->getElementsByTagName('realEstateList')->item(0);
-		//Typ-Knoten in die Liste aufnehmen
-		return $objListElement->appendChild($objNewTypeElement);
+        //Neuen Typ-Knoten anlegen
+        $objNewTypeElement = $objDocument->createElement('typeList');
+        $objNewTypeElement->setAttribute('ic_type', $strType);
+        $objListElement = $objDocument->getElementsByTagName('realEstateList')->item(0);
+        //Typ-Knoten in die Liste aufnehmen
+        return $objListElement->appendChild($objNewTypeElement);
     }
 
     protected function getObjectType(&$objObjectElement) {
     	//Namespace und Typ aus RealEstateElement auslesen
-		$strXsiNamespaceUri = $objObjectElement->lookupNamespaceURI('xsi');
-		$strNodeType = $objObjectElement->getAttributeNS($strXsiNamespaceUri, 'type');
+        $strXsiNamespaceUri = $objObjectElement->lookupNamespaceURI('xsi');
+        $strNodeType = $objObjectElement->getAttributeNS($strXsiNamespaceUri, 'type');
 
     	//Prüfen, ob der XML-Typ gemapped werden kann
-		if(array_key_exists($strNodeType, $this->_offerListTypes)) {
-			$strType = $this->_offerListTypes[$strNodeType];
-		} else {
-			throw new Exception("OfferListType not found", 1);
-		}
+        if(array_key_exists($strNodeType, $this->_offerListTypes)) {
+                $strType = $this->_offerListTypes[$strNodeType];
+        } else {
+                throw new Exception("OfferListType not found", 1);
+        }
 
-		return $strType;
+        return $strType;
     }
 
     public function getObjectTypes(&$objDocument) {
@@ -227,7 +224,7 @@ class ImmoConnector extends \Backend {
 
         //Filtern nachn
         if($arrFilter['objectType'] && $arrFilter['objectType']!= '') {
-            foreach($xpath->query("//typeList[@type!='" . $arrFilter['objectType'] . "']") as $tlNode) {
+            foreach($xpath->query("//typeList[@ic_type!='" . $arrFilter['objectType'] . "']") as $tlNode) {
                 $parent = $tlNode->parent;
                 $parent->removeChild($tlNode);
             }

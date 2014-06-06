@@ -42,7 +42,7 @@ class ModuleImmoConnectorImmoList extends \Module
                 $objTemplate = new \BackendTemplate('be_wildcard');
 
                 $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'][0]) . ' ###';
-                /objTemplate->title = $this->headline;
+                $objTemplate->title = $this->headline;
                 $objTemplate->id = $this->id;
                 $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
 
@@ -80,7 +80,7 @@ class ModuleImmoConnectorImmoList extends \Module
 		foreach ($objXml->realEstateList->typeList as $objList) {
 			$strType = $objList['type'];
                     
-			$arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
+			//$arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
 		}
 
 		$this->Template->realEstateObjects =  $arrRendered;

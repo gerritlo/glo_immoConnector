@@ -17,7 +17,7 @@ class ImmoConnectorHelper extends \Backend {
             if(is_file($strFolder.$strFile)) {
                 $objFile = new \File(ImmoConnector::CACHE_DIRECTORY . $strFile);
                 
-                if((self::isCacheFileValid($objFile)) {
+                if(self::isCacheFileValid($objFile)) {
                     $objFile->delete();
                     $this->log("Cache-File '" . $strFile . "' was deleted.", __METHOD__, TL_FILES);
                 } 
@@ -46,7 +46,6 @@ class ImmoConnectorHelper extends \Backend {
     }
 
     public static function cacheFileValidTime($mtime) {
-
-        return $objFile->mtime + \Config::get('gloImmoConnectorCacheTime');
+        return $mtime + \Config::get('gloImmoConnectorCacheTime');
     }
 }

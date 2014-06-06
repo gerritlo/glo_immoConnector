@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(),
-		'default'                     => '{title_legend},ic_desc,ic_username,ic_key,ic_secret,ic_expire'
+		'default'                     => '{title_legend},ic_title,ic_desc,ic_username,ic_key,ic_secret,ic_expire'
 	),
 
 	// Subpalettes

@@ -5,6 +5,7 @@ $GLOBALS['TL_LANG']['tl_ic_auth']['ic_key'] = array('Token', 'Token des oAuth');
 $GLOBALS['TL_LANG']['tl_ic_auth']['ic_secret'] = array('Secret', 'Secret des oAuth');
 $GLOBALS['TL_LANG']['tl_ic_auth']['ic_expire'] = array('Auslaufdatum', 'Auslaufdatum des Tokens');
 $GLOBALS['TL_LANG']['tl_ic_auth']['ic_username'] = array('Benutzername', 'Zugehöriger Benutzername');
+$GLOBALS['TL_LANG']['tl_ic_auth']['ic_title'] = array('Bezeichnung', 'Bezeichnung dieser Kundenfreigabe');
 
 $GLOBALS['TL_LANG']['tl_ic_auth']['new'] = array('Neuen Zugriffscode', 'Legt zu einem Benutzer einen neuen Zugriffscode an.');
 $GLOBALS['TL_LANG']['tl_ic_auth']['edit'] = array('Zugriffscode bearbeiten', 'Bearbeitet den Zugriffscode mit der ID %s.');
