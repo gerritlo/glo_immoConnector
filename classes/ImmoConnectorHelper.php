@@ -14,18 +14,16 @@ class ImmoConnectorHelper extends \Backend {
 
     	//Durchlaufen des Cache-Verzeichnisses
     	foreach(scan($strFolder) as $strFile) {
-                if(is_file($strFolder.$strFile)) {
-                    $objFile = new \File(ImmoConnector::CACHE_DIRECTORY . $strFile);
-                    
-                    if(($objFile->ctime + \Config::get('gloImmoConnectorCacheTime')) < time()) {
-                        $objFile->delete();
-                        $this->log("Cache-File '" . $strFile . "' was deleted.", __METHOD__, TL_FILES);
-                    } 
-                }else {
-                        var_dump($strFile);
-                    }
-    		
+            if(is_file($strFolder.$strFile)) {
+                $objFile = new \File(ImmoConnector::CACHE_DIRECTORY . $strFile);
                 
+                if((self::isCacheFileValid($objFile)) {
+                    $objFile->delete();
+                    $this->log("Cache-File '" . $strFile . "' was deleted.", __METHOD__, TL_FILES);
+                } 
+            } else {
+                var_dump($strFile);
+            }
     	}
     }
 
@@ -34,5 +32,21 @@ class ImmoConnectorHelper extends \Backend {
     	$objFolder->purge();
 
     	$this->log("Cache-File were deleted.", __METHOD__, TL_FILES);
+    }
+
+    public static function isCacheFileValid($objFile) {
+        $GLOBALS['TL_DEBUG']['immoConnector']['cacheFiles'][$objFile->filename] = array(
+            'mtime' => $objFile->mtime,
+            'validTime' => self::cacheFileValidTime($objFile->mtime),
+            'isValid' => self::cacheFileValidTime($objFile->mtime) > time()
+        );
+        
+        $isValid = self::cacheFileValidTime($objFile->mtime) > time();
+        return $isValid;
+    }
+
+    public static function cacheFileValidTime($mtime) {
+
+        return $objFile->mtime + \Config::get('gloImmoConnectorCacheTime');
     }
 }

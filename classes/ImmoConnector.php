@@ -47,7 +47,7 @@ class ImmoConnector extends \Backend {
             $this->_objImmocaster = $immocaster;
     }
 
-    public function getAllUserObjects($objUser) {
+    public function getAllUserObjects($objUser, $arrFilter = array()) {
 
         $strUser = $objUser->ic_username;
                 
@@ -87,6 +87,9 @@ class ImmoConnector extends \Backend {
                 //Geladene Daten in den Cache schreiben
                 $this->cacheXmlDocument($objFirstPage, $strDocument);
         }
+
+        //Anwenden von Filtern auf das Resultat
+        $this->filterDocResult($objFirstPage, $arrFilter);
         
         //Kombinierte XML zurückgeben
 		return $objFirstPage;
@@ -131,12 +134,12 @@ class ImmoConnector extends \Backend {
 
     	//Delete old Cache-Files
         $objHelper = new ImmoConnectorHelper();
-    	$objHelper->purgeExpiredCacheFiles();
+    	//$objHelper->purgeExpiredCacheFiles(); Performance sparen und nur täglich löschen
 
     	$strFullFilename = $this->buildCacheFileName($strDocument);
     	
     	//Prüfen, ob die Datei existiert/gültig ist bzw. der Cache aktiv ist.
-    	if((file_exists($strFullFilename))) {
+    	if((file_exists($strFullFilename)) && ImmoConnectorHelper::cacheFileValidTime(filemtime($strFullFilename))) {
     		return true;
     	}
     	return false;
@@ -217,5 +220,24 @@ class ImmoConnector extends \Backend {
     	}
 
     	return $arrResult;
+    }
+
+    protected function filterDocResult(&$document, $arrFilter) {
+        $xpath = new XPath($document);
+
+        //Filtern nachn
+        if($arrFilter['objectType'] && $arrFilter['objectType']!= '') {
+            foreach($xpath->query("//typeList[@type!='" . $arrFilter['objectType'] . "']") as $tlNode) {
+                $parent = $tlNode->parent;
+                $parent->removeChild($tlNode);
+            }
+        }
+
+        /*if($arrFilter['zipcode'] && $arrFilter['zipcode']!= '') {
+            foreach($xpath->query("") as $tlNode) {
+                $parent = $tlNode->parent;
+                $parent->removeChild($tlNode);
+            }
+        }*/
     }
 }

@@ -3,7 +3,7 @@
 $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorUser'] = array(
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorUser'],
 	'inputType'               => 'select',
-	'foreignKey'              => 'tl_ic_auth.ic_username',
+	'foreignKey'              => 'tl_ic_auth.ic_title',
 	'sql'                     => "int(10) unsigned NOT NULL default '0'",
 	'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
 );

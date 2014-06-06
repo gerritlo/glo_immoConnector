@@ -27,13 +27,13 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 		'sorting' => array
 		(
 			'mode'                    => 1,
-			'fields'                  => array('ic_username'),
+			'fields'                  => array('ic_title'),
 			'flag'                    => 11,
 			'panelLayout'             => 'filter'
 		),
 		'label' => array
 		(
-			'fields'                  => array('ic_username'),
+			'fields'                  => array('ic_title'),
 			'format'                  => '%s'
 		),
 		'global_operations' => array
@@ -104,7 +104,7 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>32),
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>32, 'readonly' => true),
 			'sql'                     => "varchar(32) NOT NULL default ''"
 		),
 		'ic_key' => array
@@ -112,7 +112,7 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ic_auth']['ic_key'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>128),
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>128, 'readonly' => true),
 			'sql'                     => "varchar(128) NOT NULL default ''",
 		),
 		'ic_secret' => array
@@ -120,7 +120,7 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ic_auth']['ic_secret'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>128),
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>128, 'readonly' => true),
 			'sql'                     => "varchar(128) NOT NULL default ''"
 		),
 		'ic_expire' => array
@@ -139,8 +139,18 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 			'search'                  => true,
 			'filter'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>60),
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>60, 'readonly' => true),
 			'sql'                     => "varchar(60) NOT NULL default ''"
+		),
+		'ic_title' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_ic_auth']['ic_title'],
+			'exclude'                 => true,
+			'search'                  => true,
+			'filter'                  => true,
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>100),
+			'sql'                     => "varchar(100) NOT NULL default ''"
 		),
 	)
 );
