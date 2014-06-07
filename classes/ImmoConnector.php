@@ -47,7 +47,7 @@ class ImmoConnector extends \Backend {
             $this->_objImmocaster = $immocaster;
     }
 
-    public function getAllUserObjects($objUser, $arrFilter = array()) {
+    public function getAllUserObjects($objUser, $filter) {
 
         $strUser = $objUser->ic_username;
                 
@@ -59,7 +59,7 @@ class ImmoConnector extends \Backend {
         if ($this->isDocumentCached($strDocument) && \Config::get('gloImmoConnectorCacheActive') == '1') {
         	//Lade den Cache in die FirstPage
         	$objFirstPage = $this->getCachedXmlDocument($strDocument);
-                $this->log("ImmoConnector: Cache-File loaded", __METHOD__, TL_FILES);
+                $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
         } else {
         	$intPage = 1;
 
@@ -89,7 +89,7 @@ class ImmoConnector extends \Backend {
         }
 
         //Anwenden von Filtern auf das Resultat
-        //$this->filterDocResult($objFirstPage, $arrFilter);
+        $this->filterDocResult($objFirstPage, $filter);
         
         //Kombinierte XML zurückgeben
 		return $objFirstPage;
@@ -139,8 +139,8 @@ class ImmoConnector extends \Backend {
     	$strFullFilename = $this->buildCacheFileName($strDocument);
     	
     	//Prüfen, ob die Datei existiert/gültig ist bzw. der Cache aktiv ist.
-       $file = new \File(self::CACHE_DIRECTORY.basename($strFullFilename);
-    	if(($file->exists()) && ImmoConnectorHelper::isCacheFileValid($file))) {
+       $file = new \File($strFullFilename, true);
+    	if(($file->exists()) && ImmoConnectorHelper::isCacheFileValid($file)) {
             return true;
     	}
     	return false;
@@ -157,7 +157,7 @@ class ImmoConnector extends \Backend {
 
     private function buildCacheFileName($strDocument) {
     	//$strDocument = md5($strDocument);
-    	return  TL_ROOT . '/' . self::CACHE_DIRECTORY . $strDocument . '.xml';
+    	return self::CACHE_DIRECTORY . $strDocument . '.xml';
     }
 
     protected function orderDomDocumentByObjectType(&$objDocument) {
@@ -221,19 +221,28 @@ class ImmoConnector extends \Backend {
     }
 
     protected function filterDocResult(&$document, $arrFilter) {
-        $xpath = new XPath($document);
+        $xpath = new \DOMXPath($document);
 
         //Filtern nachn
         if($arrFilter['objectType'] && $arrFilter['objectType']!= '') {
             foreach($xpath->query("//typeList[@ic_type!='" . $arrFilter['objectType'] . "']") as $tlNode) {
-                $parent = $tlNode->parent;
+                $parent = $tlNode->parentNode;
                 $parent->removeChild($tlNode);
             }
         }
-
+        
         if($arrFilter['zipcode'] && $arrFilter['zipcode'] != '') {
-            foreach($xpath->query("typeList//realEstateElement/address/postcode[starts-with(text(),'" . $arrFilter['zipcode'] . "')]") as $tlNode) {
-                $parent = $tlNode->parent;
+            $query = '//realEstateElement[not(starts-with(address/postcode, "' . $arrFilter['zipcode'] . '"))]';
+            foreach($xpath->query($query) as $tlNode) {
+                $parent = $tlNode->parentNode;
+                $parent->removeChild($tlNode);
+            }
+        }
+        
+        if($arrFilter['city'] && $arrFilter['city'] != '') {
+            $query = '//realEstateElement[not(contains(address/city, "' . $arrFilter['city'] . '"))]';
+            foreach($xpath->query($query) as $tlNode) {
+                $parent = $tlNode->parentNode;
                 $parent->removeChild($tlNode);
             }
         }

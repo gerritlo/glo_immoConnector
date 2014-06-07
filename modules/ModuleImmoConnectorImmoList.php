@@ -33,6 +33,7 @@ class ModuleImmoConnectorImmoList extends \Module
 	 * @var string
 	 */
 	protected $strTemplate = 'mod_realestatelist';
+        protected $_searchFormId = 'tl_immoConnectorImmoSearch';
 	protected $intObjectPageCount = 20;
 
 	public function generate()
@@ -58,57 +59,65 @@ class ModuleImmoConnectorImmoList extends \Module
 	 */
 	protected function compile()
 	{
+            $filter = null;
+            if(\Input::post('FORM_SUBMIT') == $this->_searchFormId) {
+                $filter = array(
+                    'objectType' => \Input::post('objectType'),
+                    'zipcode' => \Input::post('zipcode'),
+                    'city'  => \Input::post('city'),
+                );
+            }
 
-		$currPage = \Input::get('page');
-		$currPage = is_null($currPage) ? 1 : $currPage;
-		
-		$objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
+            $currPage = \Input::get('page');
+            $currPage = is_null($currPage) ? 1 : $currPage;
 
-		//User auf null setzen bzw. Username auslesen
-		$objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
-		if (is_null($objUser)) {
-			throw new \Exception("Missing or invalid User selected for API-Connection", 1);
-			
-		}
-		
+            $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
 
-		$objRes = $objImmoConnector->getAllUserObjects($objUser);
-		$arrTypes = $objImmoConnector->getObjectTypes($objRes);
-		$objXml = simplexml_import_dom($objRes);
-		$arrRendered = array();
+            //User auf null setzen bzw. Username auslesen
+            $objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
+            if (is_null($objUser)) {
+                    throw new \Exception("Missing or invalid User selected for API-Connection", 1);
 
-		foreach ($objXml->realEstateList->typeList as $objList) {
-			$strType = $objList['type'];
-                    
-			//$arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
-		}
+            }
 
-		$this->Template->realEstateObjects =  $arrRendered;
 
-		/*
-		$sCertifyURL = 'http://localhost/spielberg/index.php/objekte.html'; // Komplette URL inkl. Parameter auf der das Script eingebunden wird
-		if(isset($_GET['main_registration'])||isset($_GET['state']))
-		{
-		    if(isset($_POST['user'])){ $sUser=$_POST['user']; }
-		    if(isset($_GET['user'])){ $sUser=$_GET['user']; }
-		    $aParameter = array('callback_url'=>$sCertifyURL.'?user='.$sUser,'verifyApplication'=>true);
-		    // Benutzer neu zertifizieren
-		    if($immocaster->getAccess($aParameter))
-		    {
-		        print_r($immocaster->getAccess($aParameter));
-		        echo '<div id="appVerifyInfo">Zertifizierung war erfolgreich.</div>';
-		    }
-		    else
-		    {
-		        // Test ob Benutzer schon zertifiziert ist
-		        if($immocaster->getApplicationTokenAndSecret($sUser))
-		        {
-		            echo '<div id="appVerifyInfo">Dieser Benutzer ist bereits zertifiziert.</div>';
-		        }
-		    }
-		}
-		echo '<form action="'.$sCertifyURL.'?main_registration=1" method="post"><div id="appVerifyButton"><strong>Hinweis: Unter IE9 kann es zu Problemen mit der Zertifizierung kommen.</strong><br />Benutzername: <input type="text" name="user" value="'.$GLOBALS['TL_CONFIG']['gloImmoConnectorUsername'].'"/><br /><em>Der Benutzername sollte nach Möglichkeit gesetzt werden. Standardmäßig wird ansonsten "me" genommen. Somit können aber nicht mehrere User parallel in der Datenbank abgelegt werden. Der gewählte Benutzernamen muss der gleiche wie im Formular auf der nächsten Seite sein, damit der Token richtig zugewiesen werden kann.</em><br /><input type="submit" value="Jetzt zertifizieren" /></div><input type="hidden" name="REQUEST_TOKEN" value="'.REQUEST_TOKEN.'"></form>';
-		*/
+            $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
+            $arrTypes = $objImmoConnector->getObjectTypes($objRes);
+            $objXml = simplexml_import_dom($objRes);
+            $arrRendered = array();
+
+            foreach ($objXml->realEstateList->typeList as $objList) {
+                    $strType = (String) $objList['ic_type'];
+
+                    $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
+            }
+
+            $this->Template->realEstateObjects =  $arrRendered;
+
+            /*
+            $sCertifyURL = 'http://localhost/spielberg/index.php/objekte.html'; // Komplette URL inkl. Parameter auf der das Script eingebunden wird
+            if(isset($_GET['main_registration'])||isset($_GET['state']))
+            {
+                if(isset($_POST['user'])){ $sUser=$_POST['user']; }
+                if(isset($_GET['user'])){ $sUser=$_GET['user']; }
+                $aParameter = array('callback_url'=>$sCertifyURL.'?user='.$sUser,'verifyApplication'=>true);
+                // Benutzer neu zertifizieren
+                if($immocaster->getAccess($aParameter))
+                {
+                    print_r($immocaster->getAccess($aParameter));
+                    echo '<div id="appVerifyInfo">Zertifizierung war erfolgreich.</div>';
+                }
+                else
+                {
+                    // Test ob Benutzer schon zertifiziert ist
+                    if($immocaster->getApplicationTokenAndSecret($sUser))
+                    {
+                        echo '<div id="appVerifyInfo">Dieser Benutzer ist bereits zertifiziert.</div>';
+                    }
+                }
+            }
+            echo '<form action="'.$sCertifyURL.'?main_registration=1" method="post"><div id="appVerifyButton"><strong>Hinweis: Unter IE9 kann es zu Problemen mit der Zertifizierung kommen.</strong><br />Benutzername: <input type="text" name="user" value="'.$GLOBALS['TL_CONFIG']['gloImmoConnectorUsername'].'"/><br /><em>Der Benutzername sollte nach Möglichkeit gesetzt werden. Standardmäßig wird ansonsten "me" genommen. Somit können aber nicht mehrere User parallel in der Datenbank abgelegt werden. Der gewählte Benutzernamen muss der gleiche wie im Formular auf der nächsten Seite sein, damit der Token richtig zugewiesen werden kann.</em><br /><input type="submit" value="Jetzt zertifizieren" /></div><input type="hidden" name="REQUEST_TOKEN" value="'.REQUEST_TOKEN.'"></form>';
+            */
 	}
 
 	protected function renderObjectTypeGroup($strType, $objTypeObjects) {

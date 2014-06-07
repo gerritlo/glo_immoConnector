@@ -21,6 +21,7 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['objectType'] = 'Objekt-Art';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'] = 'PLZ';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['city'] = 'Ort';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['search'] = 'Suchen';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjects'] = 'Leider wurden keine Objekte gefunden.';
 
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['houseRent'] = 'Haus zur Miete';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['houseBuy'] = 'Haus zum Kauf';
@@ -38,3 +39,4 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'] = 'Kaltmiete';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'] = 'Einbauküche';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['yes'] = 'Ja';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['no'] = 'Nein';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['netFloorSpace'] = 'Nettofläche';

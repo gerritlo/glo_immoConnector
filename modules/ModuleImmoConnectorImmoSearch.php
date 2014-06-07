@@ -75,7 +75,7 @@ class ModuleImmoConnectorImmoSearch extends \Module
 		$objTarget = $this->objModel->getRelated('gloImmoConnectorjumpTo');
 		$this->Template->action = $this->generateFrontendUrl($objTarget->row());
 
-		$this->Template->formId = 
+		$this->Template->formId = $this->strFormId;
 		$this->Template->objectTypeLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['objectType'];
 		$this->Template->zipCodeLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'];
 		$this->Template->cityLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['city'];

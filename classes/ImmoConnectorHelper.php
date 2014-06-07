@@ -28,20 +28,25 @@ class ImmoConnectorHelper extends \Backend {
     }
 
     public function purgeCacheFiles() {
-    	$objFolder = new \Folder(TL_ROOT . ImmoConnector::CACHE_DIRECTORY);
+    	$objFolder = new \Folder(ImmoConnector::CACHE_DIRECTORY);
     	$objFolder->purge();
 
     	$this->log("Cache-File were deleted.", __METHOD__, TL_FILES);
     }
 
     public static function isCacheFileValid($objFile) {
+        
+        $validTime = self::cacheFileValidTime($objFile->mtime);
+        $isValid = $validTime > time();
+        
+        
         $GLOBALS['TL_DEBUG']['immoConnector']['cacheFiles'][$objFile->filename] = array(
             'mtime' => $objFile->mtime,
-            'validTime' => self::cacheFileValidTime($objFile->mtime),
-            'isValid' => self::cacheFileValidTime($objFile->mtime) > time()
+            'validTime' => $validTime,
+            'isValid' => $isValid
         );
         
-        $isValid = self::cacheFileValidTime($objFile->mtime) > time();
+        
         return $isValid;
     }
 

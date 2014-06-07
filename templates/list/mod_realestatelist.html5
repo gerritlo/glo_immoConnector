@@ -14,10 +14,21 @@
 	<?php endif; ?>
 	<?php foreach($this->realEstateObjects as $typeGroup => $groupObjects): ?>
 		<section class="objectTypeGroup">
-		<h1><a name="<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$typeGroup]; ?></a></h1>
-		<?php foreach($groupObjects as $object): ?>
-			<?php echo $object; ?>
-		<?php endforeach; ?>
+                    <h1><a name="<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$typeGroup]; ?></a></h1>
+                    <div class="row">
+                    <?php
+                        $i = 0;
+                        foreach($groupObjects as $object) {
+                            echo $object;
+
+                            if(($i++ % 2) == 1) echo '</div><div class="row">';
+                        }
+                        
+                        if(count($groupObjects) < 1) {
+                            echo "<p>" . $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjects'] . "</p>";
+                        }
+                    ?>
+                    </div>
 		</section>
 	<?php endforeach; ?>
 </div>
