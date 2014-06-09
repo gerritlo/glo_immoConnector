@@ -65,6 +65,7 @@ class ModuleImmoConnectorImmoList extends \Module
                     'objectType' => \Input::post('objectType'),
                     'zipcode' => \Input::post('zipcode'),
                     'city'  => \Input::post('city'),
+                    'keyword'  => \Input::post('keyword'),
                 );
             }
 

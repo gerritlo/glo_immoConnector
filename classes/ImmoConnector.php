@@ -232,10 +232,9 @@ class ImmoConnector extends \Backend {
         }
         
         if($arrFilter['zipcode'] && $arrFilter['zipcode'] != '') {
-            //$query = '//realEstateElement[not(starts-with(address/postcode, "' . $arrFilter['zipcode'] . '"))]';
             $query = '//realEstateElement/address/postcode';
             foreach($xpath->query($query) as $tlNode) {
-                if(preg_match("#^" . $arrFilter['zipcode'] . "#", $tlNode->textContent) < 1) {
+                if(preg_match("#^" . preg_quote($arrFilter['zipcode']) . "#", $tlNode->textContent) < 1) {
                     $realEstateElement = $tlNode->parentNode->parentNode;
                     $typeList = $realEstateElement->parentNode;
                     $typeList->removeChild($realEstateElement);
@@ -246,8 +245,19 @@ class ImmoConnector extends \Backend {
         if($arrFilter['city'] && $arrFilter['city'] != '') {
             $query = '//realEstateElement/address/city';
             foreach($xpath->query($query) as $tlNode) {
-                if(preg_match("#" . $arrFilter['city'] . "#i", $tlNode->textContent) < 1) {
+                if(preg_match("#" . preg_quote($arrFilter['city']) . "#i", $tlNode->textContent) < 1) {
                     $realEstateElement = $tlNode->parentNode->parentNode;
+                    $typeList = $realEstateElement->parentNode;
+                    $typeList->removeChild($realEstateElement);
+                }
+            }
+        }
+        
+        if($arrFilter['keyword'] && $arrFilter['keyword'] != '') {
+            $query = '//realEstateElement/title';
+            foreach($xpath->query($query) as $tlNode) {
+                if(preg_match("#" . preg_quote($arrFilter['keyword']) . "#i", $tlNode->textContent) < 1) {
+                    $realEstateElement = $tlNode->parentNode;
                     $typeList = $realEstateElement->parentNode;
                     $typeList->removeChild($realEstateElement);
                 }

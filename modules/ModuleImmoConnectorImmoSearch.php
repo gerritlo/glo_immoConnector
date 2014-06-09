@@ -68,6 +68,7 @@ class ModuleImmoConnectorImmoSearch extends \Module
 			$this->Template->defaultObjectType = \Input::post('objectType');
 			$this->Template->defaultZipcode = \Input::post('zipcode');
 			$this->Template->defaultCity = \Input::post('city');
+                        $this->Template->defaultKeywoed = \Input::post('keyword');
 		}
 		
 
@@ -80,12 +81,13 @@ class ModuleImmoConnectorImmoSearch extends \Module
 		$this->Template->zipCodeLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'];
 		$this->Template->cityLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['city'];
 		$this->Template->submitLabel =$GLOBALS['TL_LANG']['FMD']['immoConnector']['search'];
+                $this->Template->keywordLabel =$GLOBALS['TL_LANG']['FMD']['immoConnector']['keyword'];
 		$this->Template->objectTypes = $this->getObjectTypes();
 	}
 
 	
 	protected function getObjectTypes() {
-		$arrTypes = array();
+		$arrTypes = array('' => $GLOBALS['TL_LANG']['FMD']['immoConnector']['all']);
 
 		foreach (ImmoConnector::$realEstateTypes as $strType) {
 			$arrTypes[$strType] = isset($GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType]) ? $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType] : $strType;

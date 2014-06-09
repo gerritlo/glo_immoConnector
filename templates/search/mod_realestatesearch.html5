@@ -1,5 +1,5 @@
 <!-- indexer::stop -->
-<div class="mod_immoConnectorImmoSearch <?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 
   <?php if ($this->headline): ?>
     <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
@@ -16,6 +16,10 @@
         	<option value="<?php echo $strTypeValue; ?>"<?php if($this->defaultObjectType == $strTypeValue): ?> selected<?php endif; ?>><?php echo $strTypeLabel; ?></option>
         	<?php endforeach; ?>
         </select>
+      </div>
+      <div class="formelement">
+        <label for="ctrl_keyword" class="invisible"><?php echo $this->keywordLabel; ?></label>
+        <input type="text" name="keyword" placeholder="<?php echo $this->keywordLabel; ?>" id="ctrl_keyword"<?php if($this->defaultKeyword): ?> value="<?php echo $this->defaultKeyword; ?>"<?php endif; ?>>
       </div>
       <div class="formelement">
         <label for="ctrl_zipCode" class="invisible"><?php echo $this->zipCodeLabel; ?></label>
