@@ -68,6 +68,12 @@ class ModuleImmoConnectorImmoList extends \Module
                     'keyword'  => \Input::post('keyword'),
                 );
             }
+            
+            //Get Expose Page
+            if ($this->gloImmoConnectorjumpTo && ($objTarget = $this->objModel->getRelated('gloImmoConnectorjumpTo')) !== null)
+	    {
+		$this->Template->exposeUrl = $this->generateFrontendUrl($objTarget->row());
+	    }
 
             $currPage = \Input::get('page');
             $currPage = is_null($currPage) ? 1 : $currPage;
