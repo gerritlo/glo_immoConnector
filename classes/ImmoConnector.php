@@ -263,5 +263,12 @@ class ImmoConnector extends \Backend {
                 }
             }
         }
+        
+        //Remove empty nodes
+        $emptyNodes = $xpath->query("//typeList[count(./*) < 1]");
+        foreach($emptyNodes as $node) {
+        	$realEstateList = $node->parentNode;
+        	$realEstateList->removeChild($node);
+        }
     }
 }
