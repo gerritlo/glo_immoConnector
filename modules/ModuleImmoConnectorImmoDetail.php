@@ -40,6 +40,17 @@ class ModuleImmoConnectorImmoDetail extends \Module
 	 */
 	protected function compile()
 	{
-
+		global $objPage;
+		
+		//Prüfen ob eine numerische ExposeId angegeben wurde
+		$exposeId = trim(\Input::get("exposeId"));
+		if($exposeId == '' || !preg_match('/^\d+$/', $exposeId)) {
+			$this->redirectToNotFound($objPage);
+		}
+	}
+	
+	protected function redirectToNotFound($objPage) {
+		$objHandler = new $GLOBALS['TL_PTY']['error_404']();
+		$objHandler->generate($objPage->id, null, null, true);
 	}
 }
