@@ -31,4 +31,7 @@
                     </div>
 		</section>
 	<?php endforeach; ?>
+	<?php if (count($this->realEstateObjects) < 1): ?>
+		<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjects']; ?></p>
+	<?php endif; ?>
 </div>
