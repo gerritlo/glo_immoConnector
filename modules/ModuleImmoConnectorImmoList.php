@@ -71,9 +71,9 @@ class ModuleImmoConnectorImmoList extends \Module
             
             //Get Expose Page
             if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
-	    {
-		$exposeUrl = $this->generateFrontendUrl($objTarget->row());
-	    }
+		    {
+				$this->_objTarget = $objTarget;
+		    }
 
             $currPage = \Input::get('page');
             $currPage = is_null($currPage) ? 1 : $currPage;
@@ -89,14 +89,15 @@ class ModuleImmoConnectorImmoList extends \Module
 
 
             $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
-            $arrTypes = $objImmoConnector->getObjectTypes($objRes);
             $objXml = simplexml_import_dom($objRes);
+            $arrRes = $this->orderObjects($objXml);
+            $arrTypes = array_keys($arrRes);
+            
             $arrRendered = array();
 
-            foreach ($objXml->realEstateList->typeList as $objList) {
-                    $strType = (String) $objList['ic_type'];
+            foreach ($arrRes as $strType => $objList) {
 
-                    $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $exposeUrl, $objList);
+                    $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
             }
 
             $this->Template->realEstateObjects =  $arrRendered;
@@ -127,17 +128,50 @@ class ModuleImmoConnectorImmoList extends \Module
             */
 	}
 
-	protected function renderObjectTypeGroup($strType, $exposeUrl, $objTypeObjects) {
+	protected function renderObjectTypeGroup($strType, $arrTypeObjects) {
 		$arrObjectTemplates = array();
 
-		foreach ($objTypeObjects->realEstateElement as $objObject) {
+		foreach ($arrTypeObjects as $strType => $arrObject) {
 			$strTenplateName = "glo_".$strType.'Short';
 			$objTemplate = new \FrontendTemplate($strTenplateName);
-			$objTemplate->objRealEstate = $objObject;
-                        $objTemplate->exposeUrl = $exposeUrl;
+			$objTemplate->data = $arrObject;
 			$arrObjectTemplates[] = $objTemplate->parse();
 		}
 
 		return $arrObjectTemplates;
+	}
+	
+	protected function orderObjects($objObjects) {
+		$arrRes = array();
+		
+		foreach ($objObjects->realEstateList->typeList as $objList) {
+                $strType = (String) $objList['ic_type'];
+
+                $arrRes[$strType] = $this->addObjects($objList);
+        }
+        return $arrRes;
+	}
+	
+	protected function addObjects($objList) {
+		$arrRes = array();
+		
+		foreach($objList->realEstateList as $objElement) {
+			$arrData = array(
+				'title' => $objElement->title,
+				'titlePictureUrl' => ($objElement != null) ? $objElement->urls->url[1]['href'] : null,
+				'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), 'exposeId='.$objElement['id']),
+				'zipcode' => $objElement->address->postcode,
+				'city' => $objElement->address->city,
+				'plotArea' => $objElement->livingSpace,
+				'numberOfRooms' => $objElement->numberOfRooms,
+				'builtInKitchen' => $objElement->builtInKitchen,
+				'priceValue' => $objElement->price->value,
+				'priceCurrency' => $objElement->price->currency,
+				'livingSpace' => $objElement->livingSpace,
+			);
+			$arrRes[] = $arrData;
+		}
+		
+		return $arrRes;
 	}
 }

@@ -1,13 +1,13 @@
-<article class="realEstateObject<?php if($this->objRealEstate->titlePicture->titlePicture) { echo " withPicture"; } ?>">
-	<?php if($this->objRealEstate->titlePicture->titlePicture): ?>
-		<img src="<?php echo $this->objRealEstate->titlePicture->urls->url[1]['href'] ?>" class="titlePicture" />
+<article class="realEstateObject<?php if($this->data['titlePicture']) { echo " withPicture"; } ?>">
+	<?php if($this->data['titlePicture']): ?>
+		<img src="<?php echo $this->data['titlePictureUrl'] ?>" class="titlePicture" />
 	<?php endif; ?>
-                
-        <h2><?php echo $this->objRealEstate->title; ?></h2>
-        <p class="objectAddress"><?php echo $this->objRealEstate->address->postcode; ?> <?php echo $this->objRealEstate->address->city; ?></p>
-        <p class="objectLivingSpace"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'].": ".$this->objRealEstate->livingSpace." m²"; ?></p>
-        <p class="objectPlotArea"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->objRealEstate->plotArea." m²"; ?></p>
-        <p class="objectNoRooms"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'].": ".$this->objRealEstate->numberOfRooms; ?></p>
-        <p class="objectBuiltInKitchen"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'].": ".($this->objRealEstate->builtInKitchen ? $GLOBALS['TL_LANG']['FMD']['immoConnector']['yes'] : $GLOBALS['TL_LANG']['FMD']['immoConnector']['no']); ?></p>
-        <p class="objectPrice"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'].": ".$this->objRealEstate->price->value." ".$GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->objRealEstate->price->currency->__toString()]; ?></p>
+
+	<h2><?php if($this->data['exposeUrl'] != ''): ?><a href="<?php echo $this->data['exposeUrl']; ?>"><?php endif; ?><?php echo $this->data['title']; ?><?php if($this->data['exposeUrl'] != ''): ?></a><?php endif; ?></h2>
+	<p class="objectAddress"><?php echo $this->data['zipcode']; ?> <?php echo $this->data['city']; ?></p>
+	<p class="objectLivingSpace"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'].": ".$this->data['livingSpace']." m²"; ?></p>
+	<p class="objectPlotArea"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->data['plotArea']." m²"; ?></p>
+	<p class="objectNoRooms"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'].": ".$this->data['numberOfRooms']; ?></p>
+	<p class="objectBuiltInKitchen"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'].": ".($this->objRealEstate->builtInKitchen ? $GLOBALS['TL_LANG']['FMD']['immoConnector']['yes'] : $GLOBALS['TL_LANG']['FMD']['immoConnector']['no']); ?></p>
+        <p class="objectPrice"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'].": ".$this->data['priceValue']." ".$GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->data['priceCurrency']]; ?></p>
 </article>
