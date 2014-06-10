@@ -19,16 +19,16 @@
       </div>
       <div class="formelement">
         <label for="ctrl_keyword" class="invisible"><?php echo $this->keywordLabel; ?></label>
-        <input type="text" name="keyword" placeholder="<?php echo $this->keywordLabel; ?>" id="ctrl_keyword"<?php if($this->defaultKeyword): ?> value="<?php echo $this->defaultKeyword; ?>"<?php endif; ?>>
+        <input type="text" name="keyword" placeholder="<?php echo $this->keywordLabel; ?>" id="ctrl_keyword"<?php if($this->defaultKeyword): ?> value="<?php echo \String::decodeEntities($this->defaultKeyword); ?>"<?php endif; ?>>
       </div>
       <div class="formelement">
         <label for="ctrl_zipCode" class="invisible"><?php echo $this->zipCodeLabel; ?></label>
-        <input type="text" name="zipcode" placeholder="<?php echo $this->zipCodeLabel; ?>" id="ctrl_zipCode"<?php if($this->defaultZipcode): ?> value="<?php echo $this->defaultZipcode; ?>"<?php endif; ?>>
+        <input type="text" name="zipcode" placeholder="<?php echo $this->zipCodeLabel; ?>" id="ctrl_zipCode"<?php if($this->defaultZipcode): ?> value="<?php echo \String::decodeEntities($this->defaultZipcode); ?>"<?php endif; ?>>
       </div>
 
       <div class="formelement">
         <label for="ctrl_city" class="invisible"><?php echo $this->objectTypeLabel; ?></label>
-        <input type="text" name="city" placeholder="<?php echo $this->cityLabel; ?>" id="ctrl_city"<?php if($this->defaultCity): ?> value="<?php echo $this->defaultZipcode; ?>"<?php endif; ?>>
+        <input type="text" name="city" placeholder="<?php echo $this->cityLabel; ?>" id="ctrl_city"<?php if($this->defaultCity): ?> value="<?php echo \String::decodeEntities($this->defaultCity); ?>"<?php endif; ?>>
       </div>
 
       <input type="submit" name="submit" class="submit" value="<?php echo $this->submitLabel; ?>">
