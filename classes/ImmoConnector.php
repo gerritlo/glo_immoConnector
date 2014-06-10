@@ -5,6 +5,7 @@ namespace GloImmoConnector;
 class ImmoConnector extends \Backend {
 
     const ALL_USER_OBJECTS = 'allUserObjects';
+    const EXPOSE = 'EXPOSE';
     const CACHE_DIRECTORY = 'system/cache/immoConnector/';
 
     protected $_offerListTypes = array(
@@ -45,6 +46,28 @@ class ImmoConnector extends \Backend {
             );
 
             $this->_objImmocaster = $immocaster;
+    }
+    
+    public function getExpose($id) {
+    	
+    	$strDocument = EXPOSE . '_' . $id;
+    	
+    	//Check for cache
+    	if ($this->isDocumentCached($strDocument) && \Config::get('gloImmoConnectorCacheActive') == '1') {
+        	//Lade den Cache in die FirstPage
+        	$objExpose = $this->getCachedXmlDocument($strDocument);
+                $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
+        } else {
+    		$aParameter = array('exposeid' = >$id);
+    		$objExpose = new \DOMDocument();
+		$objExpose->loadXml($this->_objImmocaster->getExpose($aParameter));
+		$this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
+
+                //Geladene Daten in den Cache schreiben
+                $this->cacheXmlDocument($objRes, $strDocument);
+        }
+        
+    	return null;
     }
 
     public function getAllUserObjects($objUser, $filter) {
