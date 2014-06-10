@@ -10,7 +10,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorUser'] = array(
 $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorShowSummary'] = array(
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorShowSummary'],
 	'inputType'               => 'checkbox',
-	'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50'),
+	'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50', 'tl_class' => 'clr'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
@@ -25,6 +25,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo'] = array
     'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 );
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorShowSummary,gloImmoConnectorjumpTo';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorShowSummary,jumpTo';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorjumpTo';

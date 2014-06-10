@@ -68,7 +68,7 @@ class ModuleImmoConnectorImmoSearch extends \Module
 			$this->Template->defaultObjectType = \Input::post('objectType');
 			$this->Template->defaultZipcode = \Input::post('zipcode');
 			$this->Template->defaultCity = \Input::post('city');
-                        $this->Template->defaultKeywoed = \Input::post('keyword');
+                        $this->Template->defaultKeyword = \Input::post('keyword');
 		}
 		
 

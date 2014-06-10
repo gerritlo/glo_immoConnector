@@ -3,7 +3,7 @@
 		<img src="<?php echo $this->objRealEstate->titlePicture->urls->url[1]['href'] ?>" class="titlePicture" />
 	<?php endif; ?>
 
-	<h2><a href="<?php echo $this->addToUrl($this->exposeUrl, "id="); ?>"><?php echo $this->objRealEstate->title; ?></a></h2>
+	<h2><a href="<?php echo $this->exposeUrl; ?>"><?php echo $this->objRealEstate->title; ?></a></h2>
 	<p class="objectAddress"><?php echo $this->objRealEstate->address->postcode; ?> <?php echo $this->objRealEstate->address->city; ?></p>
 	<p class="objectLivingSpace"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'].": ".$this->objRealEstate->livingSpace." m²"; ?></p>
 	<p class="objectPlotArea"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->objRealEstate->plotArea." m²"; ?></p>

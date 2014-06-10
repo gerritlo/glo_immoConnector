@@ -70,9 +70,9 @@ class ModuleImmoConnectorImmoList extends \Module
             }
             
             //Get Expose Page
-            if ($this->gloImmoConnectorjumpTo && ($objTarget = $this->objModel->getRelated('gloImmoConnectorjumpTo')) !== null)
+            if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
 	    {
-		$this->Template->exposeUrl = $this->generateFrontendUrl($objTarget->row());
+		$exposeUrl = $this->generateFrontendUrl($objTarget->row());
 	    }
 
             $currPage = \Input::get('page');
@@ -96,7 +96,7 @@ class ModuleImmoConnectorImmoList extends \Module
             foreach ($objXml->realEstateList->typeList as $objList) {
                     $strType = (String) $objList['ic_type'];
 
-                    $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
+                    $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $exposeUrl, $objList);
             }
 
             $this->Template->realEstateObjects =  $arrRendered;
@@ -127,13 +127,14 @@ class ModuleImmoConnectorImmoList extends \Module
             */
 	}
 
-	protected function renderObjectTypeGroup($strType, $objTypeObjects) {
+	protected function renderObjectTypeGroup($strType, $exposeUrl, $objTypeObjects) {
 		$arrObjectTemplates = array();
 
 		foreach ($objTypeObjects->realEstateElement as $objObject) {
 			$strTenplateName = "glo_".$strType.'Short';
 			$objTemplate = new \FrontendTemplate($strTenplateName);
 			$objTemplate->objRealEstate = $objObject;
+                        $objTemplate->exposeUrl = $exposeUrl;
 			$arrObjectTemplates[] = $objTemplate->parse();
 		}
 
