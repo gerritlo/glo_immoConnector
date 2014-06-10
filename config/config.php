@@ -74,6 +74,7 @@ array_insert($GLOBALS['FE_MOD'], 4, array
 	(
 		'immoConnectorImmoList'    => 'ModuleImmoConnectorImmoList',
 		'immoConnectorImmoSearch' => 'ModuleImmoConnectorImmoSearch',
+		'immoConnectorImmoDetail' => 'ModuleImmoConnectorImmoDetail',
 	)
 ));
 
