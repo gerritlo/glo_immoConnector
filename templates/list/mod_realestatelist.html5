@@ -7,7 +7,7 @@
 	<div class="mod_realEstateObjectListSummery">
 		<ul>
 			<?php foreach (array_keys($this->realEstateObjects) as $strType): ?>
-				<li><a href="#hl_<?php echo $strType; ?>"> <?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType]; ?></a></li>
+				<li><a href="{{env::request}}#hl_<?php echo $strType; ?>"> <?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType]; ?></a></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
