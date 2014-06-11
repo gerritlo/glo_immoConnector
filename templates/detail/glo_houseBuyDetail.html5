@@ -1,0 +1,4 @@
+<article>
+<h1><?php echo $expose['title']; ?></h1>
+<p><?php echo  $GLOBALS['TL_LANG']['FMD']['immoConnector'][$expose['type']]; ?></p>
+</article>

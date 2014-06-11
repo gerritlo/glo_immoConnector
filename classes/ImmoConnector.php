@@ -56,17 +56,19 @@ class ImmoConnector extends \Backend {
     	
     	//Check for cache
     	if ($this->isDocumentCached($strDocument) && \Config::get('gloImmoConnectorCacheActive') == '1') {
-        	//Lade den Cache in die FirstPage
+        	//Lade den Cache in das Expose
         	$objExpose = $this->getCachedXmlDocument($strDocument);
-                $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
+            $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
         } else {
     		$aParameter = array('exposeid' => $id, 'username' => $strUser);
     		$objExpose = new \DOMDocument();
-		$objExpose->loadXml($this->_objImmocaster->getExpose($aParameter));
-		$this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
-
-                //Geladene Daten in den Cache schreiben
-                $this->cacheXmlDocument($objRes, $strDocument);
+			$objExpose->loadXml($this->_objImmocaster->getExpose($aParameter));
+			$this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
+			
+			//Ggf. Error ausgeben, wenn kein Expose geladen werden konnte.
+			
+            //Geladene Daten in den Cache schreiben
+            $this->cacheXmlDocument($objRes, $strDocument);
         }
         
     	return null;

@@ -132,6 +132,6 @@ class ModuleImmoConnectorImmoDetail extends \Module
 	}
 	
 	protected function generateTemplateName($strType) {
-		return "fe_" . $strType . "Detail";
+		return "glo_" . $strType . "Detail";
 	}
 }
