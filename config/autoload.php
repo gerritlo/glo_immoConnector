@@ -26,17 +26,17 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'GloImmoConnector\ImmoConnector'                   => 'system/modules/glo_immoConnector/classes/ImmoConnector.php',
-	'GloImmoConnector\ImmoConnectorHelper'             => 'system/modules/glo_immoConnector/classes/ImmoConnectorHelper.php',
+	'GloImmoConnector\ImmoConnector'                 => 'system/modules/glo_immoConnector/classes/ImmoConnector.php',
+	'GloImmoConnector\ImmoConnectorHelper'           => 'system/modules/glo_immoConnector/classes/ImmoConnectorHelper.php',
 
 	// Models
-	'GloImmoConnector\IcAuthModel'                     => 'system/modules/glo_immoConnector/models/IcAuthModel.php',
+	'GloImmoConnector\IcAuthModel'                   => 'system/modules/glo_immoConnector/models/IcAuthModel.php',
 
 	// Modules
-	'GloImmoConnector\ModuleImmoConnectorCategoryList' => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorCategoryList.php',
-	'GloImmoConnector\ModuleImmoConnectorImmoDetail'   => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoDetail.php',
-	'GloImmoConnector\ModuleImmoConnectorImmoList'     => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoList.php',
-	'GloImmoConnector\ModuleImmoConnectorImmoSearch'   => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoSearch.php',
+	'GloImmoConnector\ModuleImmoConnectorImmoDetail' => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoDetail.php',
+	'GloImmoConnector\ModuleImmoConnectorImmoList'   => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoList.php',
+	'GloImmoConnector\ModuleImmoConnectorImmoRandom' => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoRandom.php',
+	'GloImmoConnector\ModuleImmoConnectorImmoSearch' => 'system/modules/glo_immoConnector/modules/ModuleImmoConnectorImmoSearch.php',
 ));
 
 
@@ -45,12 +45,14 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'glo_apartmentBuyShort'  => 'system/modules/glo_immoConnector/templates/list',
-	'glo_apartmentRentShort' => 'system/modules/glo_immoConnector/templates/list',
-	'glo_houseBuyShort'      => 'system/modules/glo_immoConnector/templates/list',
-	'glo_houseRentShort'     => 'system/modules/glo_immoConnector/templates/list',
-	'glo_investmentShort'    => 'system/modules/glo_immoConnector/templates/list',
-	'glo_livingBuySiteShort' => 'system/modules/glo_immoConnector/templates/list',
-	'mod_realestatelist'     => 'system/modules/glo_immoConnector/templates/list',
-	'mod_realestatesearch'   => 'system/modules/glo_immoConnector/templates/search',
+	'glo_houseBuyDetail'      => 'system/modules/glo_immoConnector/templates/detail',
+	'glo_apartmentBuyShort'   => 'system/modules/glo_immoConnector/templates/list',
+	'glo_apartmentRentShort'  => 'system/modules/glo_immoConnector/templates/list',
+	'glo_houseBuyShort'       => 'system/modules/glo_immoConnector/templates/list',
+	'glo_houseRentShort'      => 'system/modules/glo_immoConnector/templates/list',
+	'glo_investmentShort'     => 'system/modules/glo_immoConnector/templates/list',
+	'glo_livingBuySiteShort'  => 'system/modules/glo_immoConnector/templates/list',
+	'mod_realestatelist'      => 'system/modules/glo_immoConnector/templates/list',
+	'mod_immoConnectorRandom' => 'system/modules/glo_immoConnector/templates/random',
+	'mod_realestatesearch'    => 'system/modules/glo_immoConnector/templates/search',
 ));

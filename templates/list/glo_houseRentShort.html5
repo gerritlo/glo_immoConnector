@@ -8,6 +8,6 @@
 	<p class="objectLivingSpace"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingSpace'].": ".$this->data['livingSpace']." m²"; ?></p>
 	<p class="objectPlotArea"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'].": ".$this->data['plotArea']." m²"; ?></p>
 	<p class="objectNoRooms"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['numberOfRooms'].": ".$this->data['numberOfRooms']; ?></p>
-	<p class="objectBuiltInKitchen"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'].": ".(this->data['builtInKitchen'] ? $GLOBALS['TL_LANG']['FMD']['immoConnector']['yes'] : $GLOBALS['TL_LANG']['FMD']['immoConnector']['no']); ?></p>
+	<p class="objectBuiltInKitchen"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'].": ".($this->data['builtInKitchen'] ? $GLOBALS['TL_LANG']['FMD']['immoConnector']['yes'] : $GLOBALS['TL_LANG']['FMD']['immoConnector']['no']); ?></p>
         <p class="objectPrice"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'].": ".$this->data['priceValue']." ".$GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->data['priceCurrency']]; ?></p>
 </article>

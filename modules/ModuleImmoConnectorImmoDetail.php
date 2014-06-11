@@ -29,12 +29,12 @@ class ModuleImmoConnectorImmoDetail extends \Module
 {
 
 	protected static $_arrTypeFields = array(
-		'houseBuy' => array(),
-		'houseRent' => array(),
-		'appartmentRent' => array('title', 'street', 'houseNumber', 'postcode', 'city', 'descriptionNote', 'furnishingNote', 'locationNote', 'otherNote', 'showAddress', 'floor', 'apartmentType', 'lift', 'cellar', 'handicappedAccessible', 'numberOfParkingSpaces', 'condition', 'lastRefurbishment', 'constructionYear', 'interiorQuality', 'freeFrom', 'numberOfFloors', 'usableFloorSpace', 'numberOfBedRooms','numberOfBathRooms', 'guestToilet', 'parkingSpaceType', 'baseRent', 'totalRent', 'serviceCharge', 'deposit', 'livingSpace', 'numberOfRooms', 'balcony', 'garden', 'hasCourtage', 'courtage', 'courtageNote'),
-		'appartmentBuy' => array(),
-		'investment' => array(),
-		'livingBuySide' => array()
+            'houseBuy' => array(),
+            'houseRent' => array(),
+            'appartmentRent' => array('title', 'street', 'houseNumber', 'postcode', 'city', 'descriptionNote', 'furnishingNote', 'locationNote', 'otherNote', 'showAddress', 'floor', 'apartmentType', 'lift', 'cellar', 'handicappedAccessible', 'numberOfParkingSpaces', 'condition', 'lastRefurbishment', 'constructionYear', 'interiorQuality', 'freeFrom', 'numberOfFloors', 'usableFloorSpace', 'numberOfBedRooms','numberOfBathRooms', 'guestToilet', 'parkingSpaceType', 'baseRent', 'totalRent', 'serviceCharge', 'deposit', 'livingSpace', 'numberOfRooms', 'balcony', 'garden', 'hasCourtage', 'courtage', 'courtageNote'),
+            'appartmentBuy' => array(),
+            'investment' => array(),
+            'livingBuySide' => array()
 	);
 
 	/**
@@ -43,8 +43,8 @@ class ModuleImmoConnectorImmoDetail extends \Module
 	 */
     protected $strTemplate = 'mod_realestatedetail';
 
-	public function generate()
-	{
+    public function generate()
+    {
         if (TL_MODE == 'BE')
         {
             $objTemplate = new \BackendTemplate('be_wildcard');
@@ -66,35 +66,35 @@ class ModuleImmoConnectorImmoDetail extends \Module
 	 */
 	protected function compile()
 	{
-		global $objPage;
-		
-		//Prüfen ob eine numerische ExposeId angegeben wurde
-		$exposeId = trim(\Input::get("exposeId"));
-		if($exposeId == '' || !preg_match('/^\d+$/', $exposeId)) {
-			$this->redirectToNotFound($objPage);
-		}
-		
-		
-		$objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
+            global $objPage;
 
-        //User auf null setzen bzw. Username auslesen
-        $objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
-        if (is_null($objUser)) {
-                throw new \Exception("Missing or invalid User selected for API-Connection", 1);
+            //Prüfen ob eine numerische ExposeId angegeben wurde
+            $exposeId = trim(\Input::get("exposeId"));
+            if($exposeId == '' || !preg_match('/^\d+$/', $exposeId)) {
+                $this->redirectToNotFound($objPage);
+            }
 
-        }
-        
-        //Expose laden
-        $objExpose = $objImmoConnector->getExpose($exposeId, $objUser);
-        
-        //Typ der Immobilie bestimmen
-        $strType = $this->getObjectType($objDocument);
+
+            $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
+
+            //User auf null setzen bzw. Username auslesen
+            $objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
+            if (is_null($objUser)) {
+                    throw new \Exception("Missing or invalid User selected for API-Connection", 1);
+
+            }
+
+            //Expose laden
+            $objExpose = $objImmoConnector->getExpose($exposeId, $objUser);
+
+            //Typ der Immobilie bestimmen
+            $strType = $this->getObjectType($objDocument);
 	
-		//XML-Daten für Objekttyp aufbereiten
-		$arrData = $this->getDataForType($strType, $objDocument);
-		
-		//Objektdaten dem Template zuweisen
-		$this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
+            //XML-Daten für Objekttyp aufbereiten
+            $arrData = $this->getDataForType($strType, $objDocument);
+
+            //Objektdaten dem Template zuweisen
+            $this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
 	}
 	
 	protected function redirectToNotFound($objPage) {

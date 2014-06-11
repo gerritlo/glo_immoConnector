@@ -62,10 +62,11 @@ class ImmoConnector extends \Backend {
         } else {
     		$aParameter = array('exposeid' => $id, 'username' => $strUser);
     		$objExpose = new \DOMDocument();
-			$objExpose->loadXml($this->_objImmocaster->getExpose($aParameter));
-			$this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
-			
-			//Ggf. Error ausgeben, wenn kein Expose geladen werden konnte.
+                //$objExpose->loadXml($this->_objImmocaster->getExpose($aParameter));
+                var_dump($this->_objImmocaster->getExpose($aParameter));
+                $this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
+
+                //Ggf. Error ausgeben, wenn kein Expose geladen werden konnte.
 			
             //Geladene Daten in den Cache schreiben
             $this->cacheXmlDocument($objRes, $strDocument);
@@ -117,7 +118,7 @@ class ImmoConnector extends \Backend {
 
         //Anwenden von Filtern auf das Resultat
         if($filter) {
-	     	this->filterDocResult($objFirstPage, $filter);   
+	     	$this->filterDocResult($objFirstPage, $filter);   
         }
         
         //Kombinierte XML zurückgeben

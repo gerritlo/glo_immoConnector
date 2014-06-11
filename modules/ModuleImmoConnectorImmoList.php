@@ -86,7 +86,6 @@ class ModuleImmoConnectorImmoList extends \Module
             $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
             $arrRes = $this->orderObjects(simplexml_import_dom($objRes));
             unset($objXml);
-            
             $arrTypes = array_keys($arrRes);
             
             //Rendern der Objekt-Daten
@@ -127,7 +126,7 @@ class ModuleImmoConnectorImmoList extends \Module
 	protected function renderObjectTypeGroup($strType, $arrTypeObjects) {
 		$arrObjectTemplates = array();
 
-		foreach ($arrTypeObjects as $strType => $arrObject) {
+		foreach ($arrTypeObjects as $arrObject) {
 			$strTenplateName = "glo_".$strType.'Short';
 			$objTemplate = new \FrontendTemplate($strTenplateName);
 			$objTemplate->data = $arrObject;
@@ -138,37 +137,38 @@ class ModuleImmoConnectorImmoList extends \Module
 	}
 	
 	protected function orderObjects($objObjects) {
-		$arrRes = array();
-		
-		foreach ($objObjects->realEstateList->typeList as $objList) {
+            $arrRes = array();
+
+            foreach ($objObjects->realEstateList->typeList as $objList) {
                 $strType = (String) $objList['ic_type'];
 
                 $arrRes[$strType] = $this->addObjects($objList);
-        }
-        return $arrRes;
+            }
+            return $arrRes;
 	}
 	
 	protected function addObjects($objList) {
-		$arrRes = array();
-		
-		foreach($objList->realEstateList as $objElement) {
-			$arrData = array(
-				'title' => $objElement->title,
-				'titlePictureUrl' => ($objElement->titlePicture != null) ? $objElement->urls->url[1]['href'] : null,
-				'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), 'exposeId='.$objElement['id']),
-				'zipcode' => $objElement->address->postcode,
-				'city' => $objElement->address->city,
-				'plotArea' => $objElement->livingSpace,
-				'numberOfRooms' => $objElement->numberOfRooms,
-				'builtInKitchen' => $objElement->builtInKitchen,
-				'priceValue' => $objElement->price->value,
-				'priceCurrency' => $objElement->price->currency,
-				'livingSpace' => $objElement->livingSpace,
-				'netFloorSpace' => $objElement->netFloorSpace
-			);
-			$arrRes[] = $arrData;
-		}
-		
-		return $arrRes;
+            $arrRes = array();
+
+            foreach($objList->realEstateElement as $objElement) {
+                $arrData = array(
+                    'title' => (String)$objElement->title,
+                    'titlePicture' => (boolean) $objElement->titlePicture,
+                    'titlePictureUrl' => ($objElement->titlePicture) ? (String) $objElement->titlePicture->urls->url[1]['href'] : null,
+                    'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), '/expose/'.$objElement['id']),
+                    'zipcode' => (String) $objElement->address->postcode,
+                    'city' => (String) $objElement->address->city,
+                    'plotArea' => (int) $objElement->livingSpace,
+                    'numberOfRooms' => (int) $objElement->numberOfRooms,
+                    'builtInKitchen' => (String) $objElement->builtInKitchen,
+                    'priceValue' => (float) $objElement->price->value,
+                    'priceCurrency' => (String) $objElement->price->currency,
+                    'livingSpace' => (float)$objElement->livingSpace,
+                    'netFloorSpace' => (float)$objElement->netFloorSpace
+                );
+                $arrRes[] = $arrData;
+            }
+
+            return $arrRes;
 	}
 }

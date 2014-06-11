@@ -31,4 +31,4 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoRandom'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoRDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';
