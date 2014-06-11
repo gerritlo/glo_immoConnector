@@ -75,9 +75,6 @@ class ModuleImmoConnectorImmoList extends \Module
 				$this->_objTarget = $objTarget;
 		    }
 
-            $currPage = \Input::get('page');
-            $currPage = is_null($currPage) ? 1 : $currPage;
-
             $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
 
             //User auf null setzen bzw. Username auslesen
@@ -87,18 +84,17 @@ class ModuleImmoConnectorImmoList extends \Module
 
             }
 
-
             $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
-            $objXml = simplexml_import_dom($objRes);
-            $arrRes = $this->orderObjects($objXml);
+            $arrRes = $this->orderObjects(simplexml_import_dom($objRes));
+            unset($objXml);
             $arrTypes = array_keys($arrRes);
             
+            //Rendern der Objekt-Daten
             $arrRendered = array();
-
             foreach ($arrRes as $strType => $objList) {
-
                     $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
             }
+            unset($arrRes);
 
             $this->Template->realEstateObjects =  $arrRendered;
 
@@ -158,7 +154,7 @@ class ModuleImmoConnectorImmoList extends \Module
 		foreach($objList->realEstateList as $objElement) {
 			$arrData = array(
 				'title' => $objElement->title,
-				'titlePictureUrl' => ($objElement != null) ? $objElement->urls->url[1]['href'] : null,
+				'titlePictureUrl' => ($objElement->titlePicture != null) ? $objElement->urls->url[1]['href'] : null,
 				'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), 'exposeId='.$objElement['id']),
 				'zipcode' => $objElement->address->postcode,
 				'city' => $objElement->address->city,
@@ -168,6 +164,7 @@ class ModuleImmoConnectorImmoList extends \Module
 				'priceValue' => $objElement->price->value,
 				'priceCurrency' => $objElement->price->currency,
 				'livingSpace' => $objElement->livingSpace,
+				'netFloorSpace' => $objElement->netFloorSpace
 			);
 			$arrRes[] = $arrData;
 		}

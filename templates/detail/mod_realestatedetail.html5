@@ -1,0 +1,3 @@
+<article>
+<h1><?php echo $expose['title']; ?></h1>
+</article>

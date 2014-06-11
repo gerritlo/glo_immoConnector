@@ -48,7 +48,9 @@ class ImmoConnector extends \Backend {
             $this->_objImmocaster = $immocaster;
     }
     
-    public function getExpose($id) {
+    public function getExpose($id, $user) {
+    
+    	$strUser = $objUser->ic_username;
     	
     	$strDocument = EXPOSE . '_' . $id;
     	
@@ -58,7 +60,7 @@ class ImmoConnector extends \Backend {
         	$objExpose = $this->getCachedXmlDocument($strDocument);
                 $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
         } else {
-    		$aParameter = array('exposeid' => $id);
+    		$aParameter = array('exposeid' => $id, 'username' => $strUser);
     		$objExpose = new \DOMDocument();
 		$objExpose->loadXml($this->_objImmocaster->getExpose($aParameter));
 		$this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);

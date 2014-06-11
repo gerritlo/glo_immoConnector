@@ -32,9 +32,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
 	 * Template
 	 * @var string
 	 */
-        protected $strTemplate = 'mod_realestatedetail';
-        protected $_searchFormId = 'tl_immoConnectorImmoSearch';
-	protected $intObjectPageCount = 20;
+    protected $strTemplate = 'mod_realestatedetail';
 
 	public function generate()
 	{
@@ -66,10 +64,32 @@ class ModuleImmoConnectorImmoDetail extends \Module
 		if($exposeId == '' || !preg_match('/^\d+$/', $exposeId)) {
 			$this->redirectToNotFound($objPage);
 		}
+		
+		
+		$objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
+
+        //User auf null setzen bzw. Username auslesen
+        $objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
+        if (is_null($objUser)) {
+                throw new \Exception("Missing or invalid User selected for API-Connection", 1);
+
+        }
+        
+        //Expose laden
+        $objExpose = simplexml_import_dom($objImmoConnector->getExpose($exposeId, $objUser));
+        
+        //Expose-Daten als Array zuweisen.
+        $this->Template->expose = $this->getExposeData($objExpose);
 	}
 	
 	protected function redirectToNotFound($objPage) {
 		$objHandler = new $GLOBALS['TL_PTY']['error_404']();
 		$objHandler->generate($objPage->id, null, null, true);
+	}
+	
+	protected function getExposeData($objExpose) {
+		return array(
+			'title' => '',
+		);
 	}
 }
