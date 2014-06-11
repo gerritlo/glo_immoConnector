@@ -68,6 +68,13 @@ public function generate()
 
         }
         
-         $objRes = $objImmoConnector->getAllUserObjects($objUser, array());
+        $objRes = $objImmoConnector->getAllUserObjects($objUser);
+        
+        $xpath = new DOMXPath($objRes);
+        $objList = $xpath->query("//realEstateElement");
+        $index = rand(0, $objList->length - 1);
+        
+        //Zufalls-Item aus Liste laden
+        $ObjRand = $objList->item($index);
 	}
 }

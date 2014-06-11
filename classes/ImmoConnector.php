@@ -74,7 +74,7 @@ class ImmoConnector extends \Backend {
     	return null;
     }
 
-    public function getAllUserObjects($objUser, $filter) {
+    public function getAllUserObjects($objUser, $filter = null) {
 
         $strUser = $objUser->ic_username;
                 
@@ -116,7 +116,9 @@ class ImmoConnector extends \Backend {
         }
 
         //Anwenden von Filtern auf das Resultat
-        $this->filterDocResult($objFirstPage, $filter);
+        if($filter) {
+	     	this->filterDocResult($objFirstPage, $filter);   
+        }
         
         //Kombinierte XML zurückgeben
 		return $objFirstPage;
