@@ -62,8 +62,8 @@ class ImmoConnector extends \Backend {
         } else {
     		$aParameter = array('exposeid' => $id, 'username' => $strUser);
     		$objExpose = new \DOMDocument();
-                //$objExpose->loadXml($this->_objImmocaster->getExpose($aParameter));
-                var_dump($this->_objImmocaster->getExpose($aParameter));
+                //$objExpose->loadXml($this->_objImmocaster->getUserExpose($aParameter));
+                var_dump($this->_objImmocaster->getUserExpose($aParameter));
                 $this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
 
                 //Ggf. Error ausgeben, wenn kein Expose geladen werden konnte.
