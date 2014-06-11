@@ -28,6 +28,15 @@ namespace GloImmoConnector;
 class ModuleImmoConnectorImmoDetail extends \Module
 {
 
+	protected static $_arrTypeFields = array(
+		'houseBuy' => array(),
+		'houseRent' => array(),
+		'appartmentRent' => array('title', 'street', 'houseNumber', 'postcode', 'city', 'descriptionNote', 'furnishingNote', 'locationNote', 'otherNote', 'showAddress', 'floor', 'apartmentType', 'lift', 'cellar', 'handicappedAccessible', 'numberOfParkingSpaces', 'condition', 'lastRefurbishment', 'constructionYear', 'interiorQuality', 'freeFrom', 'numberOfFloors', 'usableFloorSpace', 'numberOfBedRooms','numberOfBathRooms', 'guestToilet', 'parkingSpaceType', 'baseRent', 'totalRent', 'serviceCharge', 'deposit', 'livingSpace', 'numberOfRooms', 'balcony', 'garden', 'hasCourtage', 'courtage', 'courtageNote'),
+		'appartmentBuy' => array(),
+		'investment' => array(),
+		'livingBuySide' => array()
+	);
+
 	/**
 	 * Template
 	 * @var string
@@ -40,7 +49,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
             {
                 $objTemplate = new \BackendTemplate('be_wildcard');
 
-                $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'][0]) . ' ###';
+                $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoDetail'][0]) . ' ###';
                 $objTemplate->title = $this->headline;
                 $objTemplate->id = $this->id;
                 $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
@@ -76,10 +85,16 @@ class ModuleImmoConnectorImmoDetail extends \Module
         }
         
         //Expose laden
-        $objExpose = simplexml_import_dom($objImmoConnector->getExpose($exposeId, $objUser));
+        $objExpose = $objImmoConnector->getExpose($exposeId, $objUser);
         
-        //Expose-Daten als Array zuweisen.
-        $this->Template->expose = $this->getExposeData($objExpose);
+        //Typ der Immobilie bestimmen
+        $strType = $this->getObjectType($objDocument);
+	
+		//XML-Daten für Objekttyp aufbereiten
+		$arrData = $this->getDataForType($strType, $objDocument);
+		
+		//Objektdaten dem Template zuweisen
+		$this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
 	}
 	
 	protected function redirectToNotFound($objPage) {
@@ -87,9 +102,36 @@ class ModuleImmoConnectorImmoDetail extends \Module
 		$objHandler->generate($objPage->id, null, null, true);
 	}
 	
-	protected function getExposeData($objExpose) {
-		return array(
-			'title' => '',
-		);
+	protected function getObjectType($objExpose) {
+		//Typ der Immobilie aus dem Tagname des Root-Knotens ermitteln
+		list( , $strType) = explode(":", $objExpose->documentElement->tagName);
+		return $strType;
+	}
+	
+	protected function getDataForType($strType, $objDocument) {
+	
+		$arrData = array('type' => $strType);
+		$xpath = new DOMXPath($objDocument);
+		
+		foreach(self::$_arrTypeFields[$strType] as $field) {
+		
+			//Knoten aus dem DOM laden
+			$objResult = $xpath->query("//".$field);
+			
+			switch($field) {
+				case "floor":
+					$arrData[$field] = (int)($objResult->length > 0) ? $objResult->item(0)->textContent : null;
+					break;
+				case "showAddress", "lift", "balcony", "garden":
+					$arrData[$field] = ($objResult->length > 0 && $objResult->item(0)->textContent == "true") ? true : false;
+					break;
+				default:
+					$arrData[$field] = ($objResult->length > 0) ? $objResult->item(0)->textContent : null;
+			}
+		}
+	}
+	
+	protected function generateTemplateName($strType) {
+		return "fe_" . $strType . "Detail";
 	}
 }

@@ -80,13 +80,13 @@ class ModuleImmoConnectorImmoList extends \Module
             //User auf null setzen bzw. Username auslesen
             $objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
             if (is_null($objUser)) {
-                    throw new \Exception("Missing or invalid User selected for API-Connection", 1);
-
+            	throw new \Exception("Missing or invalid User selected for API-Connection", 1);
             }
 
             $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
             $arrRes = $this->orderObjects(simplexml_import_dom($objRes));
             unset($objXml);
+            
             $arrTypes = array_keys($arrRes);
             
             //Rendern der Objekt-Daten
