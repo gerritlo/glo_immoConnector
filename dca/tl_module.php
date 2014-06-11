@@ -27,4 +27,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo'] = array
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorShowSummary,jumpTo';
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorjumpTo';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorjumpTo';
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoRandom'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoRDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';

@@ -45,20 +45,20 @@ class ModuleImmoConnectorImmoDetail extends \Module
 
 	public function generate()
 	{
-            if (TL_MODE == 'BE')
-            {
-                $objTemplate = new \BackendTemplate('be_wildcard');
+        if (TL_MODE == 'BE')
+        {
+            $objTemplate = new \BackendTemplate('be_wildcard');
 
-                $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoDetail'][0]) . ' ###';
-                $objTemplate->title = $this->headline;
-                $objTemplate->id = $this->id;
-                $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+            $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoDetail'][0]) . ' ###';
+            $objTemplate->title = $this->headline;
+            $objTemplate->id = $this->id;
+            $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
 
-                return $objTemplate->parse();
-            }
-
-            return parent::generate();
+            return $objTemplate->parse();
         }
+
+        return parent::generate();
+    }
 
 
 	/**
@@ -122,7 +122,10 @@ class ModuleImmoConnectorImmoDetail extends \Module
 				case "floor":
 					$arrData[$field] = (int)($objResult->length > 0) ? $objResult->item(0)->textContent : null;
 					break;
-				case "showAddress", "lift", "balcony", "garden":
+				case "showAddress":
+				case "lift":
+				case "balcony":
+				case "garden":
 					$arrData[$field] = ($objResult->length > 0 && $objResult->item(0)->textContent == "true") ? true : false;
 					break;
 				default:

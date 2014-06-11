@@ -1,8 +1,6 @@
-<article class="">
+<article>
 	<?php if ($this->headline): ?>
     	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
   	<?php endif; ?>
 
-  	<h1><?php echo $expose['title']; ?></h1>
-  	<p><?php echo  $GLOBALS['TL_LANG']['FMD']['immoConnector'][$expose['type']]; ?></p>
 </article>
