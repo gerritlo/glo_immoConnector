@@ -29,7 +29,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
 {
 
 	protected static $_arrTypeFields = array(
-            'houseBuy' => array(),
+            'houseBuy' => array('title', 'street', 'houseNumber', 'postcode', 'city'),
             'houseRent' => array(),
             'appartmentRent' => array('title', 'street', 'houseNumber', 'postcode', 'city', 'descriptionNote', 'furnishingNote', 'locationNote', 'otherNote', 'showAddress', 'floor', 'apartmentType', 'lift', 'cellar', 'handicappedAccessible', 'numberOfParkingSpaces', 'condition', 'lastRefurbishment', 'constructionYear', 'interiorQuality', 'freeFrom', 'numberOfFloors', 'usableFloorSpace', 'numberOfBedRooms','numberOfBathRooms', 'guestToilet', 'parkingSpaceType', 'baseRent', 'totalRent', 'serviceCharge', 'deposit', 'livingSpace', 'numberOfRooms', 'balcony', 'garden', 'hasCourtage', 'courtage', 'courtageNote'),
             'appartmentBuy' => array(),
@@ -70,7 +70,6 @@ class ModuleImmoConnectorImmoDetail extends \Module
 
             //Prüfen ob eine numerische ExposeId angegeben wurde
             $exposeId = \Input::get("object");
-            var_dump($exposeId);
             if($exposeId == '' || !preg_match('/^\d+$/', $exposeId)) {
                 $this->redirectToNotFound($objPage);
             }
@@ -87,15 +86,17 @@ class ModuleImmoConnectorImmoDetail extends \Module
 
             //Expose laden
             $objExpose = $objImmoConnector->getExpose($exposeId, $objUser);
+            $objAttachment = $objImmoConnector->getAttachment($exposeId, $objUser);
 
             //Typ der Immobilie bestimmen
-            $strType = $this->getObjectType($objDocument);
+            $strType = $this->getObjectType($objExpose);
 	
             //XML-Daten für Objekttyp aufbereiten
-            $arrData = $this->getDataForType($strType, $objDocument);
+            //$arrData = $this->getDataForType($strType, $objExpose);
 
             //Objektdaten dem Template zuweisen
             $this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
+            $this->Template->expose = simplexml_import_dom($objExpose);
 	}
 	
 	protected function redirectToNotFound($objPage) {
@@ -109,31 +110,34 @@ class ModuleImmoConnectorImmoDetail extends \Module
 		return $strType;
 	}
 	
-	protected function getDataForType($strType, $objDocument) {
+	/*protected function getDataForType($strType, $objDocument) {
 	
-		$arrData = array('type' => $strType);
-		$xpath = new DOMXPath($objDocument);
+		$arrData = array(
+                    'type' => $strType);
+                
+		$xpath = new \DOMXPath($objDocument);
 		
 		foreach(self::$_arrTypeFields[$strType] as $field) {
-		
-			//Knoten aus dem DOM laden
-			$objResult = $xpath->query("//".$field);
-			
-			switch($field) {
-				case "floor":
-					$arrData[$field] = (int)($objResult->length > 0) ? $objResult->item(0)->textContent : null;
-					break;
-				case "showAddress":
-				case "lift":
-				case "balcony":
-				case "garden":
-					$arrData[$field] = ($objResult->length > 0 && $objResult->item(0)->textContent == "true") ? true : false;
-					break;
-				default:
-					$arrData[$field] = ($objResult->length > 0) ? $objResult->item(0)->textContent : null;
-			}
+                    //Knoten aus dem DOM laden
+                    $objResult = $xpath->query("//".$field);
+
+                    switch($field) {
+                        case "floor":
+                                $arrData[$field] = (int)($objResult->length > 0) ? $objResult->item(0)->textContent : null;
+                                break;
+                        case "showAddress":
+                        case "lift":
+                        case "balcony":
+                        case "garden":
+                                $arrData[$field] = ($objResult->length > 0 && $objResult->item(0)->textContent == "true") ? true : false;
+                                break;
+                        default:
+                                $arrData[$field] = ($objResult->length > 0) ? $objResult->item(0)->textContent : null;
+                    }
 		}
-	}
+                
+                return $arrData;
+	}*/
 	
 	protected function generateTemplateName($strType) {
 		return "glo_" . $strType . "Detail";

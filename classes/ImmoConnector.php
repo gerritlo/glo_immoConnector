@@ -4,8 +4,9 @@ namespace GloImmoConnector;
 
 class ImmoConnector extends \Backend {
 
-    const ALL_USER_OBJECTS = 'allUserObjects';
+    const ALL_USER_OBJECTS = 'ALL_USER_OBJECTS';
     const EXPOSE = 'EXPOSE';
+    const ATTACHMENT = 'ATTACHMENT';
     const CACHE_DIRECTORY = 'system/cache/immoConnector/';
 
     protected $_offerListTypes = array(
@@ -51,15 +52,13 @@ class ImmoConnector extends \Backend {
     public function getExpose($id, $objUser) {
     
     	$strUser = $objUser->ic_username;
-        
-            var_dump($strUser);
     	
-    	$strDocument = EXPOSE . '_' . $id;
+    	$strDocument = self::EXPOSE . '_' . $id;
     	
     	//Check for cache
     	if ($this->isDocumentCached($strDocument) && \Config::get('gloImmoConnectorCacheActive') == '1') {
-        	//Lade den Cache in das Expose
-        	$objExpose = $this->getCachedXmlDocument($strDocument);
+            //Lade den Cache in das Expose
+            $objExpose = $this->getCachedXmlDocument($strDocument);
             $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
         } else {
             $aParameter = array('exposeid' => $id, 'username' => $strUser);
@@ -73,7 +72,33 @@ class ImmoConnector extends \Backend {
             $this->cacheXmlDocument($objExpose, $strDocument);
         }
         
-    	return null;
+    	return $objExpose;
+    }
+    
+    public function getAttachment($id, $objUser) {
+    
+    	$strUser = $objUser->ic_username;
+    	
+    	$strDocument = self::ATTACHMENT . '_' . $id;
+    	
+    	//Check for cache
+    	if ($this->isDocumentCached($strDocument) && \Config::get('gloImmoConnectorCacheActive') == '1') {
+            //Lade den Cache in das Expose
+            $objExpose = $this->getCachedXmlDocument($strDocument);
+            $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
+        } else {
+            $aParameter = array('exposeid' => $id, 'username' => $strUser);
+            $objExpose = new \DOMDocument();
+            $objExpose->loadXml($this->_objImmocaster->getAttachment($aParameter));
+            $this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
+
+            //Ggf. Error ausgeben, wenn kein Expose geladen werden konnte.
+			
+            //Geladene Daten in den Cache schreiben
+            $this->cacheXmlDocument($objExpose, $strDocument);
+        }
+        
+    	return $objExpose;
     }
 
     public function getAllUserObjects($objUser, $filter = null) {
@@ -82,7 +107,7 @@ class ImmoConnector extends \Backend {
                 
         $objFirstPage = null;
         $intMaxPage = 0;
-        $strDocument = ALL_USER_OBJECTS . '_' . $strUser;
+        $strDocument = self::ALL_USER_OBJECTS . '_' . $strUser;
 
         //Prüfe, ob das benötigte XML-Dokument im Cache vorliegt
         if ($this->isDocumentCached($strDocument) && \Config::get('gloImmoConnectorCacheActive') == '1') {
