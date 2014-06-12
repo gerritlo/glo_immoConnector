@@ -155,7 +155,7 @@ class ModuleImmoConnectorImmoList extends \Module
                     'title' => (String)$objElement->title,
                     'titlePicture' => (boolean) $objElement->titlePicture,
                     'titlePictureUrl' => ($objElement->titlePicture) ? (String) $objElement->titlePicture->urls->url[1]['href'] : null,
-                    'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), '/expose/'.$objElement['id']),
+                    'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$objElement['id']),
                     'zipcode' => (String) $objElement->address->postcode,
                     'city' => (String) $objElement->address->city,
                     'plotArea' => (int) $objElement->livingSpace,
