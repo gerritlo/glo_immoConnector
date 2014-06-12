@@ -69,7 +69,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
             global $objPage;
 
             //Prüfen ob eine numerische ExposeId angegeben wurde
-            $exposeId = trim(\Input::get("exposeId"));
+            $exposeId = \Input::get("object");
             var_dump($exposeId);
             if($exposeId == '' || !preg_match('/^\d+$/', $exposeId)) {
                 $this->redirectToNotFound($objPage);
