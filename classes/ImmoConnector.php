@@ -48,9 +48,11 @@ class ImmoConnector extends \Backend {
             $this->_objImmocaster = $immocaster;
     }
     
-    public function getExpose($id, $user) {
+    public function getExpose($id, $objUser) {
     
     	$strUser = $objUser->ic_username;
+        
+            var_dump($strUser);
     	
     	$strDocument = EXPOSE . '_' . $id;
     	
@@ -60,16 +62,15 @@ class ImmoConnector extends \Backend {
         	$objExpose = $this->getCachedXmlDocument($strDocument);
             $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
         } else {
-    		$aParameter = array('exposeid' => $id, 'username' => $strUser);
-    		$objExpose = new \DOMDocument();
-                //$objExpose->loadXml($this->_objImmocaster->getUserExpose($aParameter));
-                var_dump($this->_objImmocaster->getUserExpose($aParameter));
-                $this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
+            $aParameter = array('exposeid' => $id, 'username' => $strUser);
+            $objExpose = new \DOMDocument();
+            $objExpose->loadXml($this->_objImmocaster->getUserExpose($aParameter));
+            $this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
 
-                //Ggf. Error ausgeben, wenn kein Expose geladen werden konnte.
+            //Ggf. Error ausgeben, wenn kein Expose geladen werden konnte.
 			
             //Geladene Daten in den Cache schreiben
-            $this->cacheXmlDocument($objRes, $strDocument);
+            $this->cacheXmlDocument($objExpose, $strDocument);
         }
         
     	return null;
