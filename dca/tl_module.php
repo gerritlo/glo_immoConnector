@@ -14,6 +14,13 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorShowSummary'] = array
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorRemoveTitleText'] = array(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorRemoveTitleText'],
+	'inputType'               => 'text',
+	'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50', 'tl_class' => 'clr'),
+	'sql'                     => "varchar(255) NOT NULL default ''"
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorjumpTo'],
@@ -25,10 +32,10 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo'] = array
     'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 );
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorShowSummary,jumpTo';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorShowSummary,jumpTo,gloImmoConnectorRemoveTitleText';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorjumpTo';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoRandom'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorRemoveTitleText';

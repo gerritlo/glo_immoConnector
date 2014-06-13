@@ -46,6 +46,7 @@ ClassLoader::addClasses(array
 TemplateLoader::addFiles(array
 (
 	'glo_houseBuyDetail'      => 'system/modules/glo_immoConnector/templates/detail',
+	'glo_livingBuySiteDetail' => 'system/modules/glo_immoConnector/templates/detail',
 	'glo_apartmentBuyShort'   => 'system/modules/glo_immoConnector/templates/list',
 	'glo_apartmentRentShort'  => 'system/modules/glo_immoConnector/templates/list',
 	'glo_houseBuyShort'       => 'system/modules/glo_immoConnector/templates/list',

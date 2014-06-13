@@ -91,6 +91,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
 
             //Objektdaten dem Template zuweisen
             $this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
+            $this->Template->gloImmoConnectorRemoveTitleText = $this->gloImmoConnectorRemoveTitleText;
             $this->Template->expose = simplexml_import_dom($objExpose);
             $this->Template->attachment = $this->getAttachments($objAttachment);
 	}

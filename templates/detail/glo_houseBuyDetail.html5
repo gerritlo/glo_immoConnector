@@ -3,13 +3,13 @@
     	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
   	<?php endif; ?>
 
-  	<h1><?php echo $this->expose->title; ?></h1>
+  	<h1><?php echo $this->gloImmoConnectorRemoveTitleText ? str_replace($this->gloImmoConnectorRemoveTitleText, '', (String)$this->expose->title) : (String)$this->expose->title; ?></h1>
         <section class="expose_description">
             <?php if($this->attachment): ?>
             <article class="expose_attachments">
                 <?php if($this->attachment['titlePicture']): ?>
                 <figure class="title_picure">
-                    <?php if($this->attachment['titlePicture']['lb'] && $this->attachment['titlePicture']['fullUrl']): ?><a href="<?php echo $this->attachment['titlePicture']['fullUrl']; ?>" data-lightbox="<?php echo $this->attachment['titlePicture']['lb']; ?>" data-title="<?php echo $this->attachment['titlePicture']['title']; ?>"><?php endif; ?>
+                    <?php if($this->attachment['titlePicture']['lb'] && $this->attachment['titlePicture']['fullUrl']): ?><a href="<?php echo $this->attachment['titlePicture']['fullUrl']; ?>" data-lightbox="<?php echo $this->attachment['titlePicture']['lb']; ?>" title="<?php echo $this->attachment['titlePicture']['title']; ?>"><?php endif; ?>
                     <img src="<?php echo $this->attachment['titlePicture']['defaultUrl']; ?>" title="<?php echo $this->attachment['titlePicture']['title']; ?>" alt="<?php echo $this->attachment['titlePicture']['title']; ?>" />
                     <?php if($this->attachment['titlePicture']['lb'] && $this->attachment['titlePicture']['fullUrl']): ?></a><?php endif; ?>
                 </figure>
@@ -17,7 +17,7 @@
                 
                 <?php foreach($this->attachment['pictures'] as $pic): ?>
                 <figure class="picture">
-                    <?php if($pic['lb'] && $pic['fullUrl']): ?><a href="<?php echo $pic['fullUrl']; ?>" data-lightbox="<?php echo $pic['lb']; ?>" data-title="<?php echo $pic['title']; ?>"><?php endif; ?>
+                    <?php if($pic['lb'] && $pic['fullUrl']): ?><a href="<?php echo $pic['fullUrl']; ?>" data-lightbox="<?php echo $pic['lb']; ?>" title="<?php echo $pic['title']; ?>"><?php endif; ?>
                     <img src="<?php echo $pic['defaultUrl']; ?>" title="<?php echo $pic['title']; ?>" alt="<?php echo $pic['title']; ?>" />
                     <?php if($pic['lb'] && $pic['fullUrl']): ?></a><?php endif; ?>
                 </figure>
@@ -192,7 +192,7 @@
             <?php if($this->expose->usableFloorSpace): ?>
                 <dl>
                     <dt>Nutzfläche</dt>
-                    <dd><?php echo $this->expose->usableFloorSpace; ?></dd>
+                    <dd><?php echo number_format((double)$this->expose->livingSpace, 2, ",", "."). ' m²'; ?></dd>
                 </dl>
             <?php endif; ?>
                 

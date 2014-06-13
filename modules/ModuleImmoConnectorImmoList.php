@@ -152,7 +152,7 @@ class ModuleImmoConnectorImmoList extends \Module
 
             foreach($objList->realEstateElement as $objElement) {
                 $arrData = array(
-                    'title' => (String)$objElement->title,
+                    'title' => $this->gloImmoConnectorRemoveTitleText ? str_replace($this->gloImmoConnectorRemoveTitleText, '', (String)$objElement->title) : (String)$objElement->title, 
                     'titlePicture' => (boolean) $objElement->titlePicture,
                     'titlePictureUrl' => ($objElement->titlePicture) ? (String) $objElement->titlePicture->urls->url[1]['href'] : null,
                     'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$objElement['id']),
@@ -164,7 +164,8 @@ class ModuleImmoConnectorImmoList extends \Module
                     'priceValue' => (float) $objElement->price->value,
                     'priceCurrency' => (String) $objElement->price->currency,
                     'livingSpace' => (float)$objElement->livingSpace,
-                    'netFloorSpace' => (float)$objElement->netFloorSpace
+                    'netFloorSpace' => (float)$objElement->netFloorSpace,
+                    'plotArea' => (float)$objElement->plotArea
                 );
                 $arrRes[] = $arrData;
             }

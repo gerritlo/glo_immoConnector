@@ -218,22 +218,22 @@ class ImmoConnector extends \Backend {
     	//Objekte des Dokuments auslesen
         
         $xpath = new \DOMXPath($objDocument);
-    	$nodeList = $objDocument->getElementsByTagName('realEstateElement');      
+        
+        //Lösche Inaktive Objekte
+        $inactiveObjects = $xpath->query('//realEstateElement[./realEstateState="INACTIVE"]');
+        
+        foreach ($inactiveObjects as $inactiveObject) {
+            $parent = $inactiveObject->parentNode;
+            $parent->removeChild($inactiveObject);
+        }
+    	$nodeList = $xpath->query('//realEstateElement');
         $typeLists = array();
         
         //Sortieren der Knoten zu Typen
-        foreach($nodeList as $node) {
-            //Check if objects is inactive
-            $state = $xpath->query("./realEstateState", $node)->item(0)->nodeValue;
-
-            if($state == "INACTIVE") {
-                $parent = $node->parentNode;
-                $parent->removeChild($node);
-            } else {
-                $strType = $this->getObjectType($node);
-                $typeLists[$strType][] = $node;
-            }
-            
+        for($i=0; $i < $nodeList->length; $i++) {
+            $node = $nodeList->item($i);
+            $strType = $this->getObjectType($node);
+            $typeLists[$strType][] = $node;
         }
         
         //Durchlaufen aller TypeLists

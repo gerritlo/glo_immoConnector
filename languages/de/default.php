@@ -63,3 +63,8 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['hasCourtage'] = array('NO' => 'Nein
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['guestToilet'] = array('YES' => 'Ja', 'NOT_APPLICABLE' => 'Keine Angabe');
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['buildingEnergyRatingType'] = array('NO_INFORMATION' => 'Keine Angabe', 'ENERGY_REQUIRED' => 'Bedarfsausweis', 'ENERGY_CONSUMPTION' => 'Verbrauchsausweis');
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['energyPerformanceCertificate'] = array('true' => 'Vorhanden', 'false' => 'Nein');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['shortTermConstructible'] = array('true' => 'Ja', 'false' => 'Nein');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['buildingPermission'] = array('true' => 'Vorhanden', 'false' => 'Nicht vorhanden');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['demolition'] = array('true' => 'Erforderlich', 'false' => 'Nicht erforderlich');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['siteDevelopmentType'] = array('DEVELOPED' => 'Erschlossen', 'DEVELOPED_PARTIALLY' => 'Teilerschlossen', 'NOT_DEVELOPED' => 'Unerschlossen');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['siteConstructibleType'] = array('CONSTRUCTIONPLAN' => 'Bebauung nach Bebauungsplan', 'NEIGHBOURCONSTRUCTION' => 'Nachbarbebauung', 'EXTERNALAREA' => 'Aussengebiet');
