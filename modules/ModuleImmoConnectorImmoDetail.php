@@ -28,14 +28,9 @@ namespace GloImmoConnector;
 class ModuleImmoConnectorImmoDetail extends \Module
 {
 
-	protected static $_arrTypeFields = array(
-            'houseBuy' => array('title', 'street', 'houseNumber', 'postcode', 'city'),
-            'houseRent' => array(),
-            'appartmentRent' => array('title', 'street', 'houseNumber', 'postcode', 'city', 'descriptionNote', 'furnishingNote', 'locationNote', 'otherNote', 'showAddress', 'floor', 'apartmentType', 'lift', 'cellar', 'handicappedAccessible', 'numberOfParkingSpaces', 'condition', 'lastRefurbishment', 'constructionYear', 'interiorQuality', 'freeFrom', 'numberOfFloors', 'usableFloorSpace', 'numberOfBedRooms','numberOfBathRooms', 'guestToilet', 'parkingSpaceType', 'baseRent', 'totalRent', 'serviceCharge', 'deposit', 'livingSpace', 'numberOfRooms', 'balcony', 'garden', 'hasCourtage', 'courtage', 'courtageNote'),
-            'appartmentBuy' => array(),
-            'investment' => array(),
-            'livingBuySide' => array()
-	);
+    const PICTURE_SIZE_DEFAULT_TITLE = "600x350";
+    const PICTURE_SIZE_DEFAULT = "192x110";
+    const PICTURE_SIZE_FULL = "800x800";
 
 	/**
 	 * Template
@@ -86,7 +81,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
 
             //Expose laden
             $objExpose = $objImmoConnector->getExpose($exposeId, $objUser);
-            $objAttachment = $objImmoConnector->getAttachment($exposeId, $objUser);
+            $objAttachment = $objImmoConnector->getAttachment($exposeId);
 
             //Typ der Immobilie bestimmen
             $strType = $this->getObjectType($objExpose);
@@ -97,6 +92,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
             //Objektdaten dem Template zuweisen
             $this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
             $this->Template->expose = simplexml_import_dom($objExpose);
+            $this->Template->attachment = $this->getAttachments($objAttachment);
 	}
 	
 	protected function redirectToNotFound($objPage) {
@@ -142,4 +138,58 @@ class ModuleImmoConnectorImmoDetail extends \Module
 	protected function generateTemplateName($strType) {
 		return "glo_" . $strType . "Detail";
 	}
+        
+        protected function getAttachments($objAttachments) {
+            $objAttachments = simplexml_import_dom($objAttachments);
+            $arrResult = array('pictures' => array());
+            
+            for($i=0; $i < $objAttachments->attachment->count(); $i++) {
+                $att = $objAttachments->attachment[$i];
+                $nsXsi = $att->getNamespaces()['xsi'];
+                $attributesXsi = $att->attributes($nsXsi);
+                preg_match("@:.+$@", $attributesXsi['type'], $matches);
+                if(substr($matches[0], 1) != 'Picture')
+                    continue;
+                
+                if($att->titlePicture == 'true') {
+                    $arrResult['titlePicture'] = array(
+                        'title' => (String)$att->title,
+                        'floorPlan' => ($att->floorPlan == 'true') ? true : false,
+                        'lb' => 'lb_' . $att['id'],
+                    );
+                    
+                    foreach ($att->urls->url as $url) {
+                        if($url['scale'] == 'SCALE_AND_CROP') {
+                            $arrResult['titlePicture']['defaultUrl'] = str_replace("%WIDTH%x%HEIGHT%", self::PICTURE_SIZE_DEFAULT_TITLE, $url['href']);
+                        }
+                        elseif($url['scale'] == 'SCALE') {
+                            $arrResult['titlePicture']['fullUrl'] = str_replace("%WIDTH%x%HEIGHT%", self::PICTURE_SIZE_FULL, $url['href']);
+                        }
+                    }
+                }
+                
+                if($att->titlePicture != 'true') {                                        
+                    foreach ($att->urls->url as $url) {
+                        if($url['scale'] == 'SCALE_AND_CROP') {
+                            $defaultUrl = str_replace("%WIDTH%x%HEIGHT%", self::PICTURE_SIZE_DEFAULT, $url['href']);
+                        }
+                        elseif($url['scale'] == 'SCALE') {
+                            $fullUrl = str_replace("%WIDTH%x%HEIGHT%", self::PICTURE_SIZE_FULL, $url['href']);
+                        }
+                    }
+                    
+                    $arrTmp = array(
+                        'title' => (String)$att->title,
+                        'floorPlan' => ($att->floorPlan == 'true') ? true : false,
+                        'defaultUrl' => $defaultUrl,
+                        'fullUrl' => $fullUrl,
+                        'lb' => 'lb_' . $att['id'],
+                    );
+                    
+                    $arrResult['pictures'][] = $arrTmp;
+                }
+            }
+            
+            return $arrResult;
+        }
 }

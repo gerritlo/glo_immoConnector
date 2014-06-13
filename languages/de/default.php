@@ -61,3 +61,5 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['listed'] = array('YES' => 'Ja', 'NO
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['summerResidencePractical'] = array('YES' => 'Ja', 'NOT_APPLICABLE' => 'Keine Angabe');
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['hasCourtage'] = array('NO' => 'Nein', 'YES' => 'Ja', 'NOT_APPLICABLE' => 'Keine Angabe');
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['guestToilet'] = array('YES' => 'Ja', 'NOT_APPLICABLE' => 'Keine Angabe');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['buildingEnergyRatingType'] = array('NO_INFORMATION' => 'Keine Angabe', 'ENERGY_REQUIRED' => 'Bedarfsausweis', 'ENERGY_CONSUMPTION' => 'Verbrauchsausweis');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['energyPerformanceCertificate'] = array('true' => 'Vorhanden', 'false' => 'Nein');

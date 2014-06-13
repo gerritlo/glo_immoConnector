@@ -75,11 +75,9 @@ class ImmoConnector extends \Backend {
     	return $objExpose;
     }
     
-    public function getAttachment($id, $objUser) {
+    public function getAttachment($id) {
     
-    	$strUser = $objUser->ic_username;
-    	
-    	$strDocument = self::ATTACHMENT . '_' . $id;
+   	$strDocument = self::ATTACHMENT . '_' . $id;
     	
     	//Check for cache
     	if ($this->isDocumentCached($strDocument) && \Config::get('gloImmoConnectorCacheActive') == '1') {
@@ -87,7 +85,7 @@ class ImmoConnector extends \Backend {
             $objExpose = $this->getCachedXmlDocument($strDocument);
             $this->log("ImmoConnector: Cache-File '" . $strDocument . "' loaded", __METHOD__, TL_FILES);
         } else {
-            $aParameter = array('exposeid' => $id, 'username' => $strUser);
+            $aParameter = array('exposeid' => $id);
             $objExpose = new \DOMDocument();
             $objExpose->loadXml($this->_objImmocaster->getAttachment($aParameter));
             $this->log("ImmoConnector: API was requested for Expose '" . $id . "'", __METHOD__, TL_FILES);
@@ -218,13 +216,24 @@ class ImmoConnector extends \Backend {
 
     protected function orderDomDocumentByObjectType(&$objDocument) {
     	//Objekte des Dokuments auslesen
+        
+        $xpath = new \DOMXPath($objDocument);
     	$nodeList = $objDocument->getElementsByTagName('realEstateElement');      
         $typeLists = array();
         
         //Sortieren der Knoten zu Typen
         foreach($nodeList as $node) {
-            $strType = $this->getObjectType($node);
-            $typeLists[$strType][] = $node;
+            //Check if objects is inactive
+            $state = $xpath->query("./realEstateState", $node)->item(0)->nodeValue;
+
+            if($state == "INACTIVE") {
+                $parent = $node->parentNode;
+                $parent->removeChild($node);
+            } else {
+                $strType = $this->getObjectType($node);
+                $typeLists[$strType][] = $node;
+            }
+            
         }
         
         //Durchlaufen aller TypeLists
@@ -236,7 +245,7 @@ class ImmoConnector extends \Backend {
             foreach ($nodes as $node) {
                 $objTypeElement->appendChild($node);
             }
-        }            
+        }        
 
         return $objDocument;
     }
