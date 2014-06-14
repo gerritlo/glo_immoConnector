@@ -32,10 +32,10 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo'] = array
     'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 );
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorShowSummary,gloImmoConnectorUser,jumpTo,gloImmoConnectorRemoveTitleText';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorShowSummary,gloImmoConnectorUser,gloImmoConnectorRemoveTitleText;{redirect_legend},jumpTo';
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorjumpTo';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser;{redirect_legend},gloImmoConnectorjumpTo';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoRandom'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser';
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorRemoveTitleText,jumpTo';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorRemoveTitleText;{redirect_legend},jumpTo';
