@@ -2,7 +2,7 @@
 	<?php if ($this->headline): ?>
     	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
   	<?php endif; ?>
-
+        <?php var_dump($this->objectRequestUrl); ?>
   	<h1><?php echo $this->gloImmoConnectorRemoveTitleText ? str_replace($this->gloImmoConnectorRemoveTitleText, '', (String)$this->expose->title) : (String)$this->expose->title; ?></h1>
         <section class="expose_description">
             <?php if($this->attachment): ?>

@@ -68,6 +68,12 @@ class ModuleImmoConnectorImmoDetail extends \Module
             if($exposeId == '' || !preg_match('/^\d+$/', $exposeId)) {
                 $this->redirectToNotFound($objPage);
             }
+            
+            //Get Object request Page
+            if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
+            {
+                $this->_objTarget = $objTarget;
+            }
 
 
             $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
@@ -85,6 +91,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
 
             //Typ der Immobilie bestimmen
             $strType = $this->getObjectType($objExpose);
+            $strId = $this->getObjectId($objExpose);
 	
             //XML-Daten für Objekttyp aufbereiten
             //$arrData = $this->getDataForType($strType, $objExpose);
@@ -94,6 +101,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
             $this->Template->gloImmoConnectorRemoveTitleText = $this->gloImmoConnectorRemoveTitleText;
             $this->Template->expose = simplexml_import_dom($objExpose);
             $this->Template->attachment = $this->getAttachments($objAttachment);
+            $this->Template->objectRequestUrl = $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$strId);
 	}
 	
 	protected function redirectToNotFound($objPage) {
@@ -105,6 +113,12 @@ class ModuleImmoConnectorImmoDetail extends \Module
 		//Typ der Immobilie aus dem Tagname des Root-Knotens ermitteln
 		list( , $strType) = explode(":", $objExpose->documentElement->tagName);
 		return $strType;
+	}
+        
+        protected function getObjectId($objExpose) {
+		//Typ der Immobilie aus dem Tagname des Root-Knotens ermitteln
+                $strId = $objExpose->documentElement->getAttribute('id');
+		return $strId;
 	}
 	
 	/*protected function getDataForType($strType, $objDocument) {

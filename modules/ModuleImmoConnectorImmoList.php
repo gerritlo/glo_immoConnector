@@ -62,18 +62,18 @@ class ModuleImmoConnectorImmoList extends \Module
             $filter = null;
             if(\Input::post('FORM_SUBMIT') == $this->_searchFormId) {
                 $filter = array(
-                    'objectType' => \Input::post('objectType'),
-                    'zipcode' => \Input::post('zipcode'),
-                    'city'  => \Input::post('city'),
-                    'keyword'  => \Input::post('keyword'),
+                    'objectType' => htmlspecialchars(\Input::post('objectType')),
+                    'zipcode' => htmlspecialchars(\Input::post('zipcode')),
+                    'city'  => htmlspecialchars(\Input::post('city')),
+                    'keyword'  => htmlspecialchars(\Input::post('keyword')),
                 );
             }
             
             //Get Expose Page
             if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
-		    {
-				$this->_objTarget = $objTarget;
-		    }
+            {
+                $this->_objTarget = $objTarget;
+            }
 
             $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
 
