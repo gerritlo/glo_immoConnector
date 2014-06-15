@@ -88,6 +88,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
             //Expose laden
             $objExpose = $objImmoConnector->getExpose($exposeId, $objUser);
             $objAttachment = $objImmoConnector->getAttachment($exposeId);
+            $xmlExpose = simplexml_import_dom($objExpose);
 
             //Typ der Immobilie bestimmen
             $strType = $this->getObjectType($objExpose);
@@ -99,9 +100,14 @@ class ModuleImmoConnectorImmoDetail extends \Module
             //Objektdaten dem Template zuweisen
             $this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
             $this->Template->gloImmoConnectorRemoveTitleText = $this->gloImmoConnectorRemoveTitleText;
-            $this->Template->expose = simplexml_import_dom($objExpose);
+            $this->Template->expose = $xmlExpose;
             $this->Template->attachment = $this->getAttachments($objAttachment);
-            $this->Template->objectRequestUrl = $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$strId);
+            $this->Template->objectRequest = array(
+                'action' => $this->generateFrontendUrl($this->_objTarget->row()),
+                'exposeId' => $strId,
+                'exposeUrl' => \Environment::get('uri'),
+                'exposeTitle' => htmlspecialchars((String)$xmlExpose->title),
+            );
 	}
 	
 	protected function redirectToNotFound($objPage) {

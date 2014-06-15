@@ -24,13 +24,14 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['keyword'] = 'Stichwort';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['search'] = 'Suchen';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjects'] = 'Leider wurden keine Objekte gefunden.';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['sendRequestForm'] = 'Immobilienanfrage senden';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjectFound'] = "Es wurde keine Immobilie gefunden.";
 
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['all'] = 'Alle';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['houseRent'] = 'Haus zur Miete';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['houseBuy'] = 'Haus zum Kauf';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['apartmentRent'] = 'Wohnung zur Miete';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['apartmentBuy'] = 'Wohnung zum Kauf';
-$GLOBALS['TL_LANG']['FMD']['immoConnector']['investment'] = 'Investitionsobjekt';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['investment'] = 'Anlageobjekt';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['livingBuySite'] = 'Grundstück zum Kauf';
 
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['plotArea'] = 'Grundstück';
@@ -69,3 +70,12 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['buildingPermission'] = array('true'
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['demolition'] = array('true' => 'Erforderlich', 'false' => 'Nicht erforderlich');
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['siteDevelopmentType'] = array('DEVELOPED' => 'Erschlossen', 'DEVELOPED_PARTIALLY' => 'Teilerschlossen', 'NOT_DEVELOPED' => 'Unerschlossen');
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['siteConstructibleType'] = array('CONSTRUCTIONPLAN' => 'Bebauung nach Bebauungsplan', 'NEIGHBOURCONSTRUCTION' => 'Nachbarbebauung', 'EXTERNALAREA' => 'Aussengebiet');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['heatingCostsInServiceCharge'] = array('YES' => 'Ja', 'NOT_APPLICABLE' => 'Keine Angabe', 'NO' => 'Nein');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['petsAllowed'] = array('YES' => 'Ja', 'NOT_INFORMATION' => 'Keine Angabe', 'NO' => 'Nein', 'NEGOTIABLE' => 'Verhandelbar');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'] = array('true' => 'Vorhanden', 'false' => 'Nicht vorhanden');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['apartmentType'] = array('NO_INFORMATION' => 'Kein Angabe', 'ROOF_STOREY' => 'Dachgeschoss', 'LOFT' => 'Loft', 'MAISONETTE' => 'Maisonette', 'PENTHOUSE' => 'Penthouse', 'TERRACED_FLAT' => 'Terrassenwohnung', 'GROUND_FLOOR', 'Erdgeschosswohnung', 'APARTMENT' => 'Etagenwohnung', 'RAISED_GROUND_FLOOR' => 'Hochparterre', 'HALF_BASEMENT' => 'Souterrain', 'OTHER' => 'Sonstige');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['lift'] = array('true' => 'Ja', 'false' => 'Nein');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['balcony'] = array('true' => 'Ja', 'false' => 'Nein');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['garden'] = array('true' => 'Ja', 'false' => 'Nein');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['certificateOfEligibilityNeeded'] = array('true' => 'Ja', 'false' => 'Nein');
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['investmentType'] = array('SINGLE_FAMILY_HOUSE' => 'Einfamilienhaus', 'MULTI_FAMILY_HOUSE' => 'Mehrfamilienhaus', 'FREEHOLD_FLAT' => 'Eigentumswohnung', 'SHOPPING_CENTRE' => 'Einkaufszentrum', 'RESTAURANT' => 'Restaurant', 'HOTEL' => 'Hotel', 'LEISURE_FACILITY' => 'Freizeitanlage', 'COMMERCIAL_UNIT' => 'Gewerbeeinheit', 'OFFICE_BUILDING' => 'Bürogebäude', 'COMMERCIAL_BUILDING' => 'Gewerbeimmobilie', 'COMMERCIAL_PROPERTY' => 'Gewerbegrundstück', 'HALL_STORAGE' => 'Halle/Lager', 'INDUSTRIAL_PROPERTY' => 'Industrieanwesen', 'SHOP_SALES_FLOOR' => 'Laden/Verkaufsfläche', 'SERVICE_CENTRE' => 'Servicecenter', 'OTHER' => 'Sonstige', 'SUPERMARKET' => 'Supermarkt', 'LIVING_BUSINESS_HOUSE' => 'Wohn/Geschäftshaus', 'HOUSING_ESTATE' => 'Wohnanlage');

@@ -6,7 +6,7 @@
   	<h1><?php echo $this->gloImmoConnectorRemoveTitleText ? str_replace($this->gloImmoConnectorRemoveTitleText, '', (String)$this->expose->title) : (String)$this->expose->title; ?></h1>
     <section class="expose_description">
         <?php if($this->attachment): ?>
-        	<?php $this->insert('block_realestateattachment', array('attachment' => $this->attachment));
+        	<?php $this->insert('block_realestateattachment', array('attachment' => $this->attachment)); ?>
         <?php endif; ?>
         
         <article class="expose_notes">

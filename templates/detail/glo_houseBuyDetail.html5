@@ -1,4 +1,4 @@
-<?php $this->extend('block_realestatedetail');
+<?php $this->extend('block_realestatedetail'); ?>
 
 <?php $this->block('expose_notes'); ?>
 	<?php if($this->expose->descriptionNote): ?>

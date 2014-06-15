@@ -1,6 +1,15 @@
-<article>
-	<?php if ($this->headline): ?>
-    	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
-  	<?php endif; ?>
+<!-- indexer::stop -->
+<article class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?>>
+    <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+    <?php endif; ?>
 
+    <?php if($this->noObjectFound): ?>
+    <p><?php echo $this->noObjectFound; ?></p>
+    <?php else: ?>
+    <h2><a href="<?php echo $this->exposeHref; ?>"><?php echo $this->title; ?></a></h2>
+    <?php if($this->picture): ?><figure><img src="<?php echo $this->picture['url']; ?>" alt="<?php echo $this->picture['title']; ?>" title="<?php echo $this->picture['title']; ?>"></figure><?php endif; ?>
+    <p class="objectType"><?php echo $this->objectType; ?></p>
+    <?php endif; ?>
 </article>
+<!-- indexer::continue -->
