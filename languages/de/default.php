@@ -23,6 +23,7 @@ $GLOBALS['TL_LANG']['FMD']['immoConnector']['city'] = 'Ort';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['keyword'] = 'Stichwort';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['search'] = 'Suchen';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjects'] = 'Leider wurden keine Objekte gefunden.';
+$GLOBALS['TL_LANG']['FMD']['immoConnector']['sendRequestForm'] = 'Immobilienanfrage senden';
 
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['all'] = 'Alle';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['houseRent'] = 'Haus zur Miete';

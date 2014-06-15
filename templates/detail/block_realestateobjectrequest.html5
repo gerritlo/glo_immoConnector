@@ -5,6 +5,6 @@
 		<input type="hidden" name="exposeUrl" value="<?php echo $this->objectRequest['exposeUrl']; ?>" />
 		<input type="hidden" name="exposeId" value="<?php echo $this->objectRequest['exposeId']; ?>" />
 		<input type="hidden" name="exposeTitle" value="<?php echo $this->objectRequest['exposeTitle']; ?>" />
-		<input type="submit" value="<?php echo ; ?>" />
+		<input type="submit" value="<?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['sendRequestForm']; ?>" />
 	</form>
 </article>
