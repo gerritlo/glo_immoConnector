@@ -1,0 +1,10 @@
+<article class="object_request_form">
+	<form action="<?php echo $this->objectRequest['action']; ?>" method="POST">
+		<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}" />
+		<input type="hidden" name="FORM_SUBMIT" value="tl_objectRequestForm" />
+		<input type="hidden" name="exposeUrl" value="<?php echo $this->objectRequest['exposeUrl']; ?>" />
+		<input type="hidden" name="exposeId" value="<?php echo $this->objectRequest['exposeId']; ?>" />
+		<input type="hidden" name="exposeTitle" value="<?php echo $this->objectRequest['exposeTitle']; ?>" />
+		<input type="submit" value="<?php echo ; ?>" />
+	</form>
+</article>
