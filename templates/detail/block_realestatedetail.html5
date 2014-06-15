@@ -1,0 +1,24 @@
+<div class="<?php echo $this->class; ?>">
+	<?php if ($this->headline): ?>
+    	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  	<?php endif; ?>
+
+  	<h1><?php echo $this->gloImmoConnectorRemoveTitleText ? str_replace($this->gloImmoConnectorRemoveTitleText, '', (String)$this->expose->title) : (String)$this->expose->title; ?></h1>
+        <section class="expose_description">
+            <?php if($this->attachment): ?>
+            	<?php $this->insert('block_realestateattachment', array('attachment' => $this->attachment));
+            <?php endif; ?>
+            
+            <article class="expose_notes">
+            <?php $this->block('expose_notes'); ?>
+			<!-- EXPOSE NOTES -->
+            <?php $this->endblock(); ?>
+            </article>
+        </section>
+        <section class="expose_details">
+            <h2>Details</h2>
+            <?php $this->block('expose_details'); ?>
+			<!-- EXPOSE DETAILS -->
+            <?php $this->endblock(); ?>
+        </section>
+</div>
