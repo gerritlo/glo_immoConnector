@@ -269,6 +269,8 @@ class ImmoConnector extends \Backend {
                 $strType = $this->_offerListTypes[$strNodeType];
         } else {
                 throw new Exception("OfferListType not found", 1);
+                list( ,$strType) = explode(":Offer", $strNodeType);
+                $strType = lcfirst($strType);
         }
 
         return $strType;
