@@ -99,7 +99,8 @@ class ModuleImmoConnectorImmoRandom extends \Module
                         }
                     }
                 }
-
+		$this->Template->zipcode = (String)$objRand->address->postcode;
+		$this->Template->city = (String)$objRand->address->city;
                 $this->Template->exposeHref = $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$objRand['id']);
                 $this->Template->objectType = $GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->getObjectType($objRand)];
             } else {
