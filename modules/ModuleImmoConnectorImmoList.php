@@ -33,6 +33,7 @@ class ModuleImmoConnectorImmoList extends \Module
 	 * @var string
 	 */
 	protected $strTemplate = 'mod_realestatelist';
+	protected $strTemplateShort = 'glo_defaultShort';
         protected $_searchFormId = 'tl_immoConnectorImmoSearch';
 	protected $intObjectPageCount = 20;
 
@@ -127,8 +128,8 @@ class ModuleImmoConnectorImmoList extends \Module
 		$arrObjectTemplates = array();
 
 		foreach ($arrTypeObjects as $arrObject) {
-			$strTenplateName = "glo_".$strType.'Short';
-			$objTemplate = new \FrontendTemplate($strTenplateName);
+			
+			$objTemplate = new \FrontendTemplate($this->strTemplateShort);
 			$objTemplate->data = $arrObject;
 			$arrObjectTemplates[] = $objTemplate->parse();
 		}
@@ -147,7 +148,7 @@ class ModuleImmoConnectorImmoList extends \Module
             return $arrRes;
 	}
 	
-	protected function addObjects($objList) {
+	protected function addObjects($objList, $strType) {
             $arrRes = array();
 
             foreach($objList->realEstateElement as $objElement) {
@@ -160,13 +161,27 @@ class ModuleImmoConnectorImmoList extends \Module
                     'city' => (String) $objElement->address->city,
                     'plotArea' => (int) $objElement->livingSpace,
                     'numberOfRooms' => (int) $objElement->numberOfRooms,
-                    'builtInKitchen' => (String) $objElement->builtInKitchen,
-                    'priceValue' => (float) $objElement->price->value,
-                    'priceCurrency' => (String) $objElement->price->currency,
                     'livingSpace' => (float)$objElement->livingSpace,
-                    'netFloorSpace' => (float)$objElement->netFloorSpace,
                     'plotArea' => (float)$objElement->plotArea
                 );
+                
+                switch($strType) {
+                	case "houseBuy":
+                	case "apartmentBuy":
+                	case "investment":
+                	case "livingBuySite":
+                		$arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'];
+                		$arrData['priceValue'] => (float) $objElement->price->value,
+                		$arrData['priceCurrency'] => (String) $objElement->price->currency,
+                		break;
+                	case "houseRent":
+                	case "apartmentRent":
+                		$arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'];
+                		$arrData['priceValue'] => (float) $objElement->baseRent,
+                		$arrData['priceCurrency'] => "EUR",
+                		break;
+                }
+                
                 $arrRes[] = $arrData;
             }
 
