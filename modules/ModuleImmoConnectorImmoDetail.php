@@ -36,7 +36,7 @@ class ModuleImmoConnectorImmoDetail extends \Module
 	 * Template
 	 * @var string
 	 */
-    protected $strTemplate = 'mod_realestatedetail';
+    protected $strTemplate = 'glo_defaultDetail';
 
     public function generate()
     {
@@ -98,7 +98,6 @@ class ModuleImmoConnectorImmoDetail extends \Module
             //$arrData = $this->getDataForType($strType, $objExpose);
 
             //Objektdaten dem Template zuweisen
-            $this->Template = new \FrontendTemplate($this->generateTemplateName($strType));
             $this->Template->gloImmoConnectorRemoveTitleText = $this->gloImmoConnectorRemoveTitleText;
             $this->Template->expose = $xmlExpose;
             $this->Template->attachment = $this->getAttachments($objAttachment);
