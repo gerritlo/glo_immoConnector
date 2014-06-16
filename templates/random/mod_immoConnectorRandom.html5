@@ -10,6 +10,7 @@
     <h2><a href="<?php echo $this->exposeHref; ?>"><?php echo $this->title; ?></a></h2>
     <?php if($this->picture): ?><figure><img src="<?php echo $this->picture['url']; ?>" alt="<?php echo $this->picture['title']; ?>" title="<?php echo $this->picture['title']; ?>"></figure><?php endif; ?>
     <p class="objectType"><?php echo $this->objectType; ?></p>
+    <p class="objectPrice"><?php echo $this->priceTitle . ": " . number_format($this->priceValue, 2, ",", ".")." ".$GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->priceCurrency]; ?></p>
     <?php endif; ?>
 </article>
 <!-- indexer::continue -->

@@ -103,6 +103,21 @@ class ModuleImmoConnectorImmoRandom extends \Module
 		$this->Template->city = (String)$objRand->address->city;
                 $this->Template->exposeHref = $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$objRand['id']);
                 $this->Template->objectType = $GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->getObjectType($objRand)];
+                $this->Template->priceValue = (float) $objRand->price->value;
+                $this->Template->priceCurrency = (String) $objRand->price->currency;
+                
+                switch($this->getObjectType($objRand)) {
+                	case "houseBuy":
+                	case "apartmentBuy":
+                	case "investment":
+                	case "livingBuySite":
+                		$this->Template->priceTitle = $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'];
+                      		break;
+                	case "houseRent":
+                	case "apartmentRent":
+                		$this->Template->priceTitle = $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'];
+                		break;
+                }
             } else {
                 $this->Template->noObjectFound = $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjectFound'];
             }

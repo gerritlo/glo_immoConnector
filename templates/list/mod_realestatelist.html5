@@ -14,7 +14,7 @@
 	<?php endif; ?>
 	<?php foreach($this->realEstateObjects as $typeGroup => $groupObjects): ?>
 		<section class="objectTypeGroup">
-                    <h1 id="hl_<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType] ?: $strType; ?></h1>
+                    <h1 id="hl_<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$typeGroup] ?: $strType; ?></h1>
                     <div class="row">
                     <?php
                         $i = 0;

@@ -162,7 +162,9 @@ class ModuleImmoConnectorImmoList extends \Module
                     'plotArea' => (int) $objElement->livingSpace,
                     'numberOfRooms' => (int) $objElement->numberOfRooms,
                     'livingSpace' => (float)$objElement->livingSpace,
-                    'plotArea' => (float)$objElement->plotArea
+                    'plotArea' => (float)$objElement->plotArea,
+                    'priceValue' => (float) $objElement->price->value,
+                    'priceCurrency' => (String) $objElement->price->currency,
                 );
                 
                 switch($strType) {
@@ -171,14 +173,10 @@ class ModuleImmoConnectorImmoList extends \Module
                 	case "investment":
                 	case "livingBuySite":
                 		$arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'];
-                		$arrData['priceValue'] => (float) $objElement->price->value,
-                		$arrData['priceCurrency'] => (String) $objElement->price->currency,
-                		break;
+                      		break;
                 	case "houseRent":
                 	case "apartmentRent":
                 		$arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'];
-                		$arrData['priceValue'] => (float) $objElement->baseRent,
-                		$arrData['priceCurrency'] => "EUR",
                 		break;
                 }
                 
