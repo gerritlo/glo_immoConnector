@@ -7,14 +7,14 @@
 	<div class="mod_realEstateObjectListSummery">
 		<ul>
 			<?php foreach (array_keys($this->realEstateObjects) as $strType): ?>
-				<li><a href="{{env::request}}#hl_<?php echo $strType; ?>"> <?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType]; ?></a></li>
+				<li><a href="{{env::request}}#hl_<?php echo $strType; ?>"> <?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType] ?: $strType; ?></a></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
 	<?php endif; ?>
 	<?php foreach($this->realEstateObjects as $typeGroup => $groupObjects): ?>
 		<section class="objectTypeGroup">
-                    <h1 id="hl_<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$typeGroup]; ?></h1>
+                    <h1 id="hl_<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType] ?: $strType; ?></h1>
                     <div class="row">
                     <?php
                         $i = 0;
