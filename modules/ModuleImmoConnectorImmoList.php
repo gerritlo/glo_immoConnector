@@ -143,7 +143,7 @@ class ModuleImmoConnectorImmoList extends \Module
             foreach ($objObjects->realEstateList->typeList as $objList) {
                 $strType = (String) $objList['ic_type'];
 
-                $arrRes[$strType] = $this->addObjects($objList);
+                $arrRes[$strType] = $this->addObjects($objList, $strType);
             }
             return $arrRes;
 	}
