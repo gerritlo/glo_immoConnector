@@ -5,16 +5,16 @@ namespace GloImmoConnector;
 class RegisterWizard extends \Backend {
   
   public function registerApplication() {
-    $sCertifyURL = \Environment::uri(); // Komplette URL inkl. Parameter auf der das Script eingebunden wird
+    $sCertifyURL = \Environment::get('requestUri'); // Komplette URL inkl. Parameter auf der das Script eingebunden wird
     $objTemplate = new \BackendTemplate('be_registrationForm');
     
-    if(isset(\Input::get('main_registration')) || isset(\Input::get('state'))) {
-        if(isset(\Input::post('user'))) {
+    if(\Input::get('main_registration') != null || \Input::get('state') != null) {
+        if(\Input::post('user') != null) {
           $sUser = \Input::post('user');
         }
         
-        if(isset(\Input::get('user'))) {
-          $sUser=\Input::get('user');
+        if(\Input::get('user') != null) {
+          $sUser = \Input::get('user');
         }
         
         $aParameter = array('callback_url' => $sCertifyURL . '?user=' . $sUser , 'verifyApplication' => true);

@@ -28,6 +28,7 @@ ClassLoader::addClasses(array
 	// Classes
 	'GloImmoConnector\ImmoConnector'                 => 'system/modules/glo_immoConnector/classes/ImmoConnector.php',
 	'GloImmoConnector\ImmoConnectorHelper'           => 'system/modules/glo_immoConnector/classes/ImmoConnectorHelper.php',
+	'GloImmoConnector\RegisterWizard'                => 'system/modules/glo_immoConnector/classes/RegisterWizard.php',
 
 	// Models
 	'GloImmoConnector\IcAuthModel'                   => 'system/modules/glo_immoConnector/models/IcAuthModel.php',
@@ -45,13 +46,13 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
+	'be_registrationForm'           => 'system/modules/glo_immoConnector/templates/backend',
 	'block_realestateattachment'    => 'system/modules/glo_immoConnector/templates/detail',
 	'block_realestatedetail'        => 'system/modules/glo_immoConnector/templates/detail',
 	'block_realestateobjectrequest' => 'system/modules/glo_immoConnector/templates/detail',
-	'glo_defaultDetail'        	=> 'system/modules/glo_immoConnector/templates/detail',
-	'glo_defaultShort'         	=> 'system/modules/glo_immoConnector/templates/list',
+	'glo_defaultDetail'             => 'system/modules/glo_immoConnector/templates/detail',
+	'glo_defaultShort'              => 'system/modules/glo_immoConnector/templates/list',
 	'mod_realestatelist'            => 'system/modules/glo_immoConnector/templates/list',
 	'mod_immoConnectorRandom'       => 'system/modules/glo_immoConnector/templates/random',
 	'mod_realestatesearch'          => 'system/modules/glo_immoConnector/templates/search',
-	'be_registrationForm'          	=> 'system/modules/glo_immoConnector/templates/backend',
 ));
