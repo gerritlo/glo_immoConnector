@@ -48,9 +48,10 @@ TemplateLoader::addFiles(array
 	'block_realestateattachment'    => 'system/modules/glo_immoConnector/templates/detail',
 	'block_realestatedetail'        => 'system/modules/glo_immoConnector/templates/detail',
 	'block_realestateobjectrequest' => 'system/modules/glo_immoConnector/templates/detail',
-	'glo_defaultDetail'        => 'system/modules/glo_immoConnector/templates/detail',
-	'glo_defaultShort'         => 'system/modules/glo_immoConnector/templates/list',
+	'glo_defaultDetail'        	=> 'system/modules/glo_immoConnector/templates/detail',
+	'glo_defaultShort'         	=> 'system/modules/glo_immoConnector/templates/list',
 	'mod_realestatelist'            => 'system/modules/glo_immoConnector/templates/list',
 	'mod_immoConnectorRandom'       => 'system/modules/glo_immoConnector/templates/random',
 	'mod_realestatesearch'          => 'system/modules/glo_immoConnector/templates/search',
+	'be_registrationForm'          	=> 'system/modules/glo_immoConnector/templates/backend',
 ));
