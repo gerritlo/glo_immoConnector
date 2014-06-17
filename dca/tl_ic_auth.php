@@ -44,6 +44,12 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 				'href'                => 'act=select',
 				'class'               => 'header_edit_all',
 				'attributes'          => 'onclick="Backend.getScrollOffset()" accesskey="e"'
+			),
+			'register' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['immoConnector']['registerApplication'],
+				'href'                => 'key=register',
+				'attributes'          => 'onclick="Backend.getScrollOffset()" accesskey="r"'
 			)
 		),
 		'operations' => array
