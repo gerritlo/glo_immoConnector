@@ -1,0 +1,16 @@
+<div>
+  <?php if($this->certificationSuccessful): ?><div class="success"><?php echo $this->certificationSuccessful; ?></div><?php endif; ?>
+  
+  <?php if($this->alreadyCertified): ?><div class="information"><?php echo $this->alreadyCertified; ?></div><?php endif; ?>
+  
+  <form action="<?php echo $this->sCertifyURL; ?>?main_registration=1" method="post">
+    <div id="appVerifyButton">
+      <strong>Hinweis: Unter IE9 kann es zu Problemen mit der Zertifizierung kommen.</strong><br />
+      Benutzername: <input type="text" name="user" value=""/><br />
+      <em>Der Benutzername sollte nach Möglichkeit gesetzt werden. Standardmäßig wird ansonsten "me" genommen. Somit können aber nicht mehrere User parallel in der Datenbank abgelegt werden. Der gewählte Benutzernamen muss der gleiche wie im Formular auf der nächsten Seite sein, damit der Token richtig zugewiesen werden kann.</em><br />
+      <input type="submit" value="Jetzt zertifizieren" />
+    </div>
+    
+    <input type="hidden" name="REQUEST_TOKEN" value="{{REQUEST_TOKEN}}">
+  </form>
+</div>
