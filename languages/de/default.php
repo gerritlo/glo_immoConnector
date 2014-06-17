@@ -16,6 +16,7 @@
  * Miscellaneous
  */
 $GLOBALS['TL_LANG']['MSC'][''] = '';
+$GLOBALS['TL_LANG']['immoConnector']['registerApplication'] = 'Anwendung zertifizieren';
 
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['objectType'] = 'Objekt-Art';
 $GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'] = 'PLZ';
