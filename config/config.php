@@ -42,7 +42,8 @@ array_insert($GLOBALS['BE_MOD']['system'], null, array
 (
 		'immoConnectorSettings'    => array(
 			'tables' => array('tl_ic_auth'),
-			'icon' => 'system/modules/glo_immoConnector/assets/img/blue-home-icon.png'
+			'icon' => 'system/modules/glo_immoConnector/assets/img/blue-home-icon.png',
+			'register' => array('RegisterWizard', 'registerApplication'),
 		),
 ));
 
