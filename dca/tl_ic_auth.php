@@ -49,7 +49,8 @@ $GLOBALS['TL_DCA']['tl_ic_auth'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['immoConnector']['registerApplication'],
 				'href'                => 'key=register',
-				'attributes'          => 'onclick="Backend.getScrollOffset()" accesskey="r"'
+				'attributes'          => 'onclick="Backend.getScrollOffset()" accesskey="r"',
+                                'icon'                => 'system/modules/glo_immoconnector/assets/img/keys-icon.png'
 			)
 		),
 		'operations' => array
