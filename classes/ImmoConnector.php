@@ -49,6 +49,10 @@ class ImmoConnector extends \Backend {
             $this->_objImmocaster = $immocaster;
     }
     
+    public function getImmocaster() {
+        return $this->_objImmocaster;
+    }
+    
     public function getExpose($id, $objUser) {
     
     	$strUser = $objUser->ic_username;

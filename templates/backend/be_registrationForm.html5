@@ -7,7 +7,7 @@
     </div>
     
     <h2 class="sub_headline"><?php echo $GLOBALS['TL_LANG']['immoConnector']['registerApplication']; ?></h2>
-    <form action="<?php echo $this->sCertifyURL; ?>?main_registration=1" method="post">
+    <form action="<?php echo $this->addToUrl("main_registration=1"); ?>" method="post">
         <div class="tl_formbody_edit">
     
             <div id="appVerifyButton" class="tl_tbox">
@@ -18,9 +18,9 @@
             </div>
         </div>
         <div class="tl_submit_container">
-            <input type="submit" value="Jetzt zertifizieren" />
+            <input type="submit" class="tl_submit" value="Jetzt zertifizieren" />
         </div>
 
-      <input type="hidden" name="REQUEST_TOKEN" value="{{REQUEST_TOKEN}}">
+      <input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>">
     </form>
 </div>

@@ -8,6 +8,9 @@ class RegisterWizard extends \Backend {
     $sCertifyURL = \Environment::get('requestUri'); // Komplette URL inkl. Parameter auf der das Script eingebunden wird
     $objTemplate = new \BackendTemplate('be_registrationForm');
     
+    $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
+    $immocaster = $objImmoConnector->getImmocaster();
+     
     if(\Input::get('main_registration') != null || \Input::get('state') != null) {
         if(\Input::post('user') != null) {
           $sUser = \Input::post('user');
