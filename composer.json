@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.3.0",
         "immocaster/php-sdk": "dev-master",
-        "contao-community-alliance/composer-installer": "*"
+        "contao-community-alliance/composer-plugin": "~2.0"
     },
     "extra": {
         "contao": {
