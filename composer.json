@@ -1,6 +1,6 @@
 {
     "name": "gerritlo/glo_immoconnector",
-    "type": "module",
+    "type":"contao-module",
     "description": "Contao 3.3 Module to load and present Immoscout24-objects on your contao site",
     "keywords": ["immocaster","immobilienscout24","contao"],
     "homepage": "http://github.com/gerritlo/glo_immoConnector",
@@ -18,7 +18,7 @@
     "extra": {
         "contao": {
             "sources": {
-                "": "/system/modules/glo_immoConnector"
+                "": "system/modules/glo_immoConnector"
             }
         }
     }
