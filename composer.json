@@ -17,7 +17,7 @@
     },
     "extra": {
         "contao": {
-            "sources": {
+            "symlinks": {
                 "./": "system/modules/glo_immoConnector"
             }
         }
