@@ -12,12 +12,13 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "immocaster/php-sdk": "dev-master"
+        "immocaster/php-sdk": "dev-master",
+        "contao-community-alliance/composer-installer": "*"
     },
     "extra": {
         "contao": {
             "sources": {
-                "": "/system/modules/glo_immoconnector"
+                "": "/system/modules/glo_immoConnector"
             }
         }
     }
