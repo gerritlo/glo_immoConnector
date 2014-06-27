@@ -6,7 +6,6 @@ class RegisterWizard extends \Backend {
   
   public function registerApplication() {
     $sCertifyURL = \Environment::get('uri'); // Komplette URL inkl. Parameter auf der das Script eingebunden wird
-    var_dump($sCertifyURL);
     $objTemplate = new \BackendTemplate('be_registrationForm');
     
     $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
