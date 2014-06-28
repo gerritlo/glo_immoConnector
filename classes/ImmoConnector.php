@@ -272,8 +272,9 @@ class ImmoConnector extends \Backend {
         if(array_key_exists($strNodeType, $this->_offerListTypes)) {
                 $strType = $this->_offerListTypes[$strNodeType];
         } else {
-                throw new Exception("OfferListType not found", 1);
+                //throw new \Exception("OfferListType not found", 1);
                 list( ,$strType) = explode(":Offer", $strNodeType);
+                $this->log("ImmoConnector: Object-Type not found '" . $strNodeType . "'", __METHOD__, TL_ERROR);
                 $strType = lcfirst($strType);
         }
 
