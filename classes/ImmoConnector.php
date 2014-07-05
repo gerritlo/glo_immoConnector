@@ -18,7 +18,7 @@ class ImmoConnector extends \Backend {
             'offerlistelement:OfferLivingBuySite' => 'livingBuySite'
     );
 
-    public static $realEstateTypes = array(
+    protected static $_realEstateTypes = array(
             'houseBuy',
             'houseRent',
             'apartmentRent',
@@ -342,5 +342,9 @@ class ImmoConnector extends \Backend {
         	$realEstateList = $node->parentNode;
         	$realEstateList->removeChild($node);
         }
+    }
+    
+    public static function getRealEstateTypes() {
+        return self::$_realEstateTypes;
     }
 }

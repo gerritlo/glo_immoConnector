@@ -5,12 +5,12 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorUser'] = array(
 	'inputType'               => 'select',
 	'foreignKey'              => 'tl_ic_auth.ic_title',
 	'sql'                     => "int(10) unsigned NOT NULL default '0'",
-	'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
+	'eval'                    => array('mandatory'=>true)
 );
 $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorShowSummary'] = array(
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorShowSummary'],
 	'inputType'               => 'checkbox',
-	'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50'),
+	'eval'                    => array('isBoolean' => true),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
@@ -32,10 +32,32 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorjumpTo'] = array
     'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 );
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorShowSummary,gloImmoConnectorUser,gloImmoConnectorRemoveTitleText;{redirect_legend},jumpTo';
+$GLOBALS['TL_DCA']['tl_module']['fields']['gloImmoConnectorTypeSelector'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['gloImmoConnectorTypeSelector'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'options_callback'        => array('tl_module_immoConnector', 'getObjectTypes'),
+	'eval'                    => array('multiple'=>true),
+	'sql'                     => "blob NULL"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoList'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorShowSummary,gloImmoConnectorUser,gloImmoConnectorRemoveTitleText,gloImmoConnectorTypeSelector;{redirect_legend},jumpTo';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoSearch'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser;{redirect_legend},gloImmoConnectorjumpTo';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoRandom'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorRemoveTitleText;{redirect_legend},gloImmoConnectorjumpTo';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoDetail'] = '{title_legend},name,headline,type;{config_legend},gloImmoConnectorUser,gloImmoConnectorRemoveTitleText;{redirect_legend},jumpTo';
+
+class tl_module_immoConnector extends \Backend {
+    
+    public function getObjectTypes() {
+        $arrTypes = ImmoConnector::getRealestateTypes();
+        $arrOptions = array("" => $GLOBALS['TL_LANG']['FMD']['immoConnector']['all']);
+        foreach ($arrTypes as $strType) {
+            $arrOptions[$strType] = $GLOBALS['TL_LANG']['FMD']['immoConnector'] ? : $strType;
+        }
+        return $arrOptions;
+    }
+}
