@@ -54,7 +54,7 @@ class tl_module_immoConnector extends \Backend {
     
     public function getObjectTypes() {
         $arrTypes = ImmoConnector::getRealestateTypes();
-        $arrOptions = array('label' => $GLOBALS['TL_LANG']['FMD']['immoConnector']['all'], 'value' => '');
+        $arrOptions = array(array('label' => $GLOBALS['TL_LANG']['FMD']['immoConnector']['all'], 'value' => ''));
         foreach ($arrTypes as $strType) {
             $arrOptions[] = array('value' => $strType, 'label' => $GLOBALS['TL_LANG']['FMD']['immoConnector'] ? : $strType);
         }
