@@ -60,6 +60,9 @@ class ModuleImmoConnectorImmoList extends \Module
 	 */
 	protected function compile()
 	{
+            //Categories selected in List-Module-Options
+            $arrCategoriesToShow = deserialize($this->gloImmoConnectorTypeSelector);
+            
             $filter = null;
             if(\Input::post('FORM_SUBMIT') == $this->_searchFormId) {
                 $filter = array(

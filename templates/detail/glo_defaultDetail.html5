@@ -45,35 +45,35 @@
 	<?php if($this->expose->lodgerFlat && $this->expose->lodgerFlat != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Einliegerwohnung</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['lodgerFlat'][(String)$this->expose->lodgerFlat]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['lodgerFlat'][(String)$this->expose->lodgerFlat]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
 	<?php if($this->expose->constructionPhase && $this->expose->constructionPhase != 'NO_INFORMATION'): ?>
 	    <dl>
 	        <dt>Bauphase</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['constructionPhase'][(String)$this->expose->constructionPhase]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['constructionPhase'][(String)$this->expose->constructionPhase]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
 	<?php if($this->expose->buildingType && $this->expose->buildingType != 'NO_INFORMATION'): ?>
 	    <dl>
 	        <dt>Haustyp</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['buildingType'][(String)$this->expose->buildingType]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['buildingType'][(String)$this->expose->buildingType]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 
     <?php if($this->expose->apartmentType && $this->expose->apartmentType != 'NO_INFORMATION'): ?>
         <dl>
             <dt>Wohnungstyp</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['apartmentType'][(String)$this->expose->apartmentType]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['apartmentType'][(String)$this->expose->apartmentType]; ?></dd>
         </dl>
     <?php endif; ?>
 
     <?php if($this->expose->investmentType): ?>
         <dl>
             <dt>Anlagetyp</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['investmentType'][(String)$this->expose->investmentType]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['investmentType'][(String)$this->expose->investmentType]; ?></dd>
         </dl>
     <?php endif; ?>
 
@@ -87,21 +87,21 @@
     <?php if($this->expose->lift): ?>
         <dl>
             <dt>Aufzug</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['lift'][(String)$this->expose->lift]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['lift'][(String)$this->expose->lift]; ?></dd>
         </dl>
     <?php endif; ?>
 	    
 	<?php if($this->expose->cellar && $this->expose->cellar != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Keller</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['cellar'][(String)$this->expose->cellar]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['cellar'][(String)$this->expose->cellar]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
 	<?php if($this->expose->handicappedAccessible && $this->expose->handicappedAccessible != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Barrierefrei</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['handicappedAccessible'][(String)$this->expose->handicappedAccessible]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['handicappedAccessible'][(String)$this->expose->handicappedAccessible]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
@@ -115,7 +115,7 @@
 	<?php if($this->expose->condition && $this->expose->condition != 'NO_INFORMATION'): ?>
 	    <dl>
 	        <dt>Objektzustand</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['condition'][(String)$this->expose->condition]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['condition'][(String)$this->expose->condition]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
@@ -129,7 +129,7 @@
 	<?php if($this->expose->interiorQuality && $this->expose->interiorQuality != 'NO_INFORMATION'): ?>
 	    <dl>
 	        <dt>Qualität der Ausstattung</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['interiorQuality'][(String)$this->expose->interiorQuality]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['interiorQuality'][(String)$this->expose->interiorQuality]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
@@ -150,14 +150,14 @@
 	<?php if($this->expose->heatingType && $this->expose->heatingType != 'NO_INFORMATION'): ?>
 	    <dl>
 	        <dt>Heizungsart</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['heatingType'][(String)$this->expose->heatingType]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['heatingType'][(String)$this->expose->heatingType]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	
 	<?php if($this->expose->firingTypes && $this->expose->firingTypes->count() > 0): ?>
 	    <dl>
 	        <dt>Befeuerungsart</dt>
-	        <dd><?php for($i=0; $i < $this->expose->firingTypes->count(); $i++) { echo (($i>0) ? ', ' : '').$GLOBALS['TL_LANG']['FMD']['immoConnector']['firingTypes'][(String)$this->expose->firingTypes[$i]->firingType]; } ?></dd>
+	        <dd><?php for($i=0; $i < $this->expose->firingTypes->count(); $i++) { echo (($i>0) ? ', ' : '').$GLOBALS['TL_LANG']['immoConnector']['firingTypes'][(String)$this->expose->firingTypes[$i]->firingType]; } ?></dd>
 	    </dl>
 	<?php endif; ?>
 	<!-- Object characteristics :: END -->
@@ -166,14 +166,14 @@
 	<?php if($this->expose->energyPerformanceCertificate): ?>
 	    <dl>
 	        <dt>Energieausweis</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['energyPerformanceCertificate'][(String)$this->expose->energyPerformanceCertificate]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['energyPerformanceCertificate'][(String)$this->expose->energyPerformanceCertificate]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	
 	<?php if($this->expose->buildingEnergyRatingType && $this->expose->buildingEnergyRatingType != 'NO_INFORMATION'): ?>
 	    <dl>
 	        <dt>Energieausweistyp</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['buildingEnergyRatingType'][(String)$this->expose->buildingEnergyRatingType]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['buildingEnergyRatingType'][(String)$this->expose->buildingEnergyRatingType]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
@@ -187,7 +187,7 @@
 	<?php if($this->expose->energyConsumptionContainsWarmWater && $this->expose->energyConsumptionContainsWarmWater != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Energieverbrauch enthält Warmwasser</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['energyConsumptionContainsWarmWater'][(String)$this->expose->energyConsumptionContainsWarmWater]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['energyConsumptionContainsWarmWater'][(String)$this->expose->energyConsumptionContainsWarmWater]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	<!-- Object energy performance :: END -->
@@ -245,7 +245,7 @@
 	<?php if($this->expose->guestToilet && $this->expose->guestToilet != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Gäste WC</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['guestToilet'][(String)$this->expose->guestToilet]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['guestToilet'][(String)$this->expose->guestToilet]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	<!-- Object characteristics :: END -->
@@ -254,7 +254,7 @@
 	<?php if($this->expose->parkingSpaceType && $this->expose->parkingSpaceType != 'NOT_INFORMATION'): ?>
 	    <dl>
 	        <dt>Stellplatz</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['parkingSpaceType'][(String)$this->expose->parkingSpaceType]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['parkingSpaceType'][(String)$this->expose->parkingSpaceType]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
@@ -270,7 +270,7 @@
 	<?php if($this->expose->rented && $this->expose->rented != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Vermietet</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['rented'][(String)$this->expose->rented]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['rented'][(String)$this->expose->rented]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
@@ -285,14 +285,14 @@
 	<?php if($this->expose->summerResidencePractical && $this->expose->summerResidencePractical != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Als Ferienwohnung geeignet</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['summerResidencePractical'][(String)$this->expose->summerResidencePractical]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['summerResidencePractical'][(String)$this->expose->summerResidencePractical]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    
 	<?php if($this->expose->listed && $this->expose->listed != 'NOT_APPLICABLE'): ?>
 	    <dl>
 	        <dt>Denkmalschutzobjekt</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['listed'][(String)$this->expose->listed]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['listed'][(String)$this->expose->listed]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 
@@ -335,7 +335,7 @@
     <?php if($this->expose->heatingCostsInServiceCharge): ?>
         <dl>
             <dt>Heizkosten in NK enthalten</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['heatingCostsInServiceCharge'][(String)$this->expose->heatingCostsInServiceCharge]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['heatingCostsInServiceCharge'][(String)$this->expose->heatingCostsInServiceCharge]; ?></dd>
         </dl>
     <?php endif; ?>
 	<!-- Object rent :: END -->
@@ -446,14 +446,14 @@
     <?php if($this->expose->shortTermConstructible): ?>
         <dl>
             <dt>Kurzfristig bebaubar</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['shortTermConstructible'][(String)$this->expose->shortTermConstructible]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['shortTermConstructible'][(String)$this->expose->shortTermConstructible]; ?></dd>
         </dl>
     <?php endif; ?>
 
     <?php if($this->expose->buildingPermission): ?>
         <dl>
             <dt>Baugenehmigung</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['buildingPermission'][(String)$this->expose->buildingPermission]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['buildingPermission'][(String)$this->expose->buildingPermission]; ?></dd>
         </dl>
     <?php endif; ?>
 
@@ -461,7 +461,7 @@
     <?php if($this->expose->demolition): ?>
         <dl>
             <dt>Abriss</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['demolition'][(String)$this->expose->demolition]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['demolition'][(String)$this->expose->demolition]; ?></dd>
         </dl>
     <?php endif; ?>
 
@@ -469,14 +469,14 @@
    <?php if($this->expose->siteDevelopmentType && (String)$this->expose->siteConstructibleType != 'NO_INFORMATION'): ?>
         <dl>
 			<dt>Erschließungszustand</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['siteDevelopmentType'][(String)$this->expose->siteDevelopmentType]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['siteDevelopmentType'][(String)$this->expose->siteDevelopmentType]; ?></dd>
         </dl>
     <?php endif; ?>
 
    <?php if($this->expose->siteConstructibleType && (String)$this->expose->siteConstructibleType != 'NO_INFORMATION'): ?>
         <dl>
             <dt>Bebaubar nach</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['siteConstructibleType'][(String)$this->expose->siteConstructibleType]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['siteConstructibleType'][(String)$this->expose->siteConstructibleType]; ?></dd>
         </dl>
     <?php endif; ?>
 	<!-- Livingbuysite :: END -->
@@ -484,21 +484,21 @@
     <?php if($this->expose->petsAllowed): ?>
         <dl>
             <dt>Tiere erlaubt</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['petsAllowed'][(String)$this->expose->petsAllowed]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['petsAllowed'][(String)$this->expose->petsAllowed]; ?></dd>
         </dl>
     <?php endif; ?>
 
    <?php if($this->expose->builtInKitchen): ?>
         <dl>
             <dt>Einbauküche</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['builtInKitchen'][(String)$this->expose->builtInKitchen]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['builtInKitchen'][(String)$this->expose->builtInKitchen]; ?></dd>
 		</dl>
     <?php endif; ?>
 
     <?php if($this->expose->balcony): ?>
         <dl>
             <dt>Balkon/Terasse</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['balcony'][(String)$this->expose->balcony]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['balcony'][(String)$this->expose->balcony]; ?></dd>
         </dl>
     <?php endif; ?>
 
@@ -506,7 +506,7 @@
     <?php if($this->expose->garden): ?>
         <dl>
             <dt>Gartenbenutzung</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['garden'][(String)$this->expose->garden]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['garden'][(String)$this->expose->garden]; ?></dd>
         </dl>
     <?php endif; ?>
 	
@@ -522,7 +522,7 @@
 	<?php if($this->expose->certificateOfEligibilityNeeded): ?>
         <dl>
 			<dt>WBS-Schein erforderlich</dt>
-            <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['certificateOfEligibilityNeeded'][(String)$this->expose->certificateOfEligibilityNeeded]; ?></dd>
+            <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['certificateOfEligibilityNeeded'][(String)$this->expose->certificateOfEligibilityNeeded]; ?></dd>
         </dl>
     <?php endif; ?>
 	
@@ -530,7 +530,7 @@
 	<?php if($this->expose->courtage && $this->expose->courtage->hasCourtage): ?>
 	    <dl>
 	        <dt>Provisionspflichtig</dt>
-	        <dd><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['hasCourtage'][(String)$this->expose->courtage->hasCourtage]; ?></dd>
+	        <dd><?php echo $GLOBALS['TL_LANG']['immoConnector']['hasCourtage'][(String)$this->expose->courtage->hasCourtage]; ?></dd>
 	    </dl>
 	<?php endif; ?>
 	    

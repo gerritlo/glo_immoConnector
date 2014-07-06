@@ -53,11 +53,13 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['immoConnectorImmoDetail'] = '{title
 class tl_module_immoConnector extends \Backend {
     
     public function getObjectTypes() {
+        $this->loadLanguageFile('default');
         $arrTypes = ImmoConnector::getRealestateTypes();
-        $arrOptions = array(array('label' => $GLOBALS['TL_LANG']['FMD']['immoConnector']['all'], 'value' => ''));
+        $arrOptions = array();
         foreach ($arrTypes as $strType) {
-            $arrOptions[] = array('value' => $strType, 'label' => $GLOBALS['TL_LANG']['FMD']['immoConnector'] ? : $strType);
+            $arrOptions[$strType] = $GLOBALS['TL_LANG']['immoConnector'][$strType] ? : $strType;
         }
         return $arrOptions;
+        
     }
 }

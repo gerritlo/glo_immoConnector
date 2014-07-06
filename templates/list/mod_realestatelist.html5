@@ -7,14 +7,14 @@
 	<div class="mod_realEstateObjectListSummery">
 		<ul>
 			<?php foreach (array_keys($this->realEstateObjects) as $strType): ?>
-				<li><a href="{{env::request}}#hl_<?php echo $strType; ?>"> <?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType] ?: $strType; ?></a></li>
+				<li><a href="{{env::request}}#hl_<?php echo $strType; ?>"> <?php echo $GLOBALS['TL_LANG']['immoConnector'][$strType] ?: $strType; ?></a></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
 	<?php endif; ?>
 	<?php foreach($this->realEstateObjects as $typeGroup => $groupObjects): ?>
 		<section class="objectTypeGroup">
-                    <h1 id="hl_<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector'][$typeGroup] ?: $strType; ?></h1>
+                    <h1 id="hl_<?php echo $typeGroup; ?>"><?php echo $GLOBALS['TL_LANG']['immoConnector'][$typeGroup] ?: $strType; ?></h1>
                     <div class="row">
                     <?php
                         $i = 0;
@@ -25,13 +25,13 @@
                         }
                         
                         if(count($groupObjects) < 1) {
-                            echo "<p>" . $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjects'] . "</p>";
+                            echo "<p>" . $GLOBALS['TL_LANG']['immoConnector']['noObjects'] . "</p>";
                         }
                     ?>
                     </div>
 		</section>
 	<?php endforeach; ?>
 	<?php if (count($this->realEstateObjects) < 1): ?>
-		<p><?php echo $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjects']; ?></p>
+		<p><?php echo $GLOBALS['TL_LANG']['immoConnector']['noObjects']; ?></p>
 	<?php endif; ?>
 </div>

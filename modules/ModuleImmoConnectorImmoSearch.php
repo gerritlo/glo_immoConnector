@@ -77,20 +77,20 @@ class ModuleImmoConnectorImmoSearch extends \Module
 		$this->Template->action = $this->generateFrontendUrl($objTarget->row());
 
 		$this->Template->formId = $this->strFormId;
-		$this->Template->objectTypeLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['objectType'];
-		$this->Template->zipCodeLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['zipCode'];
-		$this->Template->cityLabel = $GLOBALS['TL_LANG']['FMD']['immoConnector']['city'];
-		$this->Template->submitLabel =$GLOBALS['TL_LANG']['FMD']['immoConnector']['search'];
-                $this->Template->keywordLabel =$GLOBALS['TL_LANG']['FMD']['immoConnector']['keyword'];
+		$this->Template->objectTypeLabel = $GLOBALS['TL_LANG']['immoConnector']['objectType'];
+		$this->Template->zipCodeLabel = $GLOBALS['TL_LANG']['immoConnector']['zipCode'];
+		$this->Template->cityLabel = $GLOBALS['TL_LANG']['immoConnector']['city'];
+		$this->Template->submitLabel =$GLOBALS['TL_LANG']['immoConnector']['search'];
+                $this->Template->keywordLabel =$GLOBALS['TL_LANG']['immoConnector']['keyword'];
 		$this->Template->objectTypes = $this->getObjectTypes();
 	}
 
 	
 	protected function getObjectTypes() {
-		$arrTypes = array('' => $GLOBALS['TL_LANG']['FMD']['immoConnector']['all']);
+		$arrTypes = array('' => $GLOBALS['TL_LANG']['immoConnector']['all']);
 
-		foreach (ImmoConnector::$realEstateTypes as $strType) {
-			$arrTypes[$strType] = isset($GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType]) ? $GLOBALS['TL_LANG']['FMD']['immoConnector'][$strType] : $strType;
+		foreach (ImmoConnector::getRealEstateTypes() as $strType) {
+			$arrTypes[$strType] = isset($GLOBALS['TL_LANG']['immoConnector'][$strType]) ? $GLOBALS['TL_LANG']['immoConnector'][$strType] : $strType;
 		}
 
 		return $arrTypes;

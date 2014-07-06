@@ -102,7 +102,7 @@ class ModuleImmoConnectorImmoRandom extends \Module
 		$this->Template->zipcode = (String)$objRand->address->postcode;
 		$this->Template->city = (String)$objRand->address->city;
                 $this->Template->exposeHref = $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$objRand['id']);
-                $this->Template->objectType = $GLOBALS['TL_LANG']['FMD']['immoConnector'][$this->getObjectType($objRand)];
+                $this->Template->objectType = $GLOBALS['TL_LANG']['immoConnector'][$this->getObjectType($objRand)];
                 $this->Template->priceValue = (float) $objRand->price->value;
                 $this->Template->priceCurrency = (String) $objRand->price->currency;
                 
@@ -111,15 +111,15 @@ class ModuleImmoConnectorImmoRandom extends \Module
                 	case "apartmentBuy":
                 	case "investment":
                 	case "livingBuySite":
-                		$this->Template->priceTitle = $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'];
+                		$this->Template->priceTitle = $GLOBALS['TL_LANG']['immoConnector']['buyPrice'];
                       		break;
                 	case "houseRent":
                 	case "apartmentRent":
-                		$this->Template->priceTitle = $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'];
+                		$this->Template->priceTitle = $GLOBALS['TL_LANG']['immoConnector']['rentPrice'];
                 		break;
                 }
             } else {
-                $this->Template->noObjectFound = $GLOBALS['TL_LANG']['FMD']['immoConnector']['noObjectFound'];
+                $this->Template->noObjectFound = $GLOBALS['TL_LANG']['immoConnector']['noObjectFound'];
             }
 	}
         
