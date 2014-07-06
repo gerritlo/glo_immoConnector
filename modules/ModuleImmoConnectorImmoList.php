@@ -89,6 +89,12 @@ class ModuleImmoConnectorImmoList extends \Module
 
             $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
             $arrRes = $this->orderObjects(simplexml_import_dom($objRes));
+            
+            // Filtern auf die Kategorien der der Moduleinstellungen
+            if(count($arrCategoriesToShow) > 0) {
+	        	$arrRes = array_intersect_key($arrRes, array_flip($arrCategoriesToShow)); 
+            }
+            
             unset($objXml);
             $arrTypes = array_keys($arrRes);
             
