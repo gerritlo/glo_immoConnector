@@ -27,146 +27,156 @@ namespace GloImmoConnector;
  */
 class ModuleImmoConnectorImmoList extends \Module
 {
+    const TEMPLATE_FILE_NAME = "glo_%sShort";
 
-	/**
-	 * Template
-	 * @var string
-	 */
-	protected $strTemplate = 'mod_realestatelist';
-	protected $strTemplateShort = 'glo_defaultShort';
-        protected $_searchFormId = 'tl_immoConnectorImmoSearch';
-	protected $intObjectPageCount = 20;
+    /**
+    * Template
+    * @var string
+    */
+   protected $strTemplate = 'mod_realestatelist';
+   protected $strTemplateShort = 'glo_defaultShort';
+   protected $_searchFormId = 'tl_immoConnectorImmoSearch';
+   protected $intObjectPageCount = 20;
 
-	public function generate()
-	{
-            if (TL_MODE == 'BE')
-            {
-                $objTemplate = new \BackendTemplate('be_wildcard');
+   public function generate()
+   {
+       if (TL_MODE == 'BE')
+       {
+           $objTemplate = new \BackendTemplate('be_wildcard');
 
-                $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'][0]) . ' ###';
-                $objTemplate->title = $this->headline;
-                $objTemplate->id = $this->id;
-                $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+           $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['immoConnectorImmoList'][0]) . ' ###';
+           $objTemplate->title = $this->headline;
+           $objTemplate->id = $this->id;
+           $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
 
-                return $objTemplate->parse();
-            }
+           return $objTemplate->parse();
+       }
 
-            return parent::generate();
-	}
+       return parent::generate();
+   }
 
 
-	/**
-	 * Generate the module
-	 */
-	protected function compile()
-	{
-            //Categories selected in List-Module-Options
-            $arrCategoriesToShow = deserialize($this->gloImmoConnectorTypeSelector);
-            
-            $filter = null;
-            if(\Input::post('FORM_SUBMIT') == $this->_searchFormId) {
-                $filter = array(
-                    'objectType' => htmlspecialchars(\Input::post('objectType')),
-                    'zipcode' => htmlspecialchars(\Input::post('zipcode')),
-                    'city'  => htmlspecialchars(\Input::post('city')),
-                    'keyword'  => htmlspecialchars(\Input::post('keyword')),
-                );
-            }
-            
-            //Get Expose Page
-            if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
-            {
-                $this->_objTarget = $objTarget;
-            }
+   /**
+    * Generate the module
+    */
+   protected function compile()
+   {
+       //Categories selected in List-Module-Options
+       $arrCategoriesToShow = deserialize($this->gloImmoConnectorTypeSelector);
 
-            $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
+       $filter = null;
+       if(\Input::post('FORM_SUBMIT') == $this->_searchFormId) {
+           $filter = array(
+               'objectType' => htmlspecialchars(\Input::post('objectType')),
+               'zipcode' => htmlspecialchars(\Input::post('zipcode')),
+               'city'  => htmlspecialchars(\Input::post('city')),
+               'keyword'  => htmlspecialchars(\Input::post('keyword')),
+           );
+       }
 
-            //User auf null setzen bzw. Username auslesen
-            $objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
-            if (is_null($objUser)) {
-            	throw new \Exception("Missing or invalid User selected for API-Connection", 1);
-            }
+       //Get Expose Page
+       if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
+       {
+           $this->_objTarget = $objTarget;
+       }
 
-            $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
-            $arrRes = $this->orderObjects(simplexml_import_dom($objRes));
-            
-            // Filtern auf die Kategorien der der Moduleinstellungen
-            if(count($arrCategoriesToShow) > 0) {
-	        	$arrRes = array_intersect_key($arrRes, array_flip($arrCategoriesToShow)); 
-            }
-            
-            unset($objXml);
-            $arrTypes = array_keys($arrRes);
-            
-            //Rendern der Objekt-Daten
-            $arrRendered = array();
-            foreach ($arrRes as $strType => $objList) {
-                    $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
-            }
-            unset($arrRes);
+       $objImmoConnector = new ImmoConnector('is24',\Config::get('gloImmoConnectorKey'),\Config::get('gloImmoConnectorSecret'));
 
-            $this->Template->realEstateObjects =  $arrRendered;
-	}
+       //User auf null setzen bzw. Username auslesen
+       $objUser = \IcAuthModel::findByPk($this->gloImmoConnectorUser);
+       if (is_null($objUser)) {
+           throw new \Exception("Missing or invalid User selected for API-Connection", 1);
+       }
 
-	protected function renderObjectTypeGroup($strType, $arrTypeObjects) {
-		$arrObjectTemplates = array();
+       $objRes = $objImmoConnector->getAllUserObjects($objUser, $filter);
+       $arrRes = $this->orderObjects(simplexml_import_dom($objRes));
 
-		foreach ($arrTypeObjects as $arrObject) {
-			
-			$objTemplate = new \FrontendTemplate($this->strTemplateShort);
-			$objTemplate->data = $arrObject;
-			$arrObjectTemplates[] = $objTemplate->parse();
-		}
+       // Filtern auf die Kategorien der der Moduleinstellungen
+       if(count($arrCategoriesToShow) > 0) {
+                   $arrRes = array_intersect_key($arrRes, array_flip($arrCategoriesToShow)); 
+       }
 
-		return $arrObjectTemplates;
-	}
-	
-	protected function orderObjects($objObjects) {
-            $arrRes = array();
+       unset($objXml);
+       $arrTypes = array_keys($arrRes);
 
-            foreach ($objObjects->realEstateList->typeList as $objList) {
-                $strType = (String) $objList['ic_type'];
+       //Rendern der Objekt-Daten
+       $arrRendered = array();
+       foreach ($arrRes as $strType => $objList) {
+               $arrRendered[$strType] = $this->renderObjectTypeGroup($strType, $objList);
+       }
+       unset($arrRes);
 
-                $arrRes[$strType] = $this->addObjects($objList, $strType);
-            }
-            return $arrRes;
-	}
-	
-	protected function addObjects($objList, $strType) {
-            $arrRes = array();
+       $this->Template->realEstateObjects =  $arrRendered;
+   }
 
-            foreach($objList->realEstateElement as $objElement) {
-                $arrData = array(
-                    'title' => $this->gloImmoConnectorRemoveTitleText ? str_replace($this->gloImmoConnectorRemoveTitleText, '', (String)$objElement->title) : (String)$objElement->title, 
-                    'titlePicture' => (boolean) $objElement->titlePicture,
-                    'titlePictureUrl' => ($objElement->titlePicture) ? (String) $objElement->titlePicture->urls->url[1]['href'] : null,
-                    'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$objElement['id']),
-                    'zipcode' => (String) $objElement->address->postcode,
-                    'city' => (String) $objElement->address->city,
-                    'plotArea' => (int) $objElement->livingSpace,
-                    'numberOfRooms' => (int) $objElement->numberOfRooms,
-                    'livingSpace' => (float)$objElement->livingSpace,
-                    'plotArea' => (float)$objElement->plotArea,
-                    'priceValue' => (float) $objElement->price->value,
-                    'priceCurrency' => (String) $objElement->price->currency,
-                );
-                
-                switch($strType) {
-                	case "houseBuy":
-                	case "apartmentBuy":
-                	case "investment":
-                	case "livingBuySite":
-                		$arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'];
-                      		break;
-                	case "houseRent":
-                	case "apartmentRent":
-                		$arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'];
-                		break;
-                }
-                
-                $arrRes[] = $arrData;
-            }
+   protected function renderObjectTypeGroup($strType, $arrTypeObjects) {
+           $arrObjectTemplates = array();
 
-            return $arrRes;
-	}
+           foreach ($arrTypeObjects as $arrObject) {
+
+                $objTemplate = new \FrontendTemplate($this->getTemplateName($strType));
+                $objTemplate->data = $arrObject;
+                $arrObjectTemplates[] = $objTemplate->parse();
+           }
+
+           return $arrObjectTemplates;
+   }
+
+   protected function orderObjects($objObjects) {
+       $arrRes = array();
+
+       foreach ($objObjects->realEstateList->typeList as $objList) {
+           $strType = (String) $objList['ic_type'];
+
+           $arrRes[$strType] = $this->addObjects($objList, $strType);
+       }
+       return $arrRes;
+   }
+
+   protected function addObjects($objList, $strType) {
+       $arrRes = array();
+
+       foreach($objList->realEstateElement as $objElement) {
+           $arrData = array(
+               'title' => $this->gloImmoConnectorRemoveTitleText ? str_replace($this->gloImmoConnectorRemoveTitleText, '', (String)$objElement->title) : (String)$objElement->title, 
+               'titlePicture' => (boolean) $objElement->titlePicture,
+               'titlePictureUrl' => ($objElement->titlePicture) ? (String) $objElement->titlePicture->urls->url[1]['href'] : null,
+               'exposeUrl' => $this->generateFrontendUrl($this->_objTarget->row(), '/object/'.$objElement['id']),
+               'zipcode' => (String) $objElement->address->postcode,
+               'city' => (String) $objElement->address->city,
+               'plotArea' => (int) $objElement->livingSpace,
+               'numberOfRooms' => (int) $objElement->numberOfRooms,
+               'livingSpace' => (float)$objElement->livingSpace,
+               'plotArea' => (float)$objElement->plotArea,
+               'priceValue' => (float) $objElement->price->value,
+               'priceCurrency' => (String) $objElement->price->currency,
+           );
+
+           switch($strType) {
+                case "houseBuy":
+                case "apartmentBuy":
+                case "investment":
+                case "livingBuySite":
+                        $arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['buyPrice'];
+                        break;
+                case "houseRent":
+                case "apartmentRent":
+                        $arrData['priceTitle'] = $GLOBALS['TL_LANG']['FMD']['immoConnector']['rentPrice'];
+                        break;
+           }
+
+           $arrRes[] = $arrData;
+       }
+
+       return $arrRes;
+   }
+
+   protected function getTemplateName($strType) {
+       $strTemplateName = $this->strTemplateShort;
+
+       /*
+        * $strTemplateName = sprintf(TEMPLATE_FILE_NAME, $strType);
+        */
+       return $strTemplateName;
+   }
 }
