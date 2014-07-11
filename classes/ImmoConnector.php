@@ -19,12 +19,26 @@ class ImmoConnector extends \Backend {
     );
 
     protected static $_realEstateTypes = array(
+            'apartmentBuy',
+            'apartmentRent',
+            'assistedLiving',
+            'compulsoryAuction',
+            'garageBuy',
+            'garageRent',
+            'gastronomy',
             'houseBuy',
             'houseRent',
-            'apartmentRent',
-            'apartmentBuy',
+            'houseType',
+            'industry',
+            'investment',
             'livingBuySite',
-            'investment'
+            'livingRentSite',
+            'office',
+            'seniorCare',
+            'shortTermAccommodation',
+            'specialPurpose',
+            'store',
+            'tradeSite'
     	);
 
     protected $_objImmocaster = null;

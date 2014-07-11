@@ -15,8 +15,32 @@
 /**
  * Miscellaneous
  */
-$GLOBALS['TL_LANG']['MSC'][''] = '';
+
+/* BE-Texte */
 $GLOBALS['TL_LANG']['immoConnector']['registerApplication'] = 'Anwendung zertifizieren';
+
+/* ImmobilienScout-Typen */
+$GLOBALS['TL_LANG']['immoConnector']['all'] = 'Alle';
+$GLOBALS['TL_LANG']['immoConnector']['apartmentBuy'] = 'Wohnung zum Kauf';
+$GLOBALS['TL_LANG']['immoConnector']['apartmentRent'] = 'Wohnung zur Miete';
+$GLOBALS['TL_LANG']['immoConnector']['assistedLiving'] = 'Betreutes Wohnen';
+$GLOBALS['TL_LANG']['immoConnector']['compulsoryAuction'] = 'Zwangsversteigerung';
+$GLOBALS['TL_LANG']['immoConnector']['garageBuy'] = 'Garage zum Kauf';
+$GLOBALS['TL_LANG']['immoConnector']['garageRent'] = 'Garage zur Miete';
+$GLOBALS['TL_LANG']['immoConnector']['gastronomy'] = 'Gastronomie und Hotel';
+$GLOBALS['TL_LANG']['immoConnector']['houseBuy'] = 'Haus zum Kauf';
+$GLOBALS['TL_LANG']['immoConnector']['houseRent'] = 'Haus zur Miete';
+$GLOBALS['TL_LANG']['immoConnector']['houseType'] = 'Fertig- und Typenhaus';
+$GLOBALS['TL_LANG']['immoConnector']['industry'] = 'Gewerbeobjekt';
+$GLOBALS['TL_LANG']['immoConnector']['investment'] = 'Anlageimmobilie';
+$GLOBALS['TL_LANG']['immoConnector']['livingBuySite'] = 'Wohngrundstück zum Kauf';
+$GLOBALS['TL_LANG']['immoConnector']['livingRentSite'] = 'Wohngrundstück zur Miete';
+$GLOBALS['TL_LANG']['immoConnector']['office'] = 'Büro und Praxis';
+$GLOBALS['TL_LANG']['immoConnector']['seniorCare'] = 'Altenpflege';
+$GLOBALS['TL_LANG']['immoConnector']['shortTermAccommodation'] = 'Ferienimmobilie';
+$GLOBALS['TL_LANG']['immoConnector']['specialPurpose'] = 'Spezialgewerbe';
+$GLOBALS['TL_LANG']['immoConnector']['store'] = 'Einzelhandel';
+$GLOBALS['TL_LANG']['immoConnector']['tradeSite'] = 'Gewerbegrundstück';
 
 $GLOBALS['TL_LANG']['immoConnector']['objectType'] = 'Objekt-Art';
 $GLOBALS['TL_LANG']['immoConnector']['zipCode'] = 'PLZ';
@@ -26,14 +50,6 @@ $GLOBALS['TL_LANG']['immoConnector']['search'] = 'Suchen';
 $GLOBALS['TL_LANG']['immoConnector']['noObjects'] = 'Leider wurden keine Objekte gefunden.';
 $GLOBALS['TL_LANG']['immoConnector']['sendRequestForm'] = 'Immobilienanfrage senden';
 $GLOBALS['TL_LANG']['immoConnector']['noObjectFound'] = "Es wurde keine Immobilie gefunden.";
-
-$GLOBALS['TL_LANG']['immoConnector']['all'] = 'Alle';
-$GLOBALS['TL_LANG']['immoConnector']['houseRent'] = 'Haus zur Miete';
-$GLOBALS['TL_LANG']['immoConnector']['houseBuy'] = 'Haus zum Kauf';
-$GLOBALS['TL_LANG']['immoConnector']['apartmentRent'] = 'Wohnung zur Miete';
-$GLOBALS['TL_LANG']['immoConnector']['apartmentBuy'] = 'Wohnung zum Kauf';
-$GLOBALS['TL_LANG']['immoConnector']['investment'] = 'Anlageobjekt';
-$GLOBALS['TL_LANG']['immoConnector']['livingBuySite'] = 'Grundstück zum Kauf';
 
 $GLOBALS['TL_LANG']['immoConnector']['plotArea'] = 'Grundstück';
 $GLOBALS['TL_LANG']['immoConnector']['livingSpace'] = 'Wohnfläche';
